@@ -1550,7 +1550,7 @@
     <Compile Include="Utility\Settings\Giving\GivingAutomationSettings.cs" />
     <Compile Include="Utility\TaskActivityMessageHub.cs" />
     <Compile Include="Utility\RockSerializableList.cs" />
-    <Compile Include="Model\CampaignConnectionItem.cs" />
+    <Compile Include="Utility\CampaignItem.cs" />
     <Compile Include="Plugin\HotFixes\105_PageParameterFilterBlock.cs" />
     <Compile Include="Plugin\HotFixes\104_MigrationRollupsFor10_3_0.cs" />
     <Compile Include="Plugin\HotFixes\117_FieldContainerXAMLMigration.cs" />
@@ -3750,6 +3750,16 @@
     <Compile Include="Workflow\Action\WorkflowControl\UserForm.cs" />
     <Compile Include="Workflow\Action\Utility\WebRequest.cs" />
     <Compile Include="Workflow\Action\WorkflowControl\WriteToLog.cs" />
+    <Compile Include="SystemKey\WorkflowFormBuilderKey.cs" />
+    <Compile Include="Workflow\FormBuilder\FormCompletionActionSettings.cs" />
+    <Compile Include="Workflow\FormBuilder\FormCompletionActionType.cs" />
+    <Compile Include="Workflow\FormBuilder\FormConfirmationEmailSettings.cs" />
+    <Compile Include="Workflow\FormBuilder\FormEmailSourceSettings.cs" />
+    <Compile Include="Workflow\FormBuilder\FormEmailSourceType.cs" />
+    <Compile Include="Workflow\FormBuilder\FormNotificationEmailDestination.cs" />
+    <Compile Include="Workflow\FormBuilder\FormNotificationEmailSettings.cs" />
+    <Compile Include="Workflow\FormBuilder\FormPersonEntrySettings.cs" />
+    <Compile Include="Workflow\FormBuilder\FormSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.2\nativeBinaries\x64\msvcr100.dll">
