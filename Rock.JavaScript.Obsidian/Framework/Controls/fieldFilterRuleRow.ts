@@ -4,19 +4,16 @@ import TextBox from "../Elements/textBox";
 import { useVModelPassthrough } from "../Util/component";
 import { newGuid } from "../Util/guid";
 
-import { DateFieldType } from "../Fields/dateField";
-import { IntegerFieldType } from "../Fields/integerField";
-import { TextFieldType } from "../Fields/textField";
-import { string } from "yup";
+// import RockAttributeFilter from "./rockAttributeFilter";
 
-export type FieldVisibilityRuleItem = {
+export type FieldFilterRuleItem = {
     guid?: string,
     comparedToFormFieldGuid?: string,
     comparisonType?: number,
     comparedToValue?: string
 };
 
-export type FieldVisibilityRuleAttributeOption = {
+export type FieldFilterRuleAttributeOption = {
     name: string,
     comparators: string[],
     type: string,
@@ -40,21 +37,22 @@ const allComparisonTypes: Record<string, number> = {
     "Regular Expression": 0x2000,
 };
 
-export const FieldVisibilityRuleItemComponent = defineComponent({
-    name: "FieldVisibilityRuleItemComponent",
+export const FieldFilterRuleRow = defineComponent({
+    name: "FieldFilterRuleRow",
 
     components: {
         DropDownList,
-        TextBox
+        TextBox,
+        // RockAttributeFilter
     },
 
     props: {
         modelValue: {
-            type: Object as PropType<FieldVisibilityRuleItem>,
+            type: Object as PropType<FieldFilterRuleItem>,
             required: true
         },
         attributeOptions: {
-            type: Object as PropType<Record<string, FieldVisibilityRuleAttributeOption>>,
+            type: Object as PropType<Record<string, FieldFilterRuleAttributeOption>>,
             required: true
         }
     },
@@ -88,7 +86,7 @@ export const FieldVisibilityRuleItemComponent = defineComponent({
         //#endregion
 
         // Current Selected Attribute/Property
-        const currentAttribute = computed<FieldVisibilityRuleAttributeOption>(() => {
+        const currentAttribute = computed<FieldFilterRuleAttributeOption>(() => {
             return props.attributeOptions[rule.value.comparedToFormFieldGuid as string];
         });
 
@@ -141,13 +139,24 @@ export const FieldVisibilityRuleItemComponent = defineComponent({
             emit("removeRule", props.modelValue);
         }
 
+        // const attribute = ref({ /* PublicFilterableAttribute */
+        //     attributeGuid: "4eb1eb34-988b-4212-8c93-844fae61b43c",
+        //     fieldTypeGuid: "9C204CD0-1233-41C5-818A-C5DA439445AA", /* text */
+        //     name: "Favorite Food",
+        //     description: "",
+        //     configurationValues: {
+        //         "maxcharacters": "10"
+        //     }
+        // })
+
         return {
             removeRule,
             fieldComponent,
             rule,
             fieldList,
             comparisonTypes,
-            isFieldLoaded
+            isFieldLoaded,
+            // attribute
         };
     },
 

@@ -16,15 +16,14 @@
 //
 
 import { PropType, defineComponent, ref, TransitionGroup, computed, watch } from "vue";
-import { FieldVisibilityRuleItemComponent, FieldVisibilityRuleItem, FieldVisibilityRuleAttributeOption } from "./fieldVisibilityRuleItem";
+import { FieldFilterRuleRow, FieldFilterRuleItem, FieldFilterRuleAttributeOption } from "./fieldFilterRuleRow";
 import DropDownList from "../Elements/dropDownList";
 import { ListItem } from "../ViewModels";
 import { useVModelPassthrough } from "../Util/component";
+import { FieldFilterSource} from "../ViewModels/Reporting/fieldFilterSource";
 
 type ShowHide = "Show" | "Hide";
 type AllAny = "All" | "Any";
-
-export type FieldVisibilityRuleList = FieldVisibilityRuleItem[];
 
 export type FilterExpressionType = 1 | 2 | 3 | 4;
 
@@ -54,12 +53,12 @@ export default defineComponent({
     components: {
         TransitionGroup,
         DropDownList,
-        FieldVisibilityRuleItemComponent
+        FieldFilterRuleRow
     },
 
     props: {
         rules: {
-            type: Array as PropType<FieldVisibilityRuleItem[]>,
+            type: Array as PropType<FieldFilterRuleItem[]>,
             required: true
         },
         filterExpressionType: {
@@ -98,11 +97,11 @@ export default defineComponent({
             rules.value.push({});
         }
 
-        function removeRule(rule: FieldVisibilityRuleItem): void {
-            rules.value = rules.value.filter((val: FieldVisibilityRuleItem) => val !== rule);
+        function removeRule(rule: FieldFilterRuleItem): void {
+            rules.value = rules.value.filter((val: FieldFilterRuleItem) => val !== rule);
         }
 
-        const attributeOptions: Record<string, FieldVisibilityRuleAttributeOption> = {
+        const attributeOptions: Record<string, FieldFilterRuleAttributeOption> = {
             "6af9bf76-9e43-49f5-ac77-b02f59c65549": {
                 name: "Position Description",
                 comparators: ["Equal To", "Not Equal To", "Contains", "Does Not Contain", "Is Blank", "Is Not Blank", "Starts With", "Ends With"],
@@ -149,7 +148,7 @@ export default defineComponent({
     </div>
 
     <div class="filtervisibilityrules-ruleslist ">
-        <FieldVisibilityRuleItemComponent v-for="rule in rules" :key="rule.guid" v-model="rule" :attributeOptions="attributeOptions" @removeRule="removeRule" />
+        <FieldFilterRuleRow v-for="rule in rules" :key="rule.guid" v-model="rule" :attributeOptions="attributeOptions" @removeRule="removeRule" />
     </div>
 
     <div class="filter-actions">
