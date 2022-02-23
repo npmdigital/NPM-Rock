@@ -15,34 +15,32 @@
 // </copyright>
 //
 
-import { PropType, defineComponent, ref, TransitionGroup, computed, watch } from "vue";
-import { FieldFilterRuleRow, FieldFilterRuleItem, FieldFilterRuleAttributeOption } from "./fieldFilterRuleRow";
+import { PropType, defineComponent, ref, TransitionGroup, watch } from "vue";
+import { FieldFilterRuleRow } from "./fieldFilterRuleRow";
 import DropDownList from "../Elements/dropDownList";
 import { ListItem } from "../ViewModels";
+import { newGuid } from "../Util/guid";
 import { useVModelPassthrough } from "../Util/component";
 import { FieldFilterSource} from "../ViewModels/Reporting/fieldFilterSource";
+import { FieldFilterGroup } from "../ViewModels/Reporting/fieldFilterGroup";
+import { FieldFilterRule } from "../ViewModels/Reporting/fieldFilterRule";
+import { FilterExpressionType } from "../Reporting/filterExpressionType";
 
 type ShowHide = "Show" | "Hide";
 type AllAny = "All" | "Any";
 
-export type FilterExpressionType = 1 | 2 | 3 | 4;
-
-// export type FieldVisibilityRules = {
-//     RuleList: FieldVisibilityRuleItem[],
-//     FilterExpressionType: FilterExpressionType
-// }
-
 // Maps for converting between `FilterExpressionType` and `ShowHide`/`AllAny`
 const filterExpressionTypeMap: Record<ShowHide, Record<AllAny, FilterExpressionType>> = {
     Show: {
-        All: 1,
-        Any: 2
+        All: FilterExpressionType.GroupAll,
+        Any: FilterExpressionType.GroupAny
     },
     Hide: {
-        All: 3,
-        Any: 4
+        All: FilterExpressionType.GroupAllFalse,
+        Any: FilterExpressionType.GroupAnyFalse
     }
 };
+
 const filterExpressionToShowHideMap: ShowHide[] = ["Show", "Show", "Hide", "Hide"]; // Use FilterExpressionType - 1 as index
 const filterExpressionToAllAnyMap: AllAny[] = ["All", "Any", "All", "Any"]; // Use FilterExpressionType - 1 as index
 
@@ -57,69 +55,61 @@ export default defineComponent({
     },
 
     props: {
-        rules: {
-            type: Array as PropType<FieldFilterRuleItem[]>,
+        modelValue: {
+            type: Object as PropType<FieldFilterGroup>,
             required: true
         },
-        filterExpressionType: {
-            type: Number as PropType<FilterExpressionType>,
+        sources: {
+            type: Array as PropType<FieldFilterSource[]>,
             required: true
         },
-        fieldName: {
+        title: {
             type: String as PropType<string>,
             required: true
+        },
+        allowNestedGroups: {
+            type: Boolean as PropType<boolean>,
+            default: false
         }
     },
 
-    emits: ["update:rules", "update:filterExpressionType"],
+    emits: ["update:modelValue"],
 
     setup(props, { emit }) {
-        const rules = useVModelPassthrough(props, "rules", emit);
-        const filterExpressionType = useVModelPassthrough(props, "filterExpressionType", emit);
+        const filterGroup = useVModelPassthrough(props, "modelValue", emit);
 
-        const showHide = ref<ShowHide>(filterExpressionToShowHideMap[filterExpressionType.value - 1]);
+        // Make sure non-required properties are initiated
+        filterGroup.value.rules = filterGroup.value.rules || [];
+
+        // We currently don't support nested groups, so fire a warning if anyone tries to use them
+        watch(() => props.allowNestedGroups, () => {
+            if (props.allowNestedGroups === true) {
+                console.warn('Nested Filter Groups are not supported yet. Please set `allowNestedGroups` to `false`.')
+            }
+        });
+
+        const showHide = ref<ShowHide>(filterExpressionToShowHideMap[filterGroup.value.expressionType - 1]);
         const showHideOptions: ListItem[] = [
             { text: "Show", value: "Show" },
             { text: "Hide", value: "Hide" }
         ];
 
-        const allAny = ref<AllAny>(filterExpressionToAllAnyMap[filterExpressionType.value - 1]);
+        const allAny = ref<AllAny>(filterExpressionToAllAnyMap[filterGroup.value.expressionType - 1]);
         const allAnyOptions: ListItem[] = [
             { text: "All", value: "All" },
             { text: "Any", value: "Any" }
         ];
 
         watch([showHide, allAny], () => {
-            filterExpressionType.value = filterExpressionTypeMap[showHide.value][allAny.value];
+            filterGroup.value.expressionType = filterExpressionTypeMap[showHide.value][allAny.value];
         });
 
         function addRule():void {
-            rules.value.push({});
+            (filterGroup.value.rules as FieldFilterRule[]).push({ guid: newGuid() } as FieldFilterRule);
         }
 
-        function removeRule(rule: FieldFilterRuleItem): void {
-            rules.value = rules.value.filter((val: FieldFilterRuleItem) => val !== rule);
-        }
-
-        const attributeOptions: Record<string, FieldFilterRuleAttributeOption> = {
-            "6af9bf76-9e43-49f5-ac77-b02f59c65549": {
-                name: "Position Description",
-                comparators: ["Equal To", "Not Equal To", "Contains", "Does Not Contain", "Is Blank", "Is Not Blank", "Starts With", "Ends With"],
-                type: "Text",
-                componentProps: {}
-            },
-            "e5ed7172-802b-4e09-b115-08d6dac354b8": {
-                name: "Number of Hours",
-                comparators: ["Equal To", "Not Equal To", "Is Blank", "Is Not Blank", "Greater Than", "Greater Than Or Equal To", "Less Than", "Less Than Or Equal To"],
-                type: "Integer",
-                componentProps: {}
-            },
-            "cd8a6a09-9645-42b1-99b8-5c1d5ef77499": {
-                name: "Start Date",
-                comparators: ["Equal To", "Not Equal To", "Is Blank", "Is Not Blank", "Greater Than", "Greater Than Or Equal To", "Less Than", "Less Than Or Equal To"],
-                type: "Date",
-                componentProps: {}
-            },
+        function removeRule(rule: FieldFilterRule): void {
+            filterGroup.value.rules = (filterGroup.value.rules || []).filter((val: FieldFilterRule) => val !== rule);
         }
 
         return {
@@ -127,8 +117,7 @@ export default defineComponent({
             showHideOptions,
             allAny,
             allAnyOptions,
-            rules,
-            attributeOptions,
+            filterGroup,
             addRule,
             removeRule,
         };
@@ -140,7 +129,7 @@ export default defineComponent({
         <div class="filtervisibilityrules-type form-inline form-inline-all">
             <DropDownList v-model="showHide" :options="showHideOptions" :show-blank-item="false" formControlClasses="input-width-sm margin-r-sm" />
             <div class="form-control-static margin-r-sm">
-                <span class="filtervisibilityrules-fieldname">{{ fieldName }}</span><span class="filtervisibilityrules-if"> if</span>
+                <span class="filtervisibilityrules-fieldname">{{ title }}</span><span class="filtervisibilityrules-if"> if</span>
             </div>
             <DropDownList v-model="allAny" :options="allAnyOptions" :show-blank-item="false" formControlClasses="input-width-sm margin-r-sm" />
             <span class="form-control-static">of the following match:</span>
@@ -148,7 +137,7 @@ export default defineComponent({
     </div>
 
     <div class="filtervisibilityrules-ruleslist ">
-        <FieldFilterRuleRow v-for="rule in rules" :key="rule.guid" v-model="rule" :attributeOptions="attributeOptions" @removeRule="removeRule" />
+        <FieldFilterRuleRow v-for="rule in filterGroup.rules" :key="rule.guid" v-model="rule" :sources="sources" @removeRule="removeRule" />
     </div>
 
     <div class="filter-actions">
