@@ -23,9 +23,26 @@ namespace Rock.Model
     /// <seealso cref="Rock.Model.ConnectionRequestViewModel" />
     internal class ConnectionRequestViewModelSecurity : ConnectionRequestViewModel
     {
+        // <summary>
+        /// Gets or sets the <see cref="Rock.Model.ConnectionRequest"/>.
+        /// </summary>
+        /// <value>
+        /// The connection request.
+        /// </value>
         public ConnectionRequest ConnectionRequest { get; set; }
 
+        // <summary>
+        /// Gets or sets the <see cref="Rock.Model.ConnectionType"/>.
+        /// </summary>
+        /// <value>
+        /// The connection type.
+        /// </value>
+
         public ConnectionType ConnectionType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether user has direct access.
+        /// </summary>
 
         public bool UserHasDirectAccess { get; set; }
     }
