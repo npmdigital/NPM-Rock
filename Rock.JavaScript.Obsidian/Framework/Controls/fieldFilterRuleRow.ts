@@ -57,13 +57,13 @@ export const FieldFilterRuleRow = defineComponent({
 
         // Rule Defaults
         rule.value.guid = rule.value.guid ?? newGuid();
-        rule.value.comparisonType = 0;
-        rule.value.attributeGuid = props.sources[0].attribute?.attributeGuid;
+        rule.value.comparisonType = rule.value.comparisonType ?? 0;
+        rule.value.attributeGuid = rule.value.attributeGuid ?? props.sources[0].attribute?.attributeGuid;
 
         // Current Selected Attribute/Property
         const currentAttribute = computed<PublicFilterableAttribute>(() => {
             const source = props.sources.find(source => {
-                areEqual(rule.value.attributeGuid ?? '', source.attribute?.attributeGuid ?? '')
+                return areEqual(rule.value.attributeGuid ?? '', source.attribute?.attributeGuid ?? '')
             }) || props.sources[0];
 
             return source.attribute as PublicFilterableAttribute;
@@ -72,6 +72,7 @@ export const FieldFilterRuleRow = defineComponent({
         // Reset the rule after a new attribute is chosen
         watch(currentAttribute, () => {
             rule.value.comparisonType = 0x0;
+            rule.value.value = "";
             rule.value.attributeGuid = currentAttribute.value.attributeGuid;
         });
 
@@ -90,7 +91,7 @@ export const FieldFilterRuleRow = defineComponent({
         }
 
         const json = computed(() => {
-            return JSON.stringify({rule: rule.value, attribute: currentAttribute.value}, null, 4);
+            return JSON.stringify({rule: rule.value, currentAttribute: currentAttribute.value}, null, 4);
         });
 
         return {
@@ -107,25 +108,10 @@ export const FieldFilterRuleRow = defineComponent({
         <div class="col-xs-10 col-sm-11">
             <div class="row form-row">
                 <div class="filter-rule-comparefield col-md-4">
-                    <DropDownList :options="attributeList" v-model="rule.attributeGuid" />
+                    <DropDownList :options="attributeList" v-model="rule.attributeGuid" :show-blank-item="false"  />
                 </div>
                 <div class="filter-rule-fieldfilter col-md-8">
-                <RockAttributeFilter :attribute="currentAttribute" v-model="rule" :filter-mode="1" required />
-                <!--
-                    <div class="row form-row field-criteria">
-                        <div class="col-md-4" v-if="isFieldLoaded">
-                            <DropDownList :options="comparisonTypes" v-model="rule.comparisonType" />
-                        </div>
-                        <div class="col-md-8">
-                            <Suspense timeout="100">
-                                <component :is="fieldComponent" v-bind="currentAttribute?.componentProps" v-model="rule.comparedToValue" />
-                                <template #fallback>
-                                    <div class="mt-2">Loading...</div>
-                                </template>
-                            </Suspense>
-                        </div>
-                    </div>
-                -->
+                    <RockAttributeFilter :attribute="currentAttribute" v-model="rule" :filter-mode="1" required />
                 </div>
             </div>
         </div>
@@ -133,5 +119,5 @@ export const FieldFilterRuleRow = defineComponent({
             <button class="btn btn-danger btn-square" @click.prevent="removeRule"><i class="fa fa-times"></i></button>
         </div>
     </div>
-    <pre class="mt-3">{{json}}</pre>`
+    `
 });
