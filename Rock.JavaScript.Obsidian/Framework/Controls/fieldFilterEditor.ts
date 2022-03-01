@@ -100,9 +100,18 @@ export default defineComponent({
             { text: "Any", value: "Any" }
         ];
 
+        watch(() => props.modelValue, () => {
+            filterGroup.value.rules = filterGroup.value.rules || [];
+        }, { immediate: true });
+
         watch([showHide, allAny], () => {
             filterGroup.value.expressionType = filterExpressionTypeMap[showHide.value][allAny.value];
         });
+
+        watch(() => filterGroup.value.expressionType, () => {
+            showHide.value = filterExpressionToShowHideMap[filterGroup.value.expressionType - 1];
+            allAny.value = filterExpressionToAllAnyMap[filterGroup.value.expressionType - 1];
+        })
 
         function addRule():void {
             (filterGroup.value.rules as FieldFilterRule[]).push({ guid: newGuid() } as FieldFilterRule);

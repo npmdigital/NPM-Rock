@@ -16,7 +16,7 @@
 //
 
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
-import { Component, computed, defineComponent, PropType, ref } from "vue";
+import { Component, computed, defineComponent, PropType, ref, watch } from "vue";
 import FieldVisibilityRulesEditor from "../../Controls/fieldFilterEditor";
 import TextBox from "../../Elements/textBox";
 import EmailBox from "../../Elements/emailBox";
@@ -227,7 +227,7 @@ const filterRules = defineComponent({
             return JSON.parse(sourcesText.value);
         })
 
-        const prefilled = {
+        const prefilled = () => ({
             guid: newGuid(),
             expressionType: 4,
             "rules": [
@@ -286,24 +286,23 @@ const filterRules = defineComponent({
                     "value": "more text than I want to deal with...."
                 }
             ]
-        }
+        });
 
         const clean = () => ({
             guid: newGuid(),
-            expressionType: 1
+            expressionType: 1,
+            rules: [] as any[]
         });
 
         const usePrefilled = ref(false);
+        const value = ref(clean());
         
-        const value = computed(() => {
-            console.log("UMM")
-            return usePrefilled.value ? prefilled : clean()
-        });
+        watch(usePrefilled, () => { value.value = usePrefilled.value ? prefilled() : clean(); });
 
         const title = ref("TEST PROPERTY");
 
         const json = computed(() => {
-            return JSON.stringify({val:value.value, pre: usePrefilled.value}, null, 4);
+            return JSON.stringify(value.value, null, 4);
         });
 
         return { json, sourcesText, sources, value, title, usePrefilled };
