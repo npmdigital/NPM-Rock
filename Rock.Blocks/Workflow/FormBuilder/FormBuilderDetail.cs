@@ -374,6 +374,7 @@ namespace Rock.Blocks.Workflow.FormBuilder
             formField.Attribute.Key = field.Key;
             formField.Attribute.Name = field.Name;
             formField.ColumnSize = field.Size;
+            formField.IsVisible = true;
             formField.HideLabel = field.IsHideLabel;
 
             // Add or update the attribute qualifiers. Do not delete any old ones.
@@ -617,21 +618,18 @@ namespace Rock.Blocks.Workflow.FormBuilder
                 EmailTemplateOptions = Utility.GetEmailTemplateOptions( rockContext, RequestContext ),
                 FormTemplateOptions = GetFormTemplateOptions( rockContext ),
 
-                SectionTypeOptions = new List<ListItemViewModel>()
-                {
-                    new ListItemViewModel
+                // This is a one-off because we need to get access to a custom
+                // attribute on the Defined Value.
+                SectionTypeOptions = DefinedTypeCache.Get( SystemGuid.DefinedType.SECTION_TYPE.AsGuid() )
+                    .DefinedValues
+                    .Where( v => v.IsActive )
+                    .Select( v => new ListItemViewModel
                     {
-                        Value = Guid.NewGuid().ToString(),
-                        Text = "Plain",
-                        Category = ""
-                    },
-                    new ListItemViewModel
-                    {
-                        Value = Guid.NewGuid().ToString(),
-                        Text = "Well",
-                        Category = "well"
-                    }
-                }
+                        Value = v.Guid.ToString(),
+                        Text = v.Value,
+                        Category = v.GetAttributeValue( "CSSClass" )
+                    } )
+                    .ToList()
             };
         }
 
