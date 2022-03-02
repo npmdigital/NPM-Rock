@@ -56,8 +56,8 @@ export const FieldFilterRuleRow = defineComponent({
         const rule = useVModelPassthrough(props, "modelValue", emit);
 
         // Rule Defaults
-        rule.value.guid = rule.value.guid ?? newGuid();
         rule.value.comparisonType = rule.value.comparisonType ?? 0;
+        rule.value.value = rule.value.value ?? "";
         rule.value.attributeGuid = rule.value.attributeGuid ?? props.sources[0].attribute?.attributeGuid;
 
         // Current Selected Attribute/Property
@@ -71,7 +71,7 @@ export const FieldFilterRuleRow = defineComponent({
 
         // Reset the rule after a new attribute is chosen
         watch(currentAttribute, () => {
-            rule.value.comparisonType = 0x0;
+            rule.value.comparisonType = 0;
             rule.value.value = "";
             rule.value.attributeGuid = currentAttribute.value.attributeGuid;
         });
@@ -90,16 +90,11 @@ export const FieldFilterRuleRow = defineComponent({
             emit("removeRule", props.modelValue);
         }
 
-        const json = computed(() => {
-            return JSON.stringify({rule: rule.value, currentAttribute: currentAttribute.value}, null, 4);
-        });
-
         return {
             removeRule,
             rule,
             attributeList,
-            currentAttribute,
-            json
+            currentAttribute
         };
     },
 

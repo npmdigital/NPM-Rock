@@ -65,7 +65,7 @@ export default defineComponent({
         },
         title: {
             type: String as PropType<string>,
-            required: true
+            default: ""
         },
         allowNestedGroups: {
             type: Boolean as PropType<boolean>,
@@ -76,7 +76,7 @@ export default defineComponent({
     emits: ["update:modelValue"],
 
     setup(props, { emit }) {
-        const filterGroup = useVModelPassthrough(props, "modelValue", emit);
+        const filterGroup = useVModelPassthrough(props, "modelValue", emit, { deep: true });
 
         // Make sure non-required properties are initiated
         filterGroup.value.rules = filterGroup.value.rules || [];
@@ -114,7 +114,13 @@ export default defineComponent({
         })
 
         function addRule():void {
-            (filterGroup.value.rules as FieldFilterRule[]).push({ guid: newGuid() } as FieldFilterRule);
+            (filterGroup.value.rules as FieldFilterRule[]).push({ 
+                guid: newGuid(),
+                comparisonType: 0,
+                value: "",
+                sourceType: 0,
+                attributeGuid: props.sources[0].attribute?.attributeGuid
+            });
         }
 
         function removeRule(rule: FieldFilterRule): void {
@@ -130,7 +136,7 @@ export default defineComponent({
             addRule,
             removeRule,
         };
-    },
+    }, 
 
     template: `
 <div class="filtervisibilityrules-container">
