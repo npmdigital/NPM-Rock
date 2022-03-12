@@ -59,6 +59,12 @@ namespace Rock.Web.UI.Controls
         /// The id.
         /// </value>
         public string Id { get; set; }
+ 
+        /// <summary>
+        /// Gets or sets the parent identifier.
+        /// </summary>
+        /// <value>The parent identifier.</value>
+        public string ParentId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -67,6 +73,12 @@ namespace Rock.Web.UI.Controls
         /// The name.
         /// </value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gl code.
+        /// </summary>
+        /// <value>The gl code.</value>
+        public string GlCode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has children.

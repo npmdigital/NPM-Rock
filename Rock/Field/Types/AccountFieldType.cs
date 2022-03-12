@@ -36,6 +36,8 @@ namespace Rock.Field.Types
         #region Configuration
 
         private const string DISPLAY_PUBLIC_NAME = "displaypublicname";
+        private const string DISPLAY_CHILD_ITEM_COUNTS = "displaychilditemcounts";
+        private const string DISPLAY_ACTIVE_ONLY = "displayactiveitemsonly";
 
         /// <summary>
         /// Returns a list of the configuration keys
@@ -45,6 +47,9 @@ namespace Rock.Field.Types
         {
             var configKeys = base.ConfigurationKeys();
             configKeys.Add( DISPLAY_PUBLIC_NAME );
+            configKeys.Add( DISPLAY_CHILD_ITEM_COUNTS );
+            configKeys.Add( DISPLAY_ACTIVE_ONLY );
+
             return configKeys;
         }
 
@@ -65,6 +70,27 @@ namespace Rock.Field.Types
             cbPublicName.Label = "Display Public Name";
             cbPublicName.Text = "Yes";
             cbPublicName.Help = "When set, public name will be displayed.";
+
+            // Add checkbox for deciding if the to display child item counts
+            var cbDisplayChildItemCounts = new RockCheckBox();
+            controls.Add( cbDisplayChildItemCounts );
+            cbDisplayChildItemCounts.AutoPostBack = true;
+            cbDisplayChildItemCounts.CheckedChanged += OnQualifierUpdated;
+            cbDisplayChildItemCounts.Checked = false;
+            cbDisplayChildItemCounts.Label = "Display Child Item Counts";
+            cbDisplayChildItemCounts.Text = "No";
+            cbDisplayChildItemCounts.Help = "When set, child item counts will be displayed.";
+
+            // Add checkbox for deciding if the to display inactive account item counts
+            var cbActiveOnly = new RockCheckBox();
+            controls.Add( cbActiveOnly );
+            cbActiveOnly.AutoPostBack = true;
+            cbActiveOnly.CheckedChanged += OnQualifierUpdated;
+            cbActiveOnly.Checked = false;
+            cbActiveOnly.Label = "Display Active Items Only";
+            cbActiveOnly.Text = "No";
+            cbActiveOnly.Help = "When set, only active item will be displayed.";
+
             return controls;
         }
 
@@ -77,12 +103,26 @@ namespace Rock.Field.Types
         {
             var configurationValues = base.ConfigurationValues( controls );
             configurationValues.Add( DISPLAY_PUBLIC_NAME, new ConfigurationValue( "Display Public Name", "When set, public name will be displayed.", "True" ) );
+            configurationValues.Add( DISPLAY_CHILD_ITEM_COUNTS, new ConfigurationValue( "Display Child Item Counts", "When set, child item counts will be displayed.", "False" ) );
+            configurationValues.Add( DISPLAY_ACTIVE_ONLY, new ConfigurationValue( "Display Active Items Only", "When set, only active item will be displayed.", "False" ) );
 
-            if ( controls != null && controls.Count > 0 && controls[0] != null && controls[0] is CheckBox )
+            if ( controls != null && controls.Count > 0 )
             {
-                configurationValues[DISPLAY_PUBLIC_NAME].Value = ( ( CheckBox ) controls[0] ).Checked.ToString();
-            }
+                if ( controls?[0] is CheckBox cbPublicName )
+                {
+                    configurationValues[DISPLAY_PUBLIC_NAME].Value = cbPublicName.Checked.ToString();
+                }
 
+                if ( controls?[1] is CheckBox cbDisplayChildItemCounts )
+                {
+                    configurationValues[DISPLAY_CHILD_ITEM_COUNTS].Value = cbDisplayChildItemCounts.Checked.ToString();
+                }
+
+                if ( controls?[2] is CheckBox cbActiveOnly )
+                {
+                    configurationValues[DISPLAY_ACTIVE_ONLY].Value = cbActiveOnly.Checked.ToString();
+                }
+            }
             return configurationValues;
         }
 
@@ -95,9 +135,19 @@ namespace Rock.Field.Types
         {
             if ( controls != null && controls.Count > 0 && configurationValues != null )
             {
-                if ( controls[0] != null && controls[0] is CheckBox && configurationValues.ContainsKey( DISPLAY_PUBLIC_NAME ) )
+                if ( controls?[0] is CheckBox cbPublicName && configurationValues.ContainsKey( DISPLAY_PUBLIC_NAME ) )
                 {
-                    ( ( CheckBox ) controls[0] ).Checked = configurationValues[DISPLAY_PUBLIC_NAME].Value.AsBoolean();
+                    cbPublicName.Checked = configurationValues[DISPLAY_PUBLIC_NAME].Value.AsBoolean();
+                }
+
+                if ( controls?[1] is CheckBox cbDisplayChildItemCounts && configurationValues.ContainsKey( DISPLAY_CHILD_ITEM_COUNTS ) )
+                {
+                    cbDisplayChildItemCounts.Checked = configurationValues[DISPLAY_CHILD_ITEM_COUNTS].Value.AsBoolean();
+                }
+
+                if ( controls?[2] is CheckBox cbActiveOnly && configurationValues.ContainsKey( DISPLAY_ACTIVE_ONLY ) )
+                {
+                    cbActiveOnly.Checked = configurationValues[DISPLAY_ACTIVE_ONLY].Value.AsBoolean();
                 }
             }
         }
@@ -160,14 +210,33 @@ namespace Rock.Field.Types
         public override Control EditControl( Dictionary<string, ConfigurationValue> configurationValues, string id )
         {
             bool displayPublicName = true;
+            bool displayChildItemCounts = false;
+            bool displayActiveOnly = true;
 
-            if ( configurationValues != null &&
-                 configurationValues.ContainsKey( DISPLAY_PUBLIC_NAME ) )
+            if ( configurationValues != null )
             {
-                displayPublicName = configurationValues[DISPLAY_PUBLIC_NAME].Value.AsBoolean();
-            }
+                if ( configurationValues.ContainsKey( DISPLAY_PUBLIC_NAME ) )
+                {
+                    displayPublicName = configurationValues[DISPLAY_PUBLIC_NAME].Value.AsBoolean();
+                }
 
-            return new AccountPicker { ID = id, DisplayPublicName = displayPublicName };
+                if ( configurationValues.ContainsKey( DISPLAY_CHILD_ITEM_COUNTS ) )
+                {
+                    displayChildItemCounts = configurationValues[DISPLAY_CHILD_ITEM_COUNTS].Value.AsBoolean();
+                }
+
+                if ( configurationValues.ContainsKey( DISPLAY_ACTIVE_ONLY ) )
+                {
+                    displayActiveOnly = configurationValues[DISPLAY_ACTIVE_ONLY].Value.AsBoolean();
+                }
+            }
+            return new AccountPicker
+            {
+                ID = id,
+                DisplayPublicName = displayPublicName,
+                DisplayChildItemCountLabel = displayChildItemCounts,
+                DisplayActiveOnly = displayActiveOnly
+            };
         }
 
         /// <summary>

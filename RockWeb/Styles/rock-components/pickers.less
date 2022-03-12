@@ -46,6 +46,7 @@
     background-color: @input-bg;
     border: 1px solid @input-border;
     border-radius: @border-radius-base;
+
     &:hover {
       text-decoration: none;
     }
@@ -117,6 +118,7 @@
     .viewport,
     .scrollbar {
       height: 380px;
+
       @media (max-device-height: 480px) {
         max-height: 200px;
       }
@@ -139,6 +141,16 @@
 
   .picker-menu {
     width: 400px;
+    padding: @picker-menu-padding;
+
+    @media (max-width: @screen-xs-max) {
+      position: static;
+      max-width: 100%;
+    }
+  }
+
+  .picker-menu-w500 {
+    width: 500px;
     padding: @picker-menu-padding;
 
     @media (max-width: @screen-xs-max) {
@@ -192,7 +204,6 @@
       text-align: left;
     }
   }
-
   // details used for pickers like person picker to show the details of the selected item
   .picker-select-item-details {
     @media (min-width: @screen-sm-min) {

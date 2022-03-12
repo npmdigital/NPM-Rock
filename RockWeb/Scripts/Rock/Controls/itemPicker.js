@@ -183,32 +183,30 @@
                 });
 
                 // clicking on the 'select all' btn
-                $control.on('click', '.js-select-all', function (e)
-                {
-                  var rockTree = $control.find('.treeview').data('rockTree');
+                $control.on('click', '.js-select-all', function (e) {
+                    var rockTree = $control.find('.treeview').data('rockTree');
 
-                  e.preventDefault();
-                  e.stopPropagation();
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                  var $itemNameNodes = rockTree.$el.find('.rocktree-name');
+                    var $itemNameNodes = rockTree.$el.find('.rocktree-name');
 
-                  var allItemNodesAlreadySelected = true;
-                  $itemNameNodes.each(function (a)
-                  {
-                    if (!$(this).hasClass('selected')) {
-                      allItemNodesAlreadySelected = false;
+                    var allItemNodesAlreadySelected = true;
+                    $itemNameNodes.each(function (a) {
+                        if (!$(this).hasClass('selected')) {
+                            allItemNodesAlreadySelected = false;
+                        }
+                    });
+
+                    if (!allItemNodesAlreadySelected) {
+                        // mark them all as unselected (just in case some are selected already), then click them to select them
+                        $itemNameNodes.removeClass('selected');
+                        $itemNameNodes.trigger('click');
+                    } else {
+                        // if all were already selected, toggle them to unselected
+                        rockTree.setSelected([]);
+                        $itemNameNodes.removeClass('selected');
                     }
-                  });
-
-                  if (!allItemNodesAlreadySelected) {
-                    // mark them all as unselected (just in case some are selected already), then click them to select them
-                    $itemNameNodes.removeClass('selected');
-                    $itemNameNodes.trigger('click');
-                  } else {
-                    // if all were already selected, toggle them to unselected
-                    rockTree.setSelected([]);
-                    $itemNameNodes.removeClass('selected');
-                  }
                 });
             },
             updateScrollbar: function (sPosition) {
