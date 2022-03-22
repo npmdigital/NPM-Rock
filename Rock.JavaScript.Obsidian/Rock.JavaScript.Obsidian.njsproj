@@ -51,6 +51,7 @@
     <Folder Include="Framework\" />
     <Folder Include="Core\" />
     <Folder Include="Framework\Blocks\" />
+    <Folder Include="Framework\Blocks\Core\CampusDetail\" />
     <Folder Include="Framework\Blocks\Crm\" />
     <Folder Include="Framework\Blocks\Event\" />
     <Folder Include="Framework\Blocks\Event\RegistrationEntry\" />
@@ -91,6 +92,10 @@
     <TypeScriptCompile Include="Build\build.ts" />
     <TypeScriptCompile Include="Core\vendor.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Core\attributes.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Core\campusDetail.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Core\CampusDetail\editPanel.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Core\CampusDetail\types.d.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Core\CampusDetail\viewPanel.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Crm\attributeValues.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\registrationEntry.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\costSummary.ts" />
@@ -354,6 +359,7 @@
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\workflowType.d.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\index.d.ts" />
     <TypeScriptCompile Include="Framework\Templates\paneledBlockTemplate.ts" />
+    <TypeScriptCompile Include="Framework\Templates\paneledDetailBlockTemplate.ts" />
     <TypeScriptCompile Include="Framework\Util\component.ts" />
     <TypeScriptCompile Include="Framework\Util\dialogs.ts" />
     <TypeScriptCompile Include="Framework\Util\form.ts" />
