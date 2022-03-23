@@ -142,6 +142,7 @@
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\sectionZone.ts" />
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\Shared\segmentedPicker.ts" />
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\settingsTab.ts" />
+    <TypeScriptCompile Include="Framework\Controls\definedValuePicker.ts" />
     <TypeScriptCompile Include="Framework\Controls\header.ts" />
     <TypeScriptCompile Include="Framework\Controls\sectionContainer.ts" />
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\types.d.ts" />
@@ -181,6 +182,7 @@
     <TypeScriptCompile Include="Framework\Controls\treeItemPicker.ts" />
     <TypeScriptCompile Include="Framework\Directives\dragDrop.ts" />
     <TypeScriptCompile Include="Framework\Elements\auditDetail.ts" />
+    <TypeScriptCompile Include="Framework\Controls\basePicker.ts" />
     <TypeScriptCompile Include="Framework\Elements\fieldFilterContainer.ts" />
     <TypeScriptCompile Include="Framework\Elements\fileUploader.ts" />
     <TypeScriptCompile Include="Framework\Elements\fullscreen.ts" />
