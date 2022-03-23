@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 using Rock.Data;
@@ -189,14 +190,17 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
 
             if ( emailSettings.RecipientAliasId.HasValue )
             {
-                var person = new PersonAliasService( rockContext ).GetPerson( emailSettings.RecipientAliasId.Value );
+                var personAlias = new PersonAliasService( rockContext ).Queryable()
+                    .Include( pa => pa.Person )
+                    .Where( pa => pa.Id == emailSettings.RecipientAliasId.Value )
+                    .FirstOrDefault();
 
-                if ( person != null )
+                if ( personAlias != null )
                 {
                     recipient = new ListItemViewModel
                     {
-                        Value = person.Guid.ToString(),
-                        Text = person.FullName
+                        Value = personAlias.Guid.ToString(),
+                        Text = personAlias.Person.FullName
                     };
                 }
             }
@@ -229,7 +233,7 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
 
             if ( viewModel.Recipient != null && viewModel.Recipient.Value.AsGuidOrNull().HasValue )
             {
-                recipientAliasId = new PersonService( rockContext ).Get( viewModel.Recipient.Value.AsGuid() )?.PrimaryAliasId;
+                recipientAliasId = new PersonAliasService( rockContext ).GetId( viewModel.Recipient.Value.AsGuid() );
             }
 
             return new Rock.Workflow.FormBuilder.FormNotificationEmailSettings

@@ -34,6 +34,8 @@ const enum AgeClassification {
 type PersonSearchResult = {
     guid?: string | null;
 
+    primaryAliasGuid?: string | null;
+
     name?: string | null;
 
     isActive?: boolean;
@@ -218,7 +220,7 @@ export default defineComponent({
                 margin: "0px 20px 20px 0px"
             };
 
-            if (result.guid === selectedSearchResult.value) {
+            if (result.primaryAliasGuid === selectedSearchResult.value) {
                 styles["border"] = "2px solid var(--brand-color)";
             }
             else {
@@ -286,7 +288,7 @@ export default defineComponent({
          * @param result The result object that contains the details about the person.
          */
         const onCardClick = (result: PersonSearchResult): void => {
-            if (!result.guid || !result.name) {
+            if (!result.primaryAliasGuid || !result.name) {
                 return;
             }
 
@@ -307,11 +309,11 @@ export default defineComponent({
          * @param result The result object that contains the details about the person.
          */
         const onCardFocus = (result: PersonSearchResult): void => {
-            if (!result.guid || !result.name) {
+            if (!result.primaryAliasGuid || !result.name) {
                 return;
             }
 
-            selectedSearchResult.value = result.guid;
+            selectedSearchResult.value = result.primaryAliasGuid;
         };
 
         /**
@@ -321,11 +323,11 @@ export default defineComponent({
          * @param result The result object that contains the details about the person.
          */
         const onCardBlur = (result: PersonSearchResult): void => {
-            if (!result.guid || !result.name) {
+            if (!result.primaryAliasGuid || !result.name) {
                 return;
             }
 
-            if (selectedSearchResult.value === result.guid) {
+            if (selectedSearchResult.value === result.primaryAliasGuid) {
                 selectedSearchResult.value = "";
             }
         };
@@ -338,13 +340,13 @@ export default defineComponent({
          * @param result The result object that contains the details about the person.
          */
         const onCardKeyPress = (result: PersonSearchResult, ev: KeyboardEvent): void => {
-            if (!result.guid || !result.name) {
+            if (!result.primaryAliasGuid || !result.name) {
                 return;
             }
 
             const isEnterKey = ev.keyCode === 10 || ev.keyCode === 13;
 
-            if (selectedSearchResult.value === result.guid && isEnterKey) {
+            if (selectedSearchResult.value === result.primaryAliasGuid && isEnterKey) {
                 internalValue.value = {
                     value: selectedSearchResult.value,
                     text: result.name
@@ -428,7 +430,7 @@ export default defineComponent({
                         </div>
 
                         <div style="display: flex;">
-                            <div v-for="result in searchResults" :key="result.guid" class="well clickable" :style="getCardStyle(result)" tabindex="0" @click="onCardClick(result)" @focus="onCardFocus(result)" @blur="onCardBlur(result)" @keypress="onCardKeyPress(result, $event)">
+                            <div v-for="result in searchResults" :key="result.primaryAliasGuid" class="well clickable" :style="getCardStyle(result)" tabindex="0" @click="onCardClick(result)" @focus="onCardFocus(result)" @blur="onCardBlur(result)" @keypress="onCardKeyPress(result, $event)">
                                 <div style="display: flex; min-width: 250px;">
                                     <div class="person-image" :style="getPersonImageStyle(result)"></div>
                                     <div>
