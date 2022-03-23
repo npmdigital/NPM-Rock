@@ -20,6 +20,6 @@ import { PublicAttribute } from "./publicAttribute";
 export interface IEntity {
     id: number;
     guid: Guid;
-    attributes: Record<string, PublicAttribute> | null;
-    attributeValues: Record<string, string> | null;
+    attributes?: Record<string, PublicAttribute> | null;
+    attributeValues?: Record<string, string> | null;
 }

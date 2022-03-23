@@ -21,10 +21,7 @@ import { useVModelPassthrough } from "../Util/component";
 import { ListItem } from "../ViewModels";
 import RockForm from "../Controls/rockForm";
 import RockButton from "../Elements/rockButton";
-
-function isPromise<T>(obj: PromiseLike<T> | T): obj is PromiseLike<T> {
-    return !!obj && (typeof obj === "object" || typeof obj === "function") && typeof (obj as Record<string, unknown>).then === "function";
-}
+import { isPromise } from "../Util/util";
 
 export default defineComponent({
     name: "PaneledDetailBlockTemplate",
