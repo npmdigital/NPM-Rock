@@ -17,17 +17,11 @@
 
 import { IEntity, ListItem } from "../../../ViewModels";
 
-export type DetailBlockViewBag<TViewModel> = {
-    blockAuthorizations?: string[] | null;
+export const enum NavigationUrlKey {
+    ParentPage = "ParentPage"
+}
 
-    entityAuthorizations?: string[] | null;
-
-    navigationUrls?: Record<string, string> | null;
-
-    entity?: TViewModel | null;
-};
-
-export type CampusScheduleViewModel = {
+export type CampusSchedulePacket = {
     guid?: string | null;
 
     schedule?: ListItem | null;
@@ -35,30 +29,72 @@ export type CampusScheduleViewModel = {
     scheduleTypeValue?: ListItem | null;
 }
 
-export type CampusViewModel = IEntity & {
-    name?: string | null;
+export type CampusPacket = IEntity & {
+    campusSchedules?: CampusSchedulePacket[] | null;
+
+    campusStatusValue?: ListItem | null;
+
+    campusTypeValue?: ListItem | null;
 
     description?: string | null;
 
     isActive?: boolean;
 
-    shortCode?: string | null;
+    isSystem: boolean;
 
-    url?: string | null;
+    leaderPersonAlias?: ListItem | null;
+
+    location?: ListItem | null;
+
+    name?: string | null;
 
     phoneNumber?: string | null;
 
     serviceTimes?: ListItem[] | null;
 
+    shortCode?: string | null;
+
     timeZoneId?: string | null;
 
-    campusSchedules?: CampusScheduleViewModel[] | null;
-
-    location?: ListItem | null;
-
-    leaderPersonAlias?: ListItem | null;
-
-    campusStatusValue?: ListItem | null;
-
-    campusTypeValue?: ListItem | null;
+    url?: string | null;
 };
+
+export type CampusDetailOptions = {
+    isMultiTimeZoneSupported?: boolean;
+
+    timeZoneOptions?: ListItem[] | null;
+};
+
+// #region Core Types
+
+export type DetailBlockViewBag<TPacket, TOptions> = {
+    entity?: TPacket | null;
+
+    isEditable?: boolean;
+
+    errorMessage?: string | null;
+
+    navigationUrls?: Record<string, string> | null;
+
+    options?: TOptions | null;
+};
+
+export type DetailBlockEditBag<TPacket, TOptions> = {
+    entity?: TPacket | null;
+
+    options?: TOptions | null;
+};
+
+export type DetailBlockSaveBag<TPacket> = {
+    entity?: TPacket | null;
+
+    validProperties?: string[] | null;
+};
+
+export type DetailBlockSaveResultBag<TPacket> = {
+    entity?: TPacket | null;
+
+    redirectUrl?: string | null;
+};
+
+// #endregion

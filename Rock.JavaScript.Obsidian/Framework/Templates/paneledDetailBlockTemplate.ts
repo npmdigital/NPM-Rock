@@ -22,6 +22,7 @@ import { ListItem } from "../ViewModels";
 import RockForm from "../Controls/rockForm";
 import RockButton from "../Elements/rockButton";
 import { isPromise } from "../Util/util";
+import { confirmDelete } from "../Util/dialogs";
 
 export default defineComponent({
     name: "PaneledDetailBlockTemplate",
@@ -48,19 +49,29 @@ export default defineComponent({
             required: false
         },
 
+        entityTitle: {
+            type: String as PropType<string>,
+            default: "Entity"
+        },
+
         isEditMode: {
             type: Boolean as PropType<boolean>,
             default: false
         },
 
-        isEditVisible: {
+        isEditAllowed: {
             type: Boolean as PropType<boolean>,
             default: true
         },
 
-        isDeleteVisible: {
+        isDeleteAllowed: {
             type: Boolean as PropType<boolean>,
             default: true
+        },
+
+        onCancelEdit: {
+            type: Function as PropType<() => boolean | PromiseLike<boolean>>,
+            required: false
         },
 
         onEdit: {
@@ -88,6 +99,15 @@ export default defineComponent({
 
         const isEditDisabled = ref(false);
 
+        const hasActions = computed((): boolean => {
+            if (isEditMode.value) {
+                return true;
+            }
+            else {
+                return props.isEditAllowed || props.isDeleteAllowed;
+            }
+        });
+
         const hasLabels = computed((): boolean => {
             return !!props.labels && props.labels.length > 0;
         });
@@ -111,6 +131,10 @@ export default defineComponent({
 
         const onDeleteClick = async (): Promise<void> => {
             if (props.onDelete) {
+                if (!await confirmDelete(props.entityTitle)) {
+                    return;
+                }
+
                 const result = props.onDelete();
 
                 if (isPromise(result)) {
@@ -133,7 +157,19 @@ export default defineComponent({
             }
         };
 
-        const onEditCancelClick = (): void => {
+        const onEditCancelClick = async (): Promise<void> => {
+            if (props.onCancelEdit) {
+                let result = props.onCancelEdit();
+
+                if (isPromise(result)) {
+                    result = await result;
+                }
+
+                if (result === false) {
+                    return;
+                }
+            }
+
             isEditMode.value = false;
         };
 
@@ -155,6 +191,7 @@ export default defineComponent({
             blockLabels,
             blockTitle,
             isEditDisabled,
+            hasActions,
             hasLabels,
             isEditMode,
             onDeleteClick,
@@ -181,15 +218,15 @@ export default defineComponent({
         <RockForm @submit="onSaveSubmit">
         <slot />
 
-        <div class="actions">
+        <div v-if="hasActions" class="actions">
             <template v-if="isEditMode">
                 <RockButton type="submit" btnType="primary" autoDisable>Save</RockButton>
                 <RockButton btnType="link" @click="onEditCancelClick">Cancel</RockButton>
             </template>
 
             <template v-else>
-                <RockButton v-if="isEditVisible" btnType="primary" @click="onEditClick" autoDisable>Edit</RockButton>
-                <RockButton v-if="isDeleteVisible" btnType="link" @click="onDeleteClick" autoDisable>Delete</RockButton>
+                <RockButton v-if="isEditAllowed" btnType="primary" @click="onEditClick" autoDisable>Edit</RockButton>
+                <RockButton v-if="isDeleteAllowed" btnType="link" @click="onDeleteClick" autoDisable>Delete</RockButton>
             </template>
         </div>
         </RockForm>

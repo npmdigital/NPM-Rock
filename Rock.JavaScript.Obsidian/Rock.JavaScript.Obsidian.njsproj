@@ -33,6 +33,7 @@
     <Content Include=".eslintrc.js" />
     <Content Include="Core\.eslintrc.js" />
     <Content Include="Framework\.eslintrc.js" />
+    <Content Include="Framework\Blocks\Core\CampusDetail\valueDetailList.ts" />
     <Content Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\configurableZone.ts" />
     <Content Include="Framework\Controls\modal.ts" />
     <Content Include="Framework\Elements\transitionVerticalCollapse.ts" />

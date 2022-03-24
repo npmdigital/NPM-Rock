@@ -15,90 +15,31 @@
 // </copyright>
 //
 
-import { computed, defineComponent, PropType, ref, watch } from "vue";
+import { computed, defineComponent, PropType, ref } from "vue";
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
+import Alert from "../../../Elements/alert";
 import { escapeHtml } from "../../../Services/string";
-import { CampusViewModel } from "./types";
-
-export type ValueDetailListItem = {
-    title: string;
-
-    textValue?: string;
-
-    htmlValue?: string;
-};
-
-export class ValueDetailListItems {
-    private values: ValueDetailListItem[] = [];
-
-    public addTextValue(title: string, text: string): void {
-        this.values.push({
-            title: title,
-            textValue: text
-        });
-    }
-
-    public addHtmlValue(title: string, html: string): void {
-        this.values.push({
-            title: title,
-            htmlValue: html
-        });
-    }
-
-    public getValues(): ValueDetailListItem[] {
-        return [...this.values.map(v => ({ ...v }))];
-    }
-}
-
-export const ValueDetailList = defineComponent({
-    name: "ValueDetailList",
-
-    props: {
-        modelValue: {
-            type: Object as PropType<ValueDetailListItems>,
-            required: false
-        }
-    },
-
-    setup(props) {
-        const values = ref(props.modelValue?.getValues() ?? []);
-
-        const hasValues = computed((): boolean => {
-            return values.value.length > 0;
-        });
-
-        watch(() => props.modelValue, () => {
-            values.value = props.modelValue?.getValues() ?? [];
-        });
-
-        return {
-            hasValues,
-            values
-        };
-    },
-
-    template: `
-<dl v-if="hasValues">
-    <template v-for="value in values">
-        <dt>{{ value.title }}</dt>
-        <dd v-if="value.htmlValue" v-html="value.htmlValue"></dd>
-        <dd v-else>{{ value.textValue }}</dd>
-    </template>
-</dl>
-`
-});
+import { List } from "../../../Util/linq";
+import { CampusDetailOptions, CampusPacket } from "./types";
+import ValueDetailList, { ValueDetailListItems } from "./valueDetailList";
 
 export default defineComponent({
     name: "Core.CampusDetail.ViewPanel",
 
     props: {
         modelValue: {
-            type: Object as PropType<CampusViewModel>,
+            type: Object as PropType<CampusPacket>,
             required: false
+        },
+
+        options: {
+            type: Object as PropType<CampusDetailOptions>,
+            required: true
         }
     },
 
     components: {
+        Alert,
         AttributeValuesContainer,
         ValueDetailList
     },
@@ -114,6 +55,8 @@ export default defineComponent({
 
         // #region Computed Values
 
+        const isSystem = computed((): boolean => props.modelValue?.isSystem ?? false);
+
         const leftSideValues = computed((): ValueDetailListItems => {
             const values = new ValueDetailListItems();
 
@@ -127,6 +70,14 @@ export default defineComponent({
 
             if (props.modelValue.shortCode) {
                 values.addTextValue("Code", props.modelValue.shortCode);
+            }
+
+            if (props.options.isMultiTimeZoneSupported && props.modelValue.timeZoneId) {
+                const tz = new List(props.options.timeZoneOptions ?? [])
+                    .where(tz => tz.value === props.modelValue?.timeZoneId)
+                    .firstOrUndefined();
+
+                values.addTextValue("Time Zone", tz ? tz.text : props.modelValue.timeZoneId);
             }
 
             if (props.modelValue.leaderPersonAlias) {
@@ -188,6 +139,7 @@ export default defineComponent({
             attributes,
             attributeValues,
             description,
+            isSystem,
             leftSideValues,
             rightSideValues
         };
@@ -195,6 +147,10 @@ export default defineComponent({
 
     template: `
 <fieldset>
+    <Alert v-if="isSystem" alertType="info">
+        <strong>Note</strong> Because this campus is used by Rock, editing is not enabled.
+    </Alert>
+
     <p v-if="description" class="description">{{ description }}</p>
 
     <div class="row">

@@ -246,8 +246,8 @@ export default defineComponent({
         </div>
 
         <div class="picker-actions" style="margin: 0px;">
-            <button v-if="saveText" class="btn btn-xs btn-primary picker-btn" @click="onSaveClick">{{ savetText }}</button>
-            <button v-if="cancelText" class="btn btn-xs btn-link picker-cancel" @click="onCancelClick">{{ cancelText }}</button>
+            <button v-if="saveText" class="btn btn-xs btn-primary picker-btn" type="button" @click="onSaveClick">{{ savetText }}</button>
+            <button v-if="cancelText" class="btn btn-xs btn-link picker-cancel" type="button" @click="onCancelClick">{{ cancelText }}</button>
         </div>
     </div>
 </div>

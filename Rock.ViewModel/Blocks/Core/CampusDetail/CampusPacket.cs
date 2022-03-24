@@ -15,21 +15,19 @@
 // </copyright>
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Rock.ViewModel.NonEntities;
 
 namespace Rock.ViewModel.Blocks.Core.CampusDetail
 {
-    public class CampusViewModel : ViewModelBase
+    public class CampusPacket : ViewModelBase
     {
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public bool IsSystem { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -43,7 +41,7 @@ namespace Rock.ViewModel.Blocks.Core.CampusDetail
 
         public string TimeZoneId { get; set; }
 
-        public List<CampusScheduleViewModel> CampusSchedules { get; set; }
+        public List<CampusSchedulePacket> CampusSchedules { get; set; }
 
         public ListItemViewModel Location { get; set; }
 
@@ -52,14 +50,5 @@ namespace Rock.ViewModel.Blocks.Core.CampusDetail
         public ListItemViewModel CampusStatusValue { get; set; }
 
         public ListItemViewModel CampusTypeValue { get; set; }
-    }
-
-    public class CampusScheduleViewModel
-    {
-        public Guid Guid { get; set; }
-
-        public ListItemViewModel Schedule { get; set; }
-
-        public ListItemViewModel ScheduleTypeValue { get; set; }
     }
 }

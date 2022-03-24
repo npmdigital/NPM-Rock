@@ -15,26 +15,18 @@
 // </copyright>
 //
 
-import { computed, defineComponent, PropType, ref, watch } from "vue";
-import AttributeEditor from "../../Controls/attributeEditor";
-import Modal from "../../Controls/modal";
+import { computed, defineComponent, ref } from "vue";
 import RockField from "../../Controls/rockField";
 import RockForm from "../../Controls/rockForm";
 import Alert from "../../Elements/alert";
-import DropDownList from "../../Elements/dropDownList";
 import RockButton from "../../Elements/rockButton";
-import TextBox from "../../Elements/textBox";
-import { FieldType } from "../../SystemGuids";
 import PaneledDetailBlockTemplate from "../../Templates/paneledDetailBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
-import { useVModelPassthrough } from "../../Util/component";
-import { alert, confirmDelete } from "../../Util/dialogs";
-import { emptyGuid, Guid, normalize as normalizeGuid } from "../../Util/guid";
-import { IEntity, ListItem, PublicAttribute } from "../../ViewModels";
-import { PublicEditableAttributeViewModel } from "../../ViewModels/publicEditableAttribute";
-import { DetailBlockViewBag, CampusViewModel } from "./CampusDetail/types";
-import ViewPanel from "./CampusDetail/viewPanel";
+import { emptyGuid } from "../../Util/guid";
+import { ListItem } from "../../ViewModels";
 import EditPanel from "./CampusDetail/editPanel";
+import { CampusDetailOptions, CampusPacket, DetailBlockEditBag, DetailBlockSaveBag, DetailBlockViewBag, NavigationUrlKey } from "./CampusDetail/types";
+import ViewPanel from "./CampusDetail/viewPanel";
 
 export default defineComponent({
     name: "Core.CampusDetail",
@@ -50,15 +42,16 @@ export default defineComponent({
     },
 
     setup() {
-        const config = useConfigurationValues<DetailBlockViewBag<CampusViewModel>>();
+        const config = useConfigurationValues<DetailBlockViewBag<CampusPacket, undefined>>();
         const invokeBlockAction = useInvokeBlockAction();
 
         // #region Values
 
         const blockError = ref("");
+        const errorMessage = ref("");
 
         const campusViewModel = ref(config.entity);
-        const campusEditModel = ref<CampusViewModel | null>(null);
+        const campusEditModel = ref<CampusPacket | null>(null);
 
         const isEditMode = ref(false);
 
@@ -66,6 +59,9 @@ export default defineComponent({
 
         // #region Computed Values
 
+        /**
+         * The title to display in the block panel depending on the current state.
+         */
         const blockTitle = computed((): string => {
             if (campusViewModel.value?.guid === emptyGuid) {
                 return "Add Campus";
@@ -81,6 +77,9 @@ export default defineComponent({
             }
         });
 
+        /**
+         * Additional labels to display in the block panel.
+         */
         const blockLabels = computed((): ListItem[] => {
             const labels: ListItem[] = [];
 
@@ -98,6 +97,14 @@ export default defineComponent({
             return labels;
         });
 
+        const isEditable = computed((): boolean => {
+            return config.isEditable === true && campusViewModel.value?.isSystem !== true;
+        });
+
+        const options = computed((): CampusDetailOptions => {
+            return config.options ?? {};
+        });
+
         // #endregion
 
         // #region Functions
@@ -106,24 +113,126 @@ export default defineComponent({
 
         // #region Event Handlers
 
-        const onEdit = async (): Promise<boolean> => {
-            await new Promise(resolve => setTimeout(resolve, 500));
+        /**
+         * Event handler for the Cancel button being clicked while in Edit mode.
+         * Handles redirect to parent page if creating a new entity.
+         *
+         * @returns true if the panel should leave edit mode; otherwise false.
+         */
+        const onCancelEdit = async (): Promise<boolean> => {
+            if (campusEditModel.value?.guid === emptyGuid) {
+                if (config.navigationUrls?.[NavigationUrlKey.ParentPage]) {
+                    window.location.href = config.navigationUrls[NavigationUrlKey.ParentPage];
+                }
 
-            if (campusViewModel.value) {
-                campusEditModel.value = {
-                    ...campusViewModel.value
-                };
+                return false;
             }
 
             return true;
         };
 
+        /**
+         * Event handler for the Delete button being clicked. Sends the
+         * delete request to the server and then redirects to the target page.
+         */
+        const onDelete = async (): Promise<void> => {
+            errorMessage.value = "";
+
+            const result = await invokeBlockAction<string>("Delete", {
+                guid: campusViewModel.value?.guid
+            });
+
+            if (result.isSuccess && result.data) {
+                window.location.href = result.data;
+            }
+            else {
+                errorMessage.value = result.errorMessage ?? "Unknown error while trying to delete campus.";
+            }
+        };
+
+        /**
+         * Event handler for the Edit button being clicked. Request the edit
+         * details from the server and then enter edit mode.
+         *
+         * @returns true if the panel should enter edit mode; otherwise false.
+         */
+        const onEdit = async (): Promise<boolean> => {
+            const result = await invokeBlockAction<DetailBlockEditBag<CampusPacket, undefined>>("Edit", {
+                guid: campusViewModel.value?.guid
+            });
+
+            if (result.isSuccess && result.data && result.data.entity) {
+                campusEditModel.value = result.data.entity;
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+
+        /**
+         * Event handler for the panel's Save event. Send the data to the server
+         * to be saved and then leave edit mode or redirect to target page.
+         *
+         * @returns true if the panel should leave edit mode; otherwise false.
+         */
+        const onSave = async (): Promise<boolean> => {
+            errorMessage.value = "";
+
+            const data: DetailBlockSaveBag<CampusPacket> = {
+                entity: campusEditModel.value,
+                validProperties: [
+                    "attributeValues",
+                    "campusSchedules",
+                    "campusStatusValue",
+                    "campusTypeValue",
+                    "description",
+                    "isActive",
+                    "leaderPersonAlias",
+                    "location",
+                    "name",
+                    "phoneNumber",
+                    "serviceTimes",
+                    "shortCode",
+                    "timeZoneId",
+                    "url"
+                ]
+            };
+
+            const result = await invokeBlockAction<CampusPacket | string>("Save", {
+                saveBag: data
+            });
+
+            if (result.isSuccess && result.data) {
+                if (result.statusCode === 200 && typeof result.data === "object") {
+                    campusViewModel.value = result.data;
+
+                    return true;
+                }
+                else if (result.statusCode === 201 && typeof result.data === "string") {
+                    window.location.href = result.data;
+
+                    return false;
+                }
+            }
+
+            errorMessage.value = result.errorMessage ?? "Unknown error while trying to save campus.";
+
+            return false;
+        };
+
         // #endregion
 
-        if (!config.entity) {
+        // Handle any initial error conditions or the need to go into edit mode.
+        if (config.errorMessage) {
+            blockError.value = config.errorMessage;
+        }
+        else if (!config.entity) {
             blockError.value = "The specified campus could not be viewed.";
         }
         else if (config.entity.guid === emptyGuid) {
+            campusEditModel.value = config.entity;
             isEditMode.value = true;
         }
 
@@ -133,8 +242,14 @@ export default defineComponent({
             blockTitle,
             campusViewModel,
             campusEditModel,
+            errorMessage,
+            isEditable,
             isEditMode,
-            onEdit
+            onCancelEdit,
+            onDelete,
+            onEdit,
+            onSave,
+            options
         };
     },
 
@@ -143,18 +258,28 @@ export default defineComponent({
     This is an experimental block and should not be used in production.
 </Alert>
 
-<PaneledDetailBlockTemplate v-if="!blockError"
-    :title="blockTitle"
-    iconClass="fa fa-building-o"
-    :labels="blockLabels"
-    v-model:isEditMode="isEditMode"
-    @edit="onEdit">
-    <EditPanel v-if="isEditMode" v-model="campusEditModel" />
-    <ViewPanel v-else :modelValue="campusViewModel" />
-</PaneledDetailBlockTemplate>
-
 <Alert v-if="blockError" alertType="warning">
     {{ blockError }}
 </Alert>
+
+<Alert v-if="errorMessage" alertType="danger">
+    {{ errorMessage }}
+</Alert>
+
+<PaneledDetailBlockTemplate v-if="!blockError"
+    v-model:isEditMode="isEditMode"
+    :title="blockTitle"
+    iconClass="fa fa-building-o"
+    :labels="blockLabels"
+    entityTitle="Campus"
+    :isEditAllowed="isEditable"
+    :isDeleteAllowed="isEditable"
+    @cancelEdit="onCancelEdit"
+    @delete="onDelete"
+    @edit="onEdit"
+    @save="onSave">
+    <EditPanel v-if="isEditMode" v-model="campusEditModel" :options="options" />
+    <ViewPanel v-else :modelValue="campusViewModel" :options="options" />
+</PaneledDetailBlockTemplate>
 `
 });
