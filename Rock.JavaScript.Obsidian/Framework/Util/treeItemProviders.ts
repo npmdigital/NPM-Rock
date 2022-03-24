@@ -15,8 +15,8 @@
 // </copyright>
 //
 
-import { Guid } from "../Util/guid";
-import { post } from "../Util/http";
+import { emptyGuid, Guid } from "../Util/guid";
+import { get, post } from "../Util/http";
 import { ITreeItemProvider } from "../ViewModels/Controls/treeList";
 import { TreeItem } from "../ViewModels/treeItem";
 
@@ -157,3 +157,42 @@ export class CategoryTreeItemProvider implements ITreeItemProvider {
     }
 }
 
+/**
+ * Tree Item Provider for retrieving locations from the server and displaying
+ * them inside a tree list.
+ */
+export class LocationTreeItemProvider implements ITreeItemProvider {
+    /**
+     * Gets the child items from the server.
+     * 
+     * @param parentGuid The parent item whose children are retrieved.
+     *
+     * @returns A collection of TreeItem objects as an asynchronous operation.
+     */
+    private async getItems(parentGuid?: Guid | null): Promise<TreeItem[]> {
+        const url = `/api/v2/Controls/LocationPicker/GetActiveChildren/${parentGuid ?? emptyGuid}/${emptyGuid}`;
+        const response = await get<TreeItem[]>(url);
+
+        if (response.isSuccess && response.data) {
+            return response.data;
+        }
+        else {
+            console.log("Error", response.errorMessage);
+            return [];
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    async getRootItems(): Promise<TreeItem[]> {
+        return await this.getItems(null);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    async getChildItems(item: TreeItem): Promise<TreeItem[]> {
+        return this.getItems(item.value);
+    }
+}

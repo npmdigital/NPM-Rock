@@ -144,6 +144,8 @@
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\settingsTab.ts" />
     <TypeScriptCompile Include="Framework\Controls\definedValuePicker.ts" />
     <TypeScriptCompile Include="Framework\Controls\header.ts" />
+    <TypeScriptCompile Include="Framework\Controls\keyValueList.ts" />
+    <TypeScriptCompile Include="Framework\Controls\locationPicker.ts" />
     <TypeScriptCompile Include="Framework\Controls\sectionContainer.ts" />
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\types.d.ts" />
     <TypeScriptCompile Include="Framework\Blocks\WorkFlow\FormBuilder\FormBuilderDetail\utils.ts" />
