@@ -21,7 +21,7 @@ using Rock.ViewModel.NonEntities;
 
 namespace Rock.ViewModel.Blocks.Core.CampusDetail
 {
-    public class CampusSchedulePacket
+    public class CampusScheduleBag
     {
         public Guid Guid { get; set; }
 

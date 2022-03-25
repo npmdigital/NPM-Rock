@@ -29,14 +29,14 @@ import UrlLinkBox from "../../../Elements/urlLinkBox";
 import { DefinedType } from "../../../SystemGuids";
 import { updateRefValue } from "../../../Util/util";
 import { ListItem } from "../../../ViewModels/listItem";
-import { CampusDetailOptions, CampusPacket } from "./types";
+import { CampusDetailOptions, CampusBag } from "./types";
 
 export default defineComponent({
     name: "Core.CampusDetail.EditPanel",
 
     props: {
         modelValue: {
-            type: Object as PropType<CampusPacket>,
+            type: Object as PropType<CampusBag>,
             required: true
         },
 
@@ -60,7 +60,7 @@ export default defineComponent({
     },
 
     emits: {
-        "update:modelValue": (_value: CampusPacket) => true
+        "update:modelValue": (_value: CampusBag) => true
     },
 
     setup(props, { emit }) {
@@ -122,7 +122,7 @@ export default defineComponent({
         });
 
         watch([attributeValues, campusStatusValue, campusTypeValue, description, isActive, leaderPersonAlias, location, name, phoneNumber, serviceTimes, shortCode, timeZoneId, url], () => {
-            const newValue: CampusPacket = {
+            const newValue: CampusBag = {
                 ...props.modelValue,
                 attributeValues: attributeValues.value,
                 campusStatusValue: campusStatusValue.value,

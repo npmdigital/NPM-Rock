@@ -20,7 +20,7 @@ import AttributeValuesContainer from "../../../Controls/attributeValuesContainer
 import Alert from "../../../Elements/alert";
 import { escapeHtml } from "../../../Services/string";
 import { List } from "../../../Util/linq";
-import { CampusDetailOptions, CampusPacket } from "./types";
+import { CampusDetailOptions, CampusBag } from "./types";
 import ValueDetailList, { ValueDetailListItems } from "./valueDetailList";
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<CampusPacket>,
+            type: Object as PropType<CampusBag>,
             required: false
         },
 

@@ -21,7 +21,7 @@ using Rock.ViewModel.NonEntities;
 
 namespace Rock.ViewModel.Blocks.Core.CampusDetail
 {
-    public class CampusPacket : ViewModelBase
+    public class CampusBag : ViewModelBase
     {
         public string Name { get; set; }
 
@@ -41,7 +41,7 @@ namespace Rock.ViewModel.Blocks.Core.CampusDetail
 
         public string TimeZoneId { get; set; }
 
-        public List<CampusSchedulePacket> CampusSchedules { get; set; }
+        public List<CampusScheduleBag> CampusSchedules { get; set; }
 
         public ListItemViewModel Location { get; set; }
 

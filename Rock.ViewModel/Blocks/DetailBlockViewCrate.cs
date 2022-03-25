@@ -1,0 +1,60 @@
+﻿// <copyright>
+// Copyright by the Spark Development Network
+//
+// Licensed under the Rock Community License (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.rockrms.com/license
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+//
+
+using System.Collections.Generic;
+
+namespace Rock.ViewModel.Blocks
+{
+    public class DetailBlockViewCrate<TEntityBag>
+    {
+        public TEntityBag Entity { get; set; }
+
+        public string ErrorMessage { get; set; }
+
+        public bool IsEditable { get; set; }
+
+        public Dictionary<string, string> NavigationUrls { get; set; } = new Dictionary<string, string>();
+    }
+
+
+    public class DetailBlockViewCrate<TEntityBag, TOptions> : DetailBlockViewCrate<TEntityBag>
+        where TOptions : new()
+    {
+        public TOptions Options { get; set; } = new TOptions();
+    }
+
+
+    public class DetailBlockEditCrate<TEntityBag>
+    {
+        public TEntityBag Entity { get; set; }
+    }
+
+
+    public class DetailBlockEditCrate<TEntityBag, TOptions> : DetailBlockEditCrate<TEntityBag>
+        where TOptions : new()
+    {
+        public TOptions Options { get; set; } = new TOptions();
+    }
+
+
+    public class DetailBlockSaveCrate<TEntityBag>
+    {
+        public TEntityBag Entity { get; set; }
+
+        public List<string> ValidProperties { get; set; }
+    }
+}

@@ -25,7 +25,7 @@ import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { emptyGuid } from "../../Util/guid";
 import { ListItem } from "../../ViewModels";
 import EditPanel from "./CampusDetail/editPanel";
-import { CampusDetailOptions, CampusPacket, DetailBlockEditBag, DetailBlockSaveBag, DetailBlockViewBag, NavigationUrlKey } from "./CampusDetail/types";
+import { CampusDetailOptions, CampusBag, DetailBlockEditCrate, DetailBlockSaveCrate, DetailBlockViewCrate, NavigationUrlKey } from "./CampusDetail/types";
 import ViewPanel from "./CampusDetail/viewPanel";
 
 export default defineComponent({
@@ -42,7 +42,7 @@ export default defineComponent({
     },
 
     setup() {
-        const config = useConfigurationValues<DetailBlockViewBag<CampusPacket, undefined>>();
+        const config = useConfigurationValues<DetailBlockViewCrate<CampusBag, undefined>>();
         const invokeBlockAction = useInvokeBlockAction();
 
         // #region Values
@@ -50,8 +50,8 @@ export default defineComponent({
         const blockError = ref("");
         const errorMessage = ref("");
 
-        const campusViewModel = ref(config.entity);
-        const campusEditModel = ref<CampusPacket | null>(null);
+        const campusViewBag = ref(config.entity);
+        const campusEditBag = ref<CampusBag | null>(null);
 
         const isEditMode = ref(false);
 
@@ -63,14 +63,14 @@ export default defineComponent({
          * The title to display in the block panel depending on the current state.
          */
         const blockTitle = computed((): string => {
-            if (campusViewModel.value?.guid === emptyGuid) {
+            if (campusViewBag.value?.guid === emptyGuid) {
                 return "Add Campus";
             }
             else if (!isEditMode.value) {
-                return campusViewModel.value?.name ?? "";
+                return campusViewBag.value?.name ?? "";
             }
-            else if (campusEditModel.value?.name) {
-                return `Edit ${campusEditModel.value.name}`;
+            else if (campusEditBag.value?.name) {
+                return `Edit ${campusEditBag.value.name}`;
             }
             else {
                 return "Edit Campus";
@@ -87,7 +87,7 @@ export default defineComponent({
                 return labels;
             }
 
-            if (campusViewModel.value?.isActive === true) {
+            if (campusViewBag.value?.isActive === true) {
                 labels.push({ value: "success", text: "Active" });
             }
             else {
@@ -98,7 +98,7 @@ export default defineComponent({
         });
 
         const isEditable = computed((): boolean => {
-            return config.isEditable === true && campusViewModel.value?.isSystem !== true;
+            return config.isEditable === true && campusViewBag.value?.isSystem !== true;
         });
 
         const options = computed((): CampusDetailOptions => {
@@ -120,7 +120,7 @@ export default defineComponent({
          * @returns true if the panel should leave edit mode; otherwise false.
          */
         const onCancelEdit = async (): Promise<boolean> => {
-            if (campusEditModel.value?.guid === emptyGuid) {
+            if (campusEditBag.value?.guid === emptyGuid) {
                 if (config.navigationUrls?.[NavigationUrlKey.ParentPage]) {
                     window.location.href = config.navigationUrls[NavigationUrlKey.ParentPage];
                 }
@@ -139,7 +139,7 @@ export default defineComponent({
             errorMessage.value = "";
 
             const result = await invokeBlockAction<string>("Delete", {
-                guid: campusViewModel.value?.guid
+                guid: campusViewBag.value?.guid
             });
 
             if (result.isSuccess && result.data) {
@@ -157,12 +157,12 @@ export default defineComponent({
          * @returns true if the panel should enter edit mode; otherwise false.
          */
         const onEdit = async (): Promise<boolean> => {
-            const result = await invokeBlockAction<DetailBlockEditBag<CampusPacket, undefined>>("Edit", {
-                guid: campusViewModel.value?.guid
+            const result = await invokeBlockAction<DetailBlockEditCrate<CampusBag, undefined>>("Edit", {
+                guid: campusViewBag.value?.guid
             });
 
             if (result.isSuccess && result.data && result.data.entity) {
-                campusEditModel.value = result.data.entity;
+                campusEditBag.value = result.data.entity;
 
                 return true;
             }
@@ -180,8 +180,8 @@ export default defineComponent({
         const onSave = async (): Promise<boolean> => {
             errorMessage.value = "";
 
-            const data: DetailBlockSaveBag<CampusPacket> = {
-                entity: campusEditModel.value,
+            const data: DetailBlockSaveCrate<CampusBag> = {
+                entity: campusEditBag.value,
                 validProperties: [
                     "attributeValues",
                     "campusSchedules",
@@ -200,13 +200,13 @@ export default defineComponent({
                 ]
             };
 
-            const result = await invokeBlockAction<CampusPacket | string>("Save", {
-                saveBag: data
+            const result = await invokeBlockAction<CampusBag | string>("Save", {
+                saveCrate: data
             });
 
             if (result.isSuccess && result.data) {
                 if (result.statusCode === 200 && typeof result.data === "object") {
-                    campusViewModel.value = result.data;
+                    campusViewBag.value = result.data;
 
                     return true;
                 }
@@ -232,7 +232,7 @@ export default defineComponent({
             blockError.value = "The specified campus could not be viewed.";
         }
         else if (config.entity.guid === emptyGuid) {
-            campusEditModel.value = config.entity;
+            campusEditBag.value = config.entity;
             isEditMode.value = true;
         }
 
@@ -240,8 +240,8 @@ export default defineComponent({
             blockError,
             blockLabels,
             blockTitle,
-            campusViewModel,
-            campusEditModel,
+            campusViewBag,
+            campusEditBag,
             errorMessage,
             isEditable,
             isEditMode,
@@ -278,8 +278,8 @@ export default defineComponent({
     @delete="onDelete"
     @edit="onEdit"
     @save="onSave">
-    <EditPanel v-if="isEditMode" v-model="campusEditModel" :options="options" />
-    <ViewPanel v-else :modelValue="campusViewModel" :options="options" />
+    <EditPanel v-if="isEditMode" v-model="campusEditBag" :options="options" />
+    <ViewPanel v-else :modelValue="campusViewBag" :options="options" />
 </PaneledDetailBlockTemplate>
 `
 });

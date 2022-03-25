@@ -21,7 +21,7 @@ export const enum NavigationUrlKey {
     ParentPage = "ParentPage"
 }
 
-export type CampusSchedulePacket = {
+export type CampusScheduleBag = {
     guid?: string | null;
 
     schedule?: ListItem | null;
@@ -29,8 +29,8 @@ export type CampusSchedulePacket = {
     scheduleTypeValue?: ListItem | null;
 }
 
-export type CampusPacket = IEntity & {
-    campusSchedules?: CampusSchedulePacket[] | null;
+export type CampusBag = IEntity & {
+    campusSchedules?: CampusScheduleBag[] | null;
 
     campusStatusValue?: ListItem | null;
 
@@ -67,7 +67,7 @@ export type CampusDetailOptions = {
 
 // #region Core Types
 
-export type DetailBlockViewBag<TPacket, TOptions> = {
+export type DetailBlockViewCrate<TPacket, TOptions> = {
     entity?: TPacket | null;
 
     isEditable?: boolean;
@@ -79,19 +79,19 @@ export type DetailBlockViewBag<TPacket, TOptions> = {
     options?: TOptions | null;
 };
 
-export type DetailBlockEditBag<TPacket, TOptions> = {
+export type DetailBlockEditCrate<TPacket, TOptions> = {
     entity?: TPacket | null;
 
     options?: TOptions | null;
 };
 
-export type DetailBlockSaveBag<TPacket> = {
+export type DetailBlockSaveCrate<TPacket> = {
     entity?: TPacket | null;
 
     validProperties?: string[] | null;
 };
 
-export type DetailBlockSaveResultBag<TPacket> = {
+export type DetailBlockSaveResultCrate<TPacket> = {
     entity?: TPacket | null;
 
     redirectUrl?: string | null;

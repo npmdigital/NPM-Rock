@@ -25,6 +25,7 @@ using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
+using Rock.ViewModel.Blocks;
 using Rock.ViewModel.Blocks.Core.CampusDetail;
 using Rock.ViewModel.NonEntities;
 using Rock.Web.Cache;
@@ -64,7 +65,6 @@ namespace Rock.Blocks.Core
 
         private static class PageParameterKey
         {
-            public const string CampusGuid = "CampusGuid";
             public const string CampusId = "CampusId";
         }
 
@@ -82,24 +82,24 @@ namespace Rock.Blocks.Core
         {
             using ( var rockContext = new RockContext() )
             {
-                var detailViewBag = new DetailBlockViewBag<CampusPacket, CampusDetailOptions>();
+                var detailViewCrate = new DetailBlockViewCrate<CampusBag, CampusDetailOptions>();
 
-                SetBagInitialEntityState( detailViewBag, rockContext );
+                SetBagInitialEntityState( detailViewCrate, rockContext );
 
-                detailViewBag.NavigationUrls = GetBagNavigationUrls();
-                detailViewBag.Options = GetBagOptions( detailViewBag.IsEditable );
+                detailViewCrate.NavigationUrls = GetCrateNavigationUrls();
+                detailViewCrate.Options = GetCrateOptions( detailViewCrate.IsEditable );
 
-                return detailViewBag;
+                return detailViewCrate;
             }
         }
 
         /// <summary>
-        /// Gets the bag options required for the component to render the view
+        /// Gets the crate options required for the component to render the view
         /// or edit the entity.
         /// </summary>
         /// <param name="isEditable"><c>true</c> if the entity is editable; otherwise <c>false</c>.</param>
         /// <returns>The options that provide additional details to the block.</returns>
-        private CampusDetailOptions GetBagOptions( bool isEditable )
+        private CampusDetailOptions GetCrateOptions( bool isEditable )
         {
             var options = new CampusDetailOptions
             {
@@ -125,18 +125,18 @@ namespace Rock.Blocks.Core
 
         /// <summary>
         /// Parses the <see cref="Campus.ServiceTimes"/> value into a format that
-        /// can be used with the view model.
+        /// can be used by the client.
         /// </summary>
         /// <param name="serviceTimes">The campus service times.</param>
         /// <returns>A collection of <see cref="ListItemViewModel"/> objects that represent the service times.</returns>
-        private static List<ListItemViewModel> ConvertServiceTimesToViewModel( string serviceTimes )
+        private static List<ListItemViewModel> ConvertServiceTimesToPack( string serviceTimes )
         {
             if ( serviceTimes.IsNullOrWhiteSpace() )
             {
                 return new List<ListItemViewModel>();
             }
 
-            var viewModel = new List<ListItemViewModel>();
+            var packs = new List<ListItemViewModel>();
 
             // Format is "Day 1^Time 1|Day 2^Time 2"
             var services = serviceTimes.Split( new[] { '|' }, StringSplitOptions.RemoveEmptyEntries );
@@ -146,7 +146,7 @@ namespace Rock.Blocks.Core
 
                 if (segments.Length >= 2)
                 {
-                    viewModel.Add( new ListItemViewModel
+                    packs.Add( new ListItemViewModel
                     {
                         Value = segments[0],
                         Text = segments[1]
@@ -154,61 +154,61 @@ namespace Rock.Blocks.Core
                 }
             }
 
-            return viewModel;
+            return packs;
         }
 
         /// <summary>
-        /// Converts the service times from view models into the text string
+        /// Converts the service times from packs into the text string
         /// stored in <see cref="Campus.ServiceTimes"/>.
         /// </summary>
-        /// <param name="viewModel">The view models that represent the service times.</param>
+        /// <param name="packs">The packs that represent the service times.</param>
         /// <returns>A custom formatted <see cref="string"/> that contains the service times.</returns>
-        private static string ConvertServiceTimesFromViewModel( List<ListItemViewModel> viewModel )
+        private static string ConvertServiceTimesFromPacks( List<ListItemViewModel> packs )
         {
-            return viewModel
+            return packs
                 .Select( s => $"{s.Value}^{s.Text}" )
                 .JoinStrings( "|" );
         }
 
         /// <summary>
-        /// Converts the campus schedules to view models to represent the custom
+        /// Converts the campus schedules to bags to represent the custom
         /// data that needs to be included.
         /// </summary>
         /// <param name="campusSchedules">The campus schedules.</param>
-        /// <returns>A collection of <see cref="CampusSchedulePacket"/> objects that represent the schedules.</returns>
-        private static List<CampusSchedulePacket> ConvertCampusSchedulesToViewModel( IEnumerable<CampusSchedule> campusSchedules )
+        /// <returns>A collection of <see cref="CampusScheduleBag"/> objects that represent the schedules.</returns>
+        private static List<CampusScheduleBag> ConvertCampusSchedulesToBags( IEnumerable<CampusSchedule> campusSchedules )
         {
             if ( campusSchedules == null )
             {
-                return new List<CampusSchedulePacket>();
+                return new List<CampusScheduleBag>();
             }
 
             return campusSchedules
-                .Select( cs => new CampusSchedulePacket
+                .Select( cs => new CampusScheduleBag
                 {
                     Guid = cs.Guid,
-                    Schedule = cs.Schedule.ToListItemViewModel(),
-                    ScheduleTypeValue = cs.ScheduleTypeValue.ToListItemViewModel()
+                    Schedule = cs.Schedule.ToListItemPack(),
+                    ScheduleTypeValue = cs.ScheduleTypeValue.ToListItemPack()
                 } )
                 .ToList();
         }
 
         /// <summary>
-        /// Updates the campus schedules from the data contained in the view models.
+        /// Updates the campus schedules from the data contained in the bags.
         /// </summary>
         /// <param name="campus">The campus instance to be updated.</param>
-        /// <param name="viewModels">The view models that represent the schedules.</param>
+        /// <param name="bags">The bags that represent the schedules.</param>
         /// <param name="rockContext">The rock context.</param>
         /// <returns><c>true</c> if the schedules were valid and updated; otherwise <c>false</c>.</returns>
-        private bool UpdateCampusSchedulesFromViewModel( Campus campus, IEnumerable<CampusSchedulePacket> viewModels, RockContext rockContext )
+        private bool UpdateCampusSchedulesFromBags( Campus campus, IEnumerable<CampusScheduleBag> bags, RockContext rockContext )
         {
-            if ( viewModels == null )
+            if ( bags == null )
             {
                 return false;
             }
 
             // Remove any CampusSchedules that were removed in the UI.
-            var selectedSchedules = viewModels.Select( s => s.Guid );
+            var selectedSchedules = bags.Select( s => s.Guid );
             var locationsToRemove = campus.CampusSchedules.Where( s => !selectedSchedules.Contains( s.Guid ) ).ToList();
 
             if ( locationsToRemove.Any() )
@@ -224,7 +224,7 @@ namespace Rock.Blocks.Core
 
             // Add or update any schedules that are still selected in the UI.
             int order = 0;
-            foreach ( var campusScheduleViewModel in viewModels )
+            foreach ( var campusScheduleViewModel in bags )
             {
                 var scheduleId = campusScheduleViewModel.Schedule.GetEntityId<Schedule>( rockContext );
 
@@ -371,11 +371,11 @@ namespace Rock.Blocks.Core
         #region Block Actions (Generated)
 
         /// <summary>
-        /// Gets the edit bag that will contain all the information needed to
+        /// Gets the edit crate that will contain all the information needed to
         /// begin the edit operation.
         /// </summary>
         /// <param name="guid">The unique identifier of the entity to be edited.</param>
-        /// <returns>A bag that contains the entity and any other information required.</returns>
+        /// <returns>A crate that contains the entity and any other information required.</returns>
         [BlockAction]
         public BlockActionResult Edit( Guid guid )
         {
@@ -390,22 +390,22 @@ namespace Rock.Blocks.Core
 
                 entity.LoadAttributes( rockContext );
 
-                var bag = new DetailBlockEditBag<CampusPacket>
+                var crate = new DetailBlockEditCrate<CampusBag>
                 {
-                    Entity = GetEntityPacketForEdit( entity )
+                    Entity = GetEntityBagForEdit( entity )
                 };
 
-                return ActionOk( bag );
+                return ActionOk( crate );
             }
         }
 
         /// <summary>
-        /// Saves the entity contained in the save bag.
+        /// Saves the entity contained in the save crate.
         /// </summary>
-        /// <param name="saveBag">The save bag that contains all the information required to save.</param>
-        /// <returns>A new packet to be used when returning to view mode, or the URL to redirect to after creating a new entity.</returns>
+        /// <param name="saveCrate">The save crate that contains all the information required to save.</param>
+        /// <returns>A new entity bag to be used when returning to view mode, or the URL to redirect to after creating a new entity.</returns>
         [BlockAction]
-        public BlockActionResult Save( DetailBlockSaveBag<CampusPacket> saveBag )
+        public BlockActionResult Save( DetailBlockSaveCrate<CampusBag> saveCrate )
         {
             using ( var rockContext = new RockContext() )
             {
@@ -413,11 +413,11 @@ namespace Rock.Blocks.Core
                 Campus entity;
 
                 // Determine if we are editing an existing entity or creating a new one.
-                if ( saveBag.Entity.Guid != Guid.Empty )
+                if ( saveCrate.Entity.Guid != Guid.Empty )
                 {
                     // If editing an existing entity then load it and make sure it
                     // was found and can still be edited.
-                    entity = entityService.Get( saveBag.Entity.Guid );
+                    entity = entityService.Get( saveCrate.Entity.Guid );
 
                     if ( entity == null )
                     {
@@ -443,7 +443,7 @@ namespace Rock.Blocks.Core
                 }
 
                 // Update the entity instance from the information in the bag.
-                if ( !UpdateEntityFromSaveBag( entity, saveBag, rockContext ) )
+                if ( !UpdateEntityFromSaveCrate( entity, saveCrate, rockContext ) )
                 {
                     return ActionBadRequest( "Invalid data." );
                 }
@@ -473,7 +473,7 @@ namespace Rock.Blocks.Core
                 // Ensure navigation properties will work now.
                 entity = entityService.Get( entity.Id );
 
-                return ActionOk( GetEntityPacketForView( entity ) );
+                return ActionOk( GetEntityBagForView( entity ) );
             }
         }
 
@@ -523,19 +523,19 @@ namespace Rock.Blocks.Core
         #region Generated Methods
 
         /// <summary>
-        /// Sets the initial entity state of the bag. Populates the Entity or
+        /// Sets the initial entity state of the crate. Populates the Entity or
         /// ErrorMessage properties depending on the entity and permissions.
         /// </summary>
-        /// <param name="bag">The bag to be populated.</param>
+        /// <param name="crate">The crate to be populated.</param>
         /// <param name="rockContext">The rock context.</param>
-        private void SetBagInitialEntityState( DetailBlockViewBag<CampusPacket, CampusDetailOptions> bag, RockContext rockContext )
+        private void SetBagInitialEntityState( DetailBlockViewCrate<CampusBag, CampusDetailOptions> crate, RockContext rockContext )
         {
             var entity = GetInitialEntity( rockContext );
 
             if ( entity != null )
             {
                 var isViewable = entity.IsAuthorized( Security.Authorization.VIEW, RequestContext.CurrentPerson );
-                bag.IsEditable = entity.IsAuthorized( Security.Authorization.EDIT, RequestContext.CurrentPerson );
+                crate.IsEditable = entity.IsAuthorized( Security.Authorization.EDIT, RequestContext.CurrentPerson );
 
                 entity.LoadAttributes( rockContext );
 
@@ -544,58 +544,58 @@ namespace Rock.Blocks.Core
                     // Existing entity was found, prepare for view mode by default.
                     if ( isViewable )
                     {
-                        bag.Entity = GetEntityPacketForView( entity );
+                        crate.Entity = GetEntityBagForView( entity );
                     }
                     else
                     {
-                        bag.ErrorMessage = EditModeMessage.NotAuthorizedToView( Campus.FriendlyTypeName );
+                        crate.ErrorMessage = EditModeMessage.NotAuthorizedToView( Campus.FriendlyTypeName );
                     }
                 }
                 else
                 {
                     // New entity is being created, prepare for edit mode by default.
-                    if ( bag.IsEditable )
+                    if ( crate.IsEditable )
                     {
-                        bag.Entity = GetEntityPacketForEdit( entity );
+                        crate.Entity = GetEntityBagForEdit( entity );
                     }
                     else
                     {
-                        bag.ErrorMessage = EditModeMessage.NotAuthorizedToEdit( Campus.FriendlyTypeName );
+                        crate.ErrorMessage = EditModeMessage.NotAuthorizedToEdit( Campus.FriendlyTypeName );
                     }
                 }
             }
             else
             {
-                bag.ErrorMessage = $"The {Campus.FriendlyTypeName} was not found.";
+                crate.ErrorMessage = $"The {Campus.FriendlyTypeName} was not found.";
             }
         }
 
         /// <summary>
-        /// Gets the entity packet that is common between both view and edit modes.
+        /// Gets the entity bag that is common between both view and edit modes.
         /// </summary>
         /// <param name="entity">The entity to be represented as a packet.</param>
-        /// <returns>A <see cref="CampusPacket"/> that represents the entity.</returns>
-        private CampusPacket GetCommonEntityPacket( Campus entity )
+        /// <returns>A <see cref="CampusBag"/> that represents the entity.</returns>
+        private CampusBag GetCommonEntityBag( Campus entity )
         {
             if ( entity == null )
             {
                 return null;
             }
 
-            return new CampusPacket
+            return new CampusBag
             {
-                CampusSchedules = ConvertCampusSchedulesToViewModel( entity.CampusSchedules ),
-                CampusStatusValue = entity.CampusStatusValue.ToListItemViewModel(),
-                CampusTypeValue = entity.CampusTypeValue.ToListItemViewModel(),
+                CampusSchedules = ConvertCampusSchedulesToBags( entity.CampusSchedules ),
+                CampusStatusValue = entity.CampusStatusValue.ToListItemPack(),
+                CampusTypeValue = entity.CampusTypeValue.ToListItemPack(),
                 Description = entity.Description,
                 Guid = entity.Guid,
                 IsActive = entity.IsActive,
                 IsSystem = entity.IsSystem,
-                LeaderPersonAlias = entity.LeaderPersonAlias.ToListItemViewModel(),
-                Location = entity.Location.ToListItemViewModel(),
+                LeaderPersonAlias = entity.LeaderPersonAlias.ToListItemPack(),
+                Location = entity.Location.ToListItemPack(),
                 Name = entity.Name,
                 PhoneNumber = entity.PhoneNumber,
-                ServiceTimes = ConvertServiceTimesToViewModel( entity.ServiceTimes ),
+                ServiceTimes = ConvertServiceTimesToPack( entity.ServiceTimes ),
                 ShortCode = entity.ShortCode,
                 TimeZoneId = entity.TimeZoneId,
                 Url = entity.Url
@@ -603,18 +603,18 @@ namespace Rock.Blocks.Core
         }
 
         /// <summary>
-        /// Gets the packet for viewing the specied entity.
+        /// Gets the bag for viewing the specied entity.
         /// </summary>
         /// <param name="entity">The entity to be represented for view purposes.</param>
-        /// <returns>A <see cref="CampusPacket"/> that represents the entity.</returns>
-        private CampusPacket GetEntityPacketForView( Campus entity )
+        /// <returns>A <see cref="CampusBag"/> that represents the entity.</returns>
+        private CampusBag GetEntityBagForView( Campus entity )
         {
             if ( entity == null )
             {
                 return null;
             }
 
-            var packet = GetCommonEntityPacket( entity );
+            var packet = GetCommonEntityBag( entity );
 
             packet.PopulatePublicAttributesAndValuesForView( entity, RequestContext.CurrentPerson );
 
@@ -622,18 +622,18 @@ namespace Rock.Blocks.Core
         }
 
         /// <summary>
-        /// Gets the packet for editing the specied entity.
+        /// Gets the bag for editing the specied entity.
         /// </summary>
         /// <param name="entity">The entity to be represented for edit purposes.</param>
-        /// <returns>A <see cref="CampusPacket"/> that represents the entity.</returns>
-        private CampusPacket GetEntityPacketForEdit( Campus entity )
+        /// <returns>A <see cref="CampusBag"/> that represents the entity.</returns>
+        private CampusBag GetEntityBagForEdit( Campus entity )
         {
             if ( entity == null )
             {
                 return null;
             }
 
-            var packet = GetCommonEntityPacket( entity );
+            var packet = GetCommonEntityBag( entity );
 
             packet.PopulatePublicAttributesAndValuesForEdit( entity, RequestContext.CurrentPerson );
 
@@ -641,92 +641,92 @@ namespace Rock.Blocks.Core
         }
 
         /// <summary>
-        /// Updates the entity from the data in the save bag.
+        /// Updates the entity from the data in the save crate.
         /// </summary>
         /// <param name="entity">The entity to be updated.</param>
-        /// <param name="bag">The bag containing the information to be updated.</param>
+        /// <param name="crate">The crate containing the information to be updated.</param>
         /// <param name="rockContext">The rock context.</param>
-        /// <returns><c>true</c> if the bag was valid and the entity was updated, <c>false</c> otherwise.</returns>
-        private bool UpdateEntityFromSaveBag( Campus entity, DetailBlockSaveBag<CampusPacket> bag, RockContext rockContext )
+        /// <returns><c>true</c> if the crate was valid and the entity was updated, <c>false</c> otherwise.</returns>
+        private bool UpdateEntityFromSaveCrate( Campus entity, DetailBlockSaveCrate<CampusBag> crate, RockContext rockContext )
         {
-            if ( bag.ValidProperties == null )
+            if ( crate.ValidProperties == null )
             {
                 return false;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.CampusSchedules ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.CampusSchedules ), StringComparer.OrdinalIgnoreCase ) )
             {
-                if ( !UpdateCampusSchedulesFromViewModel( entity, bag.Entity.CampusSchedules, rockContext ) )
+                if ( !UpdateCampusSchedulesFromBags( entity, crate.Entity.CampusSchedules, rockContext ) )
                 {
                     return false;
                 }
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.CampusStatusValue ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.CampusStatusValue ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.CampusStatusValueId = bag.Entity.CampusStatusValue.GetEntityId<DefinedValue>( rockContext );
+                entity.CampusStatusValueId = crate.Entity.CampusStatusValue.GetEntityId<DefinedValue>( rockContext );
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.CampusTypeValue ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.CampusTypeValue ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.CampusTypeValueId = bag.Entity.CampusTypeValue.GetEntityId<DefinedValue>( rockContext );
+                entity.CampusTypeValueId = crate.Entity.CampusTypeValue.GetEntityId<DefinedValue>( rockContext );
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.Description ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.Description ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.Description = bag.Entity.Description;
+                entity.Description = crate.Entity.Description;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.IsActive ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.IsActive ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.IsActive = bag.Entity.IsActive;
+                entity.IsActive = crate.Entity.IsActive;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.LeaderPersonAlias ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.LeaderPersonAlias ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.LeaderPersonAliasId = bag.Entity.LeaderPersonAlias.GetEntityId<PersonAlias>( rockContext );
+                entity.LeaderPersonAliasId = crate.Entity.LeaderPersonAlias.GetEntityId<PersonAlias>( rockContext );
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.Location ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.Location ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.LocationId = bag.Entity.Location.GetEntityId<Location>( rockContext );
+                entity.LocationId = crate.Entity.Location.GetEntityId<Location>( rockContext );
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.Name ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.Name ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.Name = bag.Entity.Name;
+                entity.Name = crate.Entity.Name;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.PhoneNumber ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.PhoneNumber ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.PhoneNumber = bag.Entity.PhoneNumber;
+                entity.PhoneNumber = crate.Entity.PhoneNumber;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.ServiceTimes ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.ServiceTimes ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.ServiceTimes = ConvertServiceTimesFromViewModel( bag.Entity.ServiceTimes );
+                entity.ServiceTimes = ConvertServiceTimesFromPacks( crate.Entity.ServiceTimes );
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.ShortCode ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.ShortCode ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.ShortCode = bag.Entity.ShortCode;
+                entity.ShortCode = crate.Entity.ShortCode;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.TimeZoneId ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.TimeZoneId ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.TimeZoneId = bag.Entity.TimeZoneId;
+                entity.TimeZoneId = crate.Entity.TimeZoneId;
             }
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.Url ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.Url ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.Url = bag.Entity.Url;
+                entity.Url = crate.Entity.Url;
             }
 
             entity.LoadAttributes( rockContext );
 
-            if ( bag.ValidProperties.Contains( nameof( bag.Entity.AttributeValues ), StringComparer.OrdinalIgnoreCase ) )
+            if ( crate.ValidProperties.Contains( nameof( crate.Entity.AttributeValues ), StringComparer.OrdinalIgnoreCase ) )
             {
-                entity.SetPublicAttributeValues( bag.Entity.AttributeValues, RequestContext.CurrentPerson );
+                entity.SetPublicAttributeValues( crate.Entity.AttributeValues, RequestContext.CurrentPerson );
             }
 
             return true;
@@ -740,14 +740,12 @@ namespace Rock.Blocks.Core
         /// <returns>The <see cref="Campus"/> to be viewed or edited on the page.</returns>
         private Campus GetInitialEntity( RockContext rockContext )
         {
-            var guid = RequestContext.GetPageParameter( PageParameterKey.CampusGuid ).AsGuidOrNull();
             var id = RequestContext.GetPageParameter( PageParameterKey.CampusId ).AsIntegerOrNull();
 
             var entityService = new CampusService( rockContext );
 
-            // If empty guid or zero identifier are specified then create
-            // a new entity.
-            if ( guid == Guid.Empty || id == 0 )
+            // If a zero identifier is specified then create a new entity.
+            if ( id == 0 )
             {
                 return new Campus
                 {
@@ -758,11 +756,7 @@ namespace Rock.Blocks.Core
             }
 
             // Otherwise look for an existing one in the database.
-            if ( guid.HasValue )
-            {
-                return entityService.GetNoTracking( guid.Value );
-            }
-            else if ( id.HasValue )
+            if ( id.HasValue )
             {
                 return entityService.GetNoTracking( id.Value );
             }
@@ -773,10 +767,10 @@ namespace Rock.Blocks.Core
         }
 
         /// <summary>
-        /// Gets the bag navigation URLs required for the page to operate.
+        /// Gets the crate navigation URLs required for the page to operate.
         /// </summary>
         /// <returns>A dictionary of key names and URL values.</returns>
-        private Dictionary<string, string> GetBagNavigationUrls()
+        private Dictionary<string, string> GetCrateNavigationUrls()
         {
             return new Dictionary<string, string>
             {
@@ -823,7 +817,7 @@ namespace Rock.Blocks.Core
 
     public static class ViewModelExtensions
     {
-        public static ListItemViewModel ToListItemViewModel( this IEntity entity )
+        public static ListItemViewModel ToListItemPack( this IEntity entity )
         {
             if ( entity == null )
             {
@@ -839,14 +833,14 @@ namespace Rock.Blocks.Core
             return viewModel;
         }
 
-        public static List<ListItemViewModel> ToListItemViewModelList( this IEnumerable<IEntity> entities )
+        public static List<ListItemViewModel> ToListItemPackList( this IEnumerable<IEntity> entities )
         {
             if ( entities == null )
             {
                 return new List<ListItemViewModel>();
             }
 
-            return entities.Select( e => e.ToListItemViewModel() ).ToList();
+            return entities.Select( e => e.ToListItemPack() ).ToList();
         }
 
         public static int? GetEntityId<TEntity>( this ListItemViewModel viewModel, RockContext rockContext )
@@ -868,48 +862,6 @@ namespace Rock.Blocks.Core
 
             return Rock.Reflection.GetEntityIdForEntityType( entityType.Guid, guid.Value, rockContext );
         }
-    }
-
-    public class DetailBlockViewBag<TPacket>
-    {
-        public TPacket Entity { get; set; }
-
-        public string ErrorMessage { get; set; }
-
-        public bool IsEditable { get; set; }
-
-        public Dictionary<string, string> NavigationUrls { get; set; } = new Dictionary<string, string>();
-    }
-
-    public class DetailBlockViewBag<TPacket, TOptions> : DetailBlockViewBag<TPacket>
-        where TOptions : new()
-    {
-        public TOptions Options { get; set; } = new TOptions();
-    }
-
-    public class DetailBlockEditBag<TPacket>
-    {
-        public TPacket Entity { get; set; }
-    }
-
-    public class DetailBlockEditBag<TPacket, TOptions> : DetailBlockEditBag<TPacket>
-        where TOptions : new()
-    {
-        public TOptions Options { get; set; } = new TOptions();
-    }
-
-    public class DetailBlockSaveBag<TPacket>
-    {
-        public TPacket Entity { get; set; }
-
-        public List<string> ValidProperties { get; set; }
-    }
-
-    public class DetailBlockSaveResultBag<TPacket>
-    {
-        public TPacket Entity { get; set; }
-
-        public string RedirectUrl { get; set; }
     }
 
     #endregion

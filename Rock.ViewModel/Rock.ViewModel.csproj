@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blocks\Core\CampusDetail\CampusDetailOptions.cs" />
-    <Compile Include="Blocks\Core\CampusDetail\CampusPacket.cs" />
-    <Compile Include="Blocks\Core\CampusDetail\CampusSchedulePacket.cs" />
+    <Compile Include="Blocks\Core\CampusDetail\CampusBag.cs" />
+    <Compile Include="Blocks\Core\CampusDetail\CampusScheduleBag.cs" />
+    <Compile Include="Blocks\DetailBlockViewCrate.cs" />
     <Compile Include="Blocks\Event\RegistrationEntry\SessionRenewalResult.cs" />
     <Compile Include="Blocks\Event\RegistrationEntry\RegistrationEntryBlockSession.cs" />
     <Compile Include="Blocks\Event\RegistrationEntry\RegistrationEntryBlockSuccessViewModel.cs" />
