@@ -19,7 +19,12 @@ using System.Collections.Generic;
 
 namespace Rock.ViewModel.Blocks
 {
-    public class DetailBlockViewCrate<TEntityBag>
+    public interface IValidPropertiesBox
+    {
+        List<string> ValidProperties { get; }
+    }
+
+    public class DetailBlockBox<TEntityBag> : IValidPropertiesBox
     {
         public TEntityBag Entity { get; set; }
 
@@ -28,33 +33,14 @@ namespace Rock.ViewModel.Blocks
         public bool IsEditable { get; set; }
 
         public Dictionary<string, string> NavigationUrls { get; set; } = new Dictionary<string, string>();
-    }
-
-
-    public class DetailBlockViewCrate<TEntityBag, TOptions> : DetailBlockViewCrate<TEntityBag>
-        where TOptions : new()
-    {
-        public TOptions Options { get; set; } = new TOptions();
-    }
-
-
-    public class DetailBlockEditCrate<TEntityBag>
-    {
-        public TEntityBag Entity { get; set; }
-    }
-
-
-    public class DetailBlockEditCrate<TEntityBag, TOptions> : DetailBlockEditCrate<TEntityBag>
-        where TOptions : new()
-    {
-        public TOptions Options { get; set; } = new TOptions();
-    }
-
-
-    public class DetailBlockSaveCrate<TEntityBag>
-    {
-        public TEntityBag Entity { get; set; }
 
         public List<string> ValidProperties { get; set; }
+    }
+
+
+    public class DetailBlockBox<TEntityBag, TOptions> : DetailBlockBox<TEntityBag>
+        where TOptions : new()
+    {
+        public TOptions Options { get; set; } = new TOptions();
     }
 }

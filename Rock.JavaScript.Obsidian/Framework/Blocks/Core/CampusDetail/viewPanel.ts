@@ -20,7 +20,7 @@ import AttributeValuesContainer from "../../../Controls/attributeValuesContainer
 import Alert from "../../../Elements/alert";
 import { escapeHtml } from "../../../Services/string";
 import { List } from "../../../Util/linq";
-import { CampusDetailOptions, CampusBag } from "./types";
+import { CampusDetailOptionsBag, CampusBag } from "./types";
 import ValueDetailList, { ValueDetailListItems } from "./valueDetailList";
 
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
         },
 
         options: {
-            type: Object as PropType<CampusDetailOptions>,
+            type: Object as PropType<CampusDetailOptionsBag>,
             required: true
         }
     },

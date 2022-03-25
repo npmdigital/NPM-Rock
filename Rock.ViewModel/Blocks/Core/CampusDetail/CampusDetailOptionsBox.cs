@@ -21,7 +21,7 @@ using Rock.ViewModel.NonEntities;
 
 namespace Rock.ViewModel.Blocks.Core.CampusDetail
 {
-    public class CampusDetailOptions
+    public class CampusDetailOptionsBox
     {
         public bool IsMultiTimeZoneSupported { get; set; }
 

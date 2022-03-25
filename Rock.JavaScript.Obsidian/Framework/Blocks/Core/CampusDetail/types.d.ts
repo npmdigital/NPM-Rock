@@ -59,7 +59,7 @@ export type CampusBag = IEntity & {
     url?: string | null;
 };
 
-export type CampusDetailOptions = {
+export type CampusDetailOptionsBag = {
     isMultiTimeZoneSupported?: boolean;
 
     timeZoneOptions?: ListItem[] | null;
@@ -67,7 +67,7 @@ export type CampusDetailOptions = {
 
 // #region Core Types
 
-export type DetailBlockViewCrate<TPacket, TOptions> = {
+export type DetailBlockBox<TPacket, TOptions> = {
     entity?: TPacket | null;
 
     isEditable?: boolean;
@@ -76,25 +76,9 @@ export type DetailBlockViewCrate<TPacket, TOptions> = {
 
     navigationUrls?: Record<string, string> | null;
 
-    options?: TOptions | null;
-};
-
-export type DetailBlockEditCrate<TPacket, TOptions> = {
-    entity?: TPacket | null;
-
-    options?: TOptions | null;
-};
-
-export type DetailBlockSaveCrate<TPacket> = {
-    entity?: TPacket | null;
-
     validProperties?: string[] | null;
-};
 
-export type DetailBlockSaveResultCrate<TPacket> = {
-    entity?: TPacket | null;
-
-    redirectUrl?: string | null;
+    options?: TOptions | null;
 };
 
 // #endregion

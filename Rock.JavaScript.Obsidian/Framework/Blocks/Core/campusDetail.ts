@@ -16,16 +16,13 @@
 //
 
 import { computed, defineComponent, ref } from "vue";
-import RockField from "../../Controls/rockField";
-import RockForm from "../../Controls/rockForm";
 import Alert from "../../Elements/alert";
-import RockButton from "../../Elements/rockButton";
 import PaneledDetailBlockTemplate from "../../Templates/paneledDetailBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { emptyGuid } from "../../Util/guid";
 import { ListItem } from "../../ViewModels";
 import EditPanel from "./CampusDetail/editPanel";
-import { CampusDetailOptions, CampusBag, DetailBlockEditCrate, DetailBlockSaveCrate, DetailBlockViewCrate, NavigationUrlKey } from "./CampusDetail/types";
+import { CampusDetailOptionsBag, CampusBag, DetailBlockBox, NavigationUrlKey } from "./CampusDetail/types";
 import ViewPanel from "./CampusDetail/viewPanel";
 
 export default defineComponent({
@@ -35,14 +32,11 @@ export default defineComponent({
         Alert,
         EditPanel,
         PaneledDetailBlockTemplate,
-        RockButton,
-        RockField,
-        RockForm,
         ViewPanel
     },
 
     setup() {
-        const config = useConfigurationValues<DetailBlockViewCrate<CampusBag, undefined>>();
+        const config = useConfigurationValues<DetailBlockBox<CampusBag, CampusDetailOptionsBag>>();
         const invokeBlockAction = useInvokeBlockAction();
 
         // #region Values
@@ -101,7 +95,7 @@ export default defineComponent({
             return config.isEditable === true && campusViewBag.value?.isSystem !== true;
         });
 
-        const options = computed((): CampusDetailOptions => {
+        const options = computed((): CampusDetailOptionsBag => {
             return config.options ?? {};
         });
 
@@ -157,7 +151,7 @@ export default defineComponent({
          * @returns true if the panel should enter edit mode; otherwise false.
          */
         const onEdit = async (): Promise<boolean> => {
-            const result = await invokeBlockAction<DetailBlockEditCrate<CampusBag, undefined>>("Edit", {
+            const result = await invokeBlockAction<DetailBlockBox<CampusBag, CampusDetailOptionsBag>>("Edit", {
                 guid: campusViewBag.value?.guid
             });
 
@@ -180,7 +174,7 @@ export default defineComponent({
         const onSave = async (): Promise<boolean> => {
             errorMessage.value = "";
 
-            const data: DetailBlockSaveCrate<CampusBag> = {
+            const data: DetailBlockBox<CampusBag, CampusDetailOptionsBag> = {
                 entity: campusEditBag.value,
                 validProperties: [
                     "attributeValues",

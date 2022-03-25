@@ -29,7 +29,7 @@ import UrlLinkBox from "../../../Elements/urlLinkBox";
 import { DefinedType } from "../../../SystemGuids";
 import { updateRefValue } from "../../../Util/util";
 import { ListItem } from "../../../ViewModels/listItem";
-import { CampusDetailOptions, CampusBag } from "./types";
+import { CampusDetailOptionsBag, CampusBag } from "./types";
 
 export default defineComponent({
     name: "Core.CampusDetail.EditPanel",
@@ -41,7 +41,7 @@ export default defineComponent({
         },
 
         options: {
-            type: Object as PropType<CampusDetailOptions>,
+            type: Object as PropType<CampusDetailOptionsBag>,
             required: true
         }
     },
