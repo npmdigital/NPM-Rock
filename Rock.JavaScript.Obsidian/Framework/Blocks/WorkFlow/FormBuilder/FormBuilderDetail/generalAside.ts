@@ -26,9 +26,9 @@ import ConfigurableZone from "./configurableZone";
 import { GeneralAsideSettings } from "./types";
 import { CampusSetFrom, FormFieldType } from "../Shared/types";
 import { useFormSources } from "./utils";
-import { ListItem } from "../../../../ViewModels";
+import { ListItemBag } from "../../../../ViewModels";
 
-const campusSetFromOptions: ListItem[] = [
+const campusSetFromOptions: ListItemBag[] = [
     {
         value: CampusSetFrom.CurrentPerson.toString(),
         text: "Current Person"

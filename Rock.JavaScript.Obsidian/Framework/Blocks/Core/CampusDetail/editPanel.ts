@@ -28,7 +28,7 @@ import TextBox from "../../../Elements/textBox";
 import UrlLinkBox from "../../../Elements/urlLinkBox";
 import { DefinedType } from "../../../SystemGuids";
 import { updateRefValue } from "../../../Util/util";
-import { ListItem } from "../../../ViewModels/listItem";
+import { ListItemBag } from "../../../ViewModels/listItemBag";
 import { CampusDetailOptionsBag, CampusBag } from "./types";
 
 export default defineComponent({
@@ -89,7 +89,7 @@ export default defineComponent({
             return props.options.isMultiTimeZoneSupported === true;
         });
 
-        const timeZoneOptions = computed((): ListItem[] => {
+        const timeZoneOptions = computed((): ListItemBag[] => {
             return props.options.timeZoneOptions ?? [];
         });
 
@@ -133,7 +133,7 @@ export default defineComponent({
                 location: location.value,
                 name: name.value,
                 phoneNumber: phoneNumber.value,
-                serviceTimes: serviceTimes.value.map((s): ListItem => ({value: s.key ?? "", text: s.value ?? ""})),
+                serviceTimes: serviceTimes.value.map((s): ListItemBag => ({value: s.key ?? "", text: s.value ?? ""})),
                 shortCode: shortCode.value,
                 timeZoneId: timeZoneId.value,
                 url: url.value

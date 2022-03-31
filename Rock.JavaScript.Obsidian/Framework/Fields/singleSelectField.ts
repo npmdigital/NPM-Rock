@@ -16,8 +16,7 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { ComparisonValue } from "../Reporting/comparisonValue";
-import { ListItem } from "../ViewModels";
-import { PublicFilterableAttribute } from "../ViewModels/publicFilterableAttribute";
+import { ListItemBag } from "../ViewModels";
 import { FieldTypeBase } from "./fieldType";
 import { getStandardFilterComponent } from "./utils";
 
@@ -56,7 +55,7 @@ export class SingleSelectFieldType extends FieldTypeBase {
         }
 
         try {
-            const values = JSON.parse(configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
+            const values = JSON.parse(configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItemBag[];
             const selectedValues = values.filter(v => v.value === value);
 
             if (selectedValues.length >= 1) {
@@ -90,7 +89,7 @@ export class SingleSelectFieldType extends FieldTypeBase {
 
         try {
             const rawValues = value.value.split(",");
-            const values = JSON.parse(configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
+            const values = JSON.parse(configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ListItemBag[];
             const selectedValues = values.filter(v => rawValues.includes(v.value));
 
             if (selectedValues.length >= 1) {

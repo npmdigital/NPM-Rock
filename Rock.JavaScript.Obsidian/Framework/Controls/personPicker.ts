@@ -16,7 +16,7 @@
 //
 
 import { computed, defineComponent, PropType, Ref, ref, watch } from "vue";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import RockFormField from "../Elements/rockFormField";
 import Panel from "./panel";
 import TextBox from "../Elements/textBox";
@@ -94,7 +94,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<ListItem>
+            type: Object as PropType<ListItemBag>
         }
     },
 

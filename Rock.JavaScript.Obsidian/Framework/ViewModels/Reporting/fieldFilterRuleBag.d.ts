@@ -23,7 +23,7 @@ import { Guid } from "../../Util/guid";
  * Identifies a single filter rule/expression that will be used when determining
  * if some object matches the filter.
  */
-export type FieldFilterRule = {
+export type FieldFilterRuleBag = {
     /** The unique identifier of this rule in the system. */
     guid: Guid;
 

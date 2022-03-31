@@ -20,7 +20,7 @@ import { Guid } from "../Util/guid";
 /**
  * Contains the information required to show the audit panel details for a model.
  */
-export type AuditDetail = {
+export type AuditDetailBag = {
     /** The identifier of the model. */
     id?: number | null;
 

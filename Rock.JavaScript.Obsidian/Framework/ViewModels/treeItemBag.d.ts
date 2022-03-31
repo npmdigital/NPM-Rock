@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-export type TreeItem = {
+export type TreeItemBag = {
     /**
      * The generic identifier of this item.
      */
@@ -53,5 +53,5 @@ export type TreeItem = {
      * The child tree items of this item. A value of null indicates that the
      * children should be lazy loaded by the caller.
      */
-    children: TreeItem[] | null;
+    children: TreeItemBag[] | null;
 };

@@ -16,7 +16,7 @@
 //
 
 import { Guid } from "../Util/guid";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 
 /**
  * Describes the data sent to and from remote systems to allow editing of
@@ -84,7 +84,7 @@ export type PublicEditableAttributeViewModel = {
     /**
      * The categories the attribute is associated with.
      */
-    categories?: ListItem[] | null;
+    categories?: ListItemBag[] | null;
 
     /**
      * True if this attribute is used for analytics.

@@ -18,7 +18,7 @@
 import { defineComponent, PropType, ref, watch } from "vue";
 import { LocationTreeItemProvider } from "../Util/treeItemProviders";
 import { updateRefValue } from "../Util/util";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import TreeItemPicker from "./treeItemPicker";
 
 export default defineComponent({
@@ -30,7 +30,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<ListItem | null>
+            type: Object as PropType<ListItemBag | null>
         }
     },
 

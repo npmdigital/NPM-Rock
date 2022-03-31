@@ -17,8 +17,31 @@
 
 import { emptyGuid, Guid } from "../Util/guid";
 import { get, post } from "../Util/http";
-import { ITreeItemProvider } from "../ViewModels/Controls/treeList";
-import { TreeItem } from "../ViewModels/treeItem";
+import { TreeItemBag } from "../ViewModels/treeItemBag";
+
+/**
+ * The methods that must be implemented by tree item providers. These methods
+ * provide the TreeItem objects to be displayed when lazy loading is being used.
+ */
+export interface ITreeItemProvider {
+    /**
+     * Get the root items to be displayed in the tree list.
+     *
+     * @returns A collection of TreeItem objects, optionally wrapped in a Promise
+     * if the loading is being performed asynchronously.
+     */
+    getRootItems(): Promise<TreeItemBag[]> | TreeItemBag[];
+
+    /**
+     * Get the child items of the given tree item.
+     * 
+     * @param item The parent item whose children should be loaded.
+     *
+     * @returns A collection of TreeItem objects, optionally wrapped in a Promise
+     * if the loading is being performed asynchronously.
+     */
+    getChildItems(item: TreeItemBag): Promise<TreeItemBag[]> | TreeItemBag[];
+}
 
 type ChildTreeItemOptions = {
     /**
@@ -122,7 +145,7 @@ export class CategoryTreeItemProvider implements ITreeItemProvider {
      *
      * @returns A collection of TreeItem objects as an asynchronous operation.
      */
-    private async getItems(parentGuid?: Guid | null): Promise<TreeItem[]> {
+    private async getItems(parentGuid?: Guid | null): Promise<TreeItemBag[]> {
         const options: ChildTreeItemOptions = {
             parentGuid: parentGuid,
             entityTypeGuid: this.entityTypeGuid,
@@ -131,7 +154,7 @@ export class CategoryTreeItemProvider implements ITreeItemProvider {
             lazyLoad: false
         };
 
-        const response = await post<TreeItem[]>("/api/v2/Controls/CategoryPicker/childTreeItems", {}, options);
+        const response = await post<TreeItemBag[]>("/api/v2/Controls/CategoryPicker/childTreeItems", {}, options);
 
         if (response.isSuccess && response.data) {
             return response.data;
@@ -145,14 +168,14 @@ export class CategoryTreeItemProvider implements ITreeItemProvider {
     /**
      * @inheritdoc
      */
-    async getRootItems(): Promise<TreeItem[]> {
+    async getRootItems(): Promise<TreeItemBag[]> {
         return await this.getItems(this.rootCategoryGuid);
     }
 
     /**
      * @inheritdoc
      */
-    async getChildItems(item: TreeItem): Promise<TreeItem[]> {
+    async getChildItems(item: TreeItemBag): Promise<TreeItemBag[]> {
         return this.getItems(item.value);
     }
 }
@@ -169,9 +192,9 @@ export class LocationTreeItemProvider implements ITreeItemProvider {
      *
      * @returns A collection of TreeItem objects as an asynchronous operation.
      */
-    private async getItems(parentGuid?: Guid | null): Promise<TreeItem[]> {
+    private async getItems(parentGuid?: Guid | null): Promise<TreeItemBag[]> {
         const url = `/api/v2/Controls/LocationPicker/GetActiveChildren/${parentGuid ?? emptyGuid}/${emptyGuid}`;
-        const response = await get<TreeItem[]>(url);
+        const response = await get<TreeItemBag[]>(url);
 
         if (response.isSuccess && response.data) {
             return response.data;
@@ -185,14 +208,14 @@ export class LocationTreeItemProvider implements ITreeItemProvider {
     /**
      * @inheritdoc
      */
-    async getRootItems(): Promise<TreeItem[]> {
+    async getRootItems(): Promise<TreeItemBag[]> {
         return await this.getItems(null);
     }
 
     /**
      * @inheritdoc
      */
-    async getChildItems(item: TreeItem): Promise<TreeItem[]> {
+    async getChildItems(item: TreeItemBag): Promise<TreeItemBag[]> {
         return this.getItems(item.value);
     }
 }

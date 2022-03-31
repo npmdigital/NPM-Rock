@@ -15,16 +15,21 @@
 // </copyright>
 //
 
+import { Guid } from "../../Util/guid";
+
 /**
- * An item to be displayed in a list.
+ * Contains information required to update a field type's configuration.
  */
-export declare type ListItem = {
-    /** The raw value to associated with this item. */
-    value: string;
+export type FieldTypeConfigurationBag = {
+    /** Gets or sets the field type unique identifier. */
+    fieldTypeGuid: Guid;
 
-    /** The value to display to the person. */
-    text: string;
+    /**
+     * Gets or sets the configuration values that describe the current
+     * selections when editing a field type.
+     */
+    configurationValues: Record<string, string>;
 
-    /** The name of the category this item belongs to. */
-    category?: string | null;
+    /** Gets or sets the default value currently set. */
+    defaultValue: string;
 };

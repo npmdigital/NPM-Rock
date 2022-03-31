@@ -24,7 +24,7 @@ import { FieldType } from "../../../SystemGuids";
 import { useConfigurationValues, useInvokeBlockAction } from "../../../Util/block";
 import { FormError } from "../../../Util/form";
 import { areEqual } from "../../../Util/guid";
-import { ListItem } from "../../../ViewModels";
+import { ListItemBag } from "../../../ViewModels";
 import CommunicationsTab from "./FormBuilderDetail/communicationsTab";
 import FormBuilderTab from "./FormBuilderDetail/formBuilderTab";
 import SettingsTab from "./FormBuilderDetail/settingsTab";
@@ -55,7 +55,7 @@ export default defineComponent({
 
         const selectedTab = ref(0);
 
-        const recipientOptions = ref<ListItem[]>([]);
+        const recipientOptions = ref<ListItemBag[]>([]);
 
         const communicationsViewModel = ref<FormCommunication>({
             confirmationEmail: form.confirmationEmail ?? {},
@@ -167,7 +167,7 @@ export default defineComponent({
          * possible types.
          */
         const updateRecipientOptions = (): void => {
-            const options: ListItem[] = [];
+            const options: ListItemBag[] = [];
 
             // Include attributes from the main workflow.
             if (config.otherAttributes) {

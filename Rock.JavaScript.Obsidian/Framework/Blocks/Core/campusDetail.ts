@@ -20,7 +20,7 @@ import Alert from "../../Elements/alert";
 import PaneledDetailBlockTemplate from "../../Templates/paneledDetailBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { emptyGuid } from "../../Util/guid";
-import { ListItem } from "../../ViewModels";
+import { ListItemBag } from "../../ViewModels";
 import EditPanel from "./CampusDetail/editPanel";
 import { CampusDetailOptionsBag, CampusBag, DetailBlockBox, NavigationUrlKey } from "./CampusDetail/types";
 import ViewPanel from "./CampusDetail/viewPanel";
@@ -74,8 +74,8 @@ export default defineComponent({
         /**
          * Additional labels to display in the block panel.
          */
-        const blockLabels = computed((): ListItem[] => {
-            const labels: ListItem[] = [];
+        const blockLabels = computed((): ListItemBag[] => {
+            const labels: ListItemBag[] = [];
 
             if (isEditMode.value) {
                 return labels;

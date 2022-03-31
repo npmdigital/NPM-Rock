@@ -18,9 +18,9 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockButton from "../Elements/rockButton";
 import RockFormField from "../Elements/rockFormField";
-import { ListItem } from "../ViewModels";
-import { ITreeItemProvider } from "../ViewModels/Controls/treeList";
-import { TreeItem } from "../ViewModels/treeItem";
+import { ListItemBag } from "../ViewModels";
+import { ITreeItemProvider } from "../Util/treeItemProviders";
+import { TreeItemBag } from "../ViewModels/treeItemBag";
 import TreeList from "../Elements/treeList";
 
 /**
@@ -58,7 +58,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Array as PropType<ListItem[]>,
+            type: Array as PropType<ListItemBag[]>,
             default: []
         },
 
@@ -68,7 +68,7 @@ export default defineComponent({
         },
 
         items: {
-            type: Array as PropType<TreeItem[]>
+            type: Array as PropType<TreeItemBag[]>
         },
 
         provider: {
@@ -93,7 +93,7 @@ export default defineComponent({
          * A flat array of items from the tree. This is used to quickly filter
          * to just the selected items.
          */
-        const flatItems = ref<TreeItem[]>(flatten(props.items ?? [], i => i.children ?? []));
+        const flatItems = ref<TreeItemBag[]>(flatten(props.items ?? [], i => i.children ?? []));
 
         /** Will contain the value true if the popup tree list should be shown. */
         const showPopup = ref(false);
@@ -120,7 +120,7 @@ export default defineComponent({
          * 
          * @param newItems The new root items being used by the tree list.
          */
-        const onUpdateItems = (newItems: TreeItem[]): void => {
+        const onUpdateItems = (newItems: TreeItemBag[]): void => {
             // Update our flatItems array with the list of new items.
             flatItems.value = flatten(newItems ?? [], i => i.children ?? []);
         };

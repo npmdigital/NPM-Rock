@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { ListItem } from "../ViewModels/listItem";
+import { ListItemBag } from "../ViewModels/listItemBag";
 import { toNumber, toNumberOrNull } from "./number";
 
 // This file contains helper functions and tooling required to work with sliding
@@ -93,10 +93,10 @@ export type SlidingDateRange = {
 };
 
 /**
- * The sliding date range types represented as an array of ListItem objects.
+ * The sliding date range types represented as an array of ListItemBag objects.
  * These are ordered correctly and can be used in pickers.
  */
-export const rangeTypeOptions: ListItem[] = [
+export const rangeTypeOptions: ListItemBag[] = [
     {
         value: RangeType.Current.toString(),
         text: "Current"
@@ -124,10 +124,10 @@ export const rangeTypeOptions: ListItem[] = [
 ];
 
 /**
- * The sliding date range time units represented as an array of ListItem objects.
+ * The sliding date range time units represented as an array of ListItemBag objects.
  * These are ordered correctly and can be used in pickers.
  */
-export const timeUnitOptions: ListItem[] = [
+export const timeUnitOptions: ListItemBag[] = [
     {
         value: TimeUnit.Hour.toString(),
         text: "Hour"
@@ -151,14 +151,14 @@ export const timeUnitOptions: ListItem[] = [
 ];
 
 /**
- * Helper function to get the text from a ListItem that matches the value.
+ * Helper function to get the text from a ListItemBag that matches the value.
  * 
  * @param value The value to be searched for.
- * @param options The ListItem options to be searched.
+ * @param options The ListItemBag options to be searched.
  *
- * @returns The text value of the ListItem or an empty string if not found.
+ * @returns The text value of the ListItemBag or an empty string if not found.
  */
-function getTextForValue(value: string, options: ListItem[]): string {
+function getTextForValue(value: string, options: ListItemBag[]): string {
     const matches = options.filter(v => v.value === value);
 
     return matches.length > 0 ? matches[0].text : "";

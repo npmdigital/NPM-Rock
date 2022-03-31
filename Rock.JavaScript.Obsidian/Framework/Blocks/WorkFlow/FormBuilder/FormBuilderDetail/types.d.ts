@@ -16,7 +16,7 @@
 //
 
 import { Guid } from "../../../../Util/guid";
-import { ListItem } from "../../../../ViewModels";
+import { ListItemBag } from "../../../../ViewModels";
 import { FieldFilterGroup } from "../../../../ViewModels/Reporting/fieldFilterGroup";
 import { FormConfirmationEmail, FormFieldType, FormNotificationEmail, FormPersonEntry, FormSection, FormSettings } from "../Shared/types";
 
@@ -117,10 +117,10 @@ export type FormBuilderSettings = {
 };
 
 /**
- * Custom ListItem that extends the item to incldue details about what forced
+ * Custom ListItemBag that extends the item to include details about what forced
  * settings the template has.
  */
-export type FormTemplateListItem = ListItem & {
+export type FormTemplateListItem = ListItemBag & {
     /** The form header content that will be displayed above the form. */
     formHeader?: string | null;
 
@@ -146,28 +146,28 @@ export type FormTemplateListItem = ListItem & {
  */
 export type FormValueSources = {
     /** The list of campus topic options that are available to pick from. */
-    campusTopicOptions?: ListItem[] | null;
+    campusTopicOptions?: ListItemBag[] | null;
 
     /** The list of campus type options that are available to pick from. */
-    campusTypeOptions?: ListItem[] | null;
+    campusTypeOptions?: ListItemBag[] | null;
 
     /** The list of campus status options that are available to pick from. */
-    campusStatusOptions?: ListItem[] | null;
+    campusStatusOptions?: ListItemBag[] | null;
 
     /** The list of record status options that are available to pick from. */
-    recordStatusOptions?: ListItem[] | null;
+    recordStatusOptions?: ListItemBag[] | null;
 
     /** The list of connection status options that are available to pick from. */
-    connectionStatusOptions?: ListItem[] | null;
+    connectionStatusOptions?: ListItemBag[] | null;
 
     /** The list of address type options that are available to pick from. */
-    addressTypeOptions?: ListItem[] | null;
+    addressTypeOptions?: ListItemBag[] | null;
 
     /** The list of e-mail template options that are available to pick from. */
-    emailTemplateOptions?: ListItem[] | null;
+    emailTemplateOptions?: ListItemBag[] | null;
 
     /** The list of section type options that are available to pick from. */
-    sectionTypeOptions?: ListItem[] | null;
+    sectionTypeOptions?: ListItemBag[] | null;
 
     /** The list of field types that are available to pick from. */
     fieldTypes?: FormFieldType[] | null;

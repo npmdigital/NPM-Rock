@@ -18,7 +18,7 @@
 import { defineComponent, PropType, ref, watch } from "vue";
 import { Guid } from "../Util/guid";
 import { CategoryTreeItemProvider } from "../Util/treeItemProviders";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import TreeItemPicker from "./treeItemPicker";
 
 export default defineComponent({
@@ -30,7 +30,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Array as PropType<ListItem[]>,
+            type: Array as PropType<ListItemBag[]>,
             default: [],
         },
 

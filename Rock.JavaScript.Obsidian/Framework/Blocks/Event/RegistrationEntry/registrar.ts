@@ -22,7 +22,7 @@ import RadioButtonList from "../../../Elements/radioButtonList";
 import StaticFormControl from "../../../Elements/staticFormControl";
 import TextBox from "../../../Elements/textBox";
 import { Guid } from "../../../Util/guid";
-import { ListItem, Person } from "../../../ViewModels";
+import { ListItemBag, Person } from "../../../ViewModels";
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
@@ -99,8 +99,8 @@ export default defineComponent({
 
         /** The radio options that are displayed to allow the user to pick another person that this
          *  registrar is part of a family. */
-        familyOptions (): ListItem[] {
-            const options: ListItem[] = [];
+        familyOptions (): ListItemBag[] {
+            const options: ListItemBag[] = [];
             const usedFamilyGuids: Record<Guid, boolean> = {};
 
             if (this.viewModel.registrantsSameFamily !== RegistrantsSameFamily.Ask) {

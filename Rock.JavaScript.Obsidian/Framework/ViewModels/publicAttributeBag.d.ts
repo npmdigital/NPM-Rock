@@ -14,10 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { Guid } from "../Util/guid";
-import { PublicAttributeValueCategory } from "./publicAttributeValueCategory";
 
-export type PublicAttribute = {
+import { Guid } from "../Util/guid";
+import { ListItemBag } from "./listItemBag";
+
+export type PublicAttributeBag = {
     /** The field type unique identifier. */
     fieldTypeGuid: Guid;
 
@@ -40,7 +41,7 @@ export type PublicAttribute = {
     order: number;
 
     /** The categories that this attribute is a member of. */
-    categories: PublicAttributeValueCategory[];
+    categories: ListItemBag[];
 
     /** The configuration values for the attribute. */
     configurationValues?: Record<string, string> | null;

@@ -24,7 +24,7 @@ import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { useVModelPassthrough } from "../../Util/component";
 import { Guid } from "../../Util/guid";
-import { PublicAttribute, ListItem } from "../../ViewModels";
+import { PublicAttributeBag, ListItemBag } from "../../ViewModels";
 
 /**
  * Convert a simpler set of parameters into PublicAttribute
@@ -32,7 +32,7 @@ import { PublicAttribute, ListItem } from "../../ViewModels";
  * @param fieldTypeGuid
  * @param configValues
  */
-const getAttributeData = (name: string, fieldTypeGuid: Guid, configValues: Record<string, string>): Record<string, PublicAttribute> => {
+const getAttributeData = (name: string, fieldTypeGuid: Guid, configValues: Record<string, string>): Record<string, PublicAttributeBag> => {
     const configurationValues = configValues;
 
     return {
@@ -79,7 +79,7 @@ const galleryAndResult = defineComponent({
             required: true
         },
         attributes: {
-            type: Object as PropType<Record<string, PublicAttribute>>,
+            type: Object as PropType<Record<string, PublicAttributeBag>>,
             required: true
         }
     },
@@ -198,7 +198,7 @@ const galleryComponents: Record<string, Component> = {
             { value: "069D4509-398A-4E08-8225-A0658E8A51E8", text: "Main Campus" },
             { value: "0D8B2F85-5DC2-406E-8A7D-D435F3153C58", text: "Secondary Campus" },
             { value: "8C99160C-D0FC-49E4-AA9D-87EAE7297AF1", text: "Tertiary Campus" }
-        ] as ListItem[])
+        ] as ListItemBag[])
     }),
 
     CampusesGallery: getFieldTypeGalleryComponent("Campuses", "", FieldTypeGuids.Campuses, {
@@ -207,7 +207,7 @@ const galleryComponents: Record<string, Component> = {
             { value: "069D4509-398A-4E08-8225-A0658E8A51E8", text: "Main Campus" },
             { value: "0D8B2F85-5DC2-406E-8A7D-D435F3153C58", text: "Secondary Campus" },
             { value: "8C99160C-D0FC-49E4-AA9D-87EAE7297AF1", text: "Tertiary Campus" }
-        ] as ListItem[])
+        ] as ListItemBag[])
     }),
 
     ColorGallery: getFieldTypeGalleryComponent("Color", "#ee7725", FieldTypeGuids.Color, {

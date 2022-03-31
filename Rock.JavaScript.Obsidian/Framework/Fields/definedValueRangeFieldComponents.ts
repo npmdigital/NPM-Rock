@@ -18,7 +18,7 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import { getFieldEditorProps } from "./utils";
 import RockFormField from "../Elements/rockFormField";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueRangeField";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import { asBoolean } from "../Services/boolean";
 import { List } from "../Util/linq";
 
@@ -87,8 +87,8 @@ export const EditComponent = defineComponent({
         });
 
         /** The options to choose from in the drop down list */
-        const options = computed((): ListItem[] => {
-            const providedOptions: ListItem[] = valueOptions.value.map(v => {
+        const options = computed((): ListItemBag[] => {
+            const providedOptions: ListItemBag[] = valueOptions.value.map(v => {
                 return {
                     text: showDescription.value ? v.description : v.text,
                     value: v.value
@@ -117,10 +117,10 @@ export const EditComponent = defineComponent({
             upperValue,
             isRequired: inject("isRequired") as boolean,
             options,
-            getKeyForOption(option: ListItem): string {
+            getKeyForOption(option: ListItemBag): string {
                 return option.value;
             },
-            getTextForOption(option: ListItem): string {
+            getTextForOption(option: ListItemBag): string {
                 return option.text;
             }
         };

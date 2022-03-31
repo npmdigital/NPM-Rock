@@ -25,7 +25,7 @@ import Alert from "../../Elements/alert";
 import { asFormattedString } from "../../Services/number";
 import { ConfigurationValues, InvokeBlockActionFunc, useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import Toggle from "../../Elements/toggle";
-import { FinancialAccount, ListItem, Person } from "../../ViewModels";
+import { FinancialAccount, ListItemBag, Person } from "../../ViewModels";
 import { useStore } from "../../Store/index";
 import TextBox from "../../Elements/textBox";
 import { asCommaAnd } from "../../Services/string";
@@ -87,8 +87,8 @@ export default defineComponent({
 
     data() {
         const configurationValues = useConfigurationValues<ConfigurationValues>();
-        const campuses = configurationValues["campuses"] as ListItem[] || [];
-        const frequencies = configurationValues["frequencies"] as ListItem[] || [];
+        const campuses = configurationValues["campuses"] as ListItemBag[] || [];
+        const frequencies = configurationValues["frequencies"] as ListItemBag[] || [];
 
         return {
             loading: false,
@@ -163,12 +163,12 @@ export default defineComponent({
             return this.configurationValues["financialAccounts"] as FinancialAccount[] || [];
         },
 
-        campuses(): ListItem[] {
-            return this.configurationValues["campuses"] as ListItem[] || [];
+        campuses(): ListItemBag[] {
+            return this.configurationValues["campuses"] as ListItemBag[] || [];
         },
 
-        frequencies(): ListItem[] {
-            return this.configurationValues["frequencies"] as ListItem[] || [];
+        frequencies(): ListItemBag[] {
+            return this.configurationValues["frequencies"] as ListItemBag[] || [];
         },
 
         campusName(): string | null {

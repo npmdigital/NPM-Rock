@@ -15,11 +15,11 @@
 // </copyright>
 //
 import { Guid } from "../Util/guid";
-import { PublicAttribute } from "./publicAttribute";
+import { PublicAttributeBag } from "./publicAttributeBag";
 
 export interface IEntity {
     id: number;
     guid: Guid;
-    attributes?: Record<string, PublicAttribute> | null;
+    attributes?: Record<string, PublicAttributeBag> | null;
     attributeValues?: Record<string, string> | null;
 }

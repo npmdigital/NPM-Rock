@@ -23,7 +23,7 @@ import NumberUpDown from "../../../Elements/numberUpDown";
 import NumberUpDownGroup, { NumberUpDownGroupOption } from "../../../Elements/numberUpDownGroup";
 import Number from "../../../Services/number";
 import GuidHelper, { Guid } from "../../../Util/guid";
-import { ListItem } from "../../../ViewModels";
+import { ListItemBag } from "../../../ViewModels";
 import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from "./registrationEntryBlockViewModel";
 
 export default defineComponent({
@@ -93,7 +93,7 @@ export default defineComponent({
         isDropDown(): boolean {
             return this.fee.items.length > 1 && !this.fee.allowMultiple;
         },
-        dropDownListOptions(): ListItem[] {
+        dropDownListOptions(): ListItemBag[] {
             return this.fee.items.map(i => ({
                 text: this.getItemLabel(i),
                 value: i.guid

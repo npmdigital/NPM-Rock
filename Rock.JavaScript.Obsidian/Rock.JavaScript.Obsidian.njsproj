@@ -369,20 +369,20 @@
     <TypeScriptCompile Include="Framework\Util\dialogs.ts" />
     <TypeScriptCompile Include="Framework\Util\form.ts" />
     <TypeScriptCompile Include="Framework\Util\util.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\auditDetail.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\auditDetailBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\campusTopic.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeConfigurationBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\publicFilterableAttributeValue.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterSource.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeEditor.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\Controls\treeList.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterSourceBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeConfigurationPropertiesBag.d.ts" />
     <TypeScriptCompile Include="Framework\Reporting\comparisonType.ts" />
     <TypeScriptCompile Include="Framework\Reporting\filterExpressionType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\publicEditableAttribute.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\publicFilterableAttribute.d.ts" />
     <TypeScriptCompile Include="Framework\Reporting\fieldFilterSourceType.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterGroup.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterRule.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\treeItem.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterGroupBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterRuleBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\treeItemBag.d.ts" />
     <TypeScriptCompile Include="Tests\Elements\rockFormFieldHelper.ts" />
     <TypeScriptCompile Include="Tests\Elements\textBox.spec.ts" />
     <TypeScriptCompile Include="Tests\Rules\defineRule.spec.ts" />
@@ -414,8 +414,7 @@
     <TypeScriptCompile Include="Framework\Util\linq.ts" />
     <TypeScriptCompile Include="Framework\Util\page.ts" />
     <TypeScriptCompile Include="Framework\Util\rockDateTime.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicAttribute.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicAttributeValueCategory.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\publicAttributeBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\achievementAttempt.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\achievementType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\achievementTypePrerequisite.d.ts" />
@@ -633,8 +632,8 @@
     <TypeScriptCompile Include="Framework\ViewModels\debugTiming.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\entity.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\index.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\listItem.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\savedFinancialAccountListItem.d.ts">
+    <TypeScriptCompile Include="Framework\ViewModels\listItemBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\savedFinancialAccountListItemBag.d.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

@@ -15,13 +15,13 @@
 // </copyright>
 //
 
-import { ListItem } from "./listItem"
+import { ListItemBag } from "./listItemBag"
 
 /**
  * A list item that describes an payment account the individual has previously
  * setup that can be used again.
  */
-export type SavedFinancialAccountListItem = ListItem & {
+export type SavedFinancialAccountListItemBag = ListItemBag & {
     /** The description of the card to help identify it to the individual. */
     description?: string | null;
 

@@ -19,11 +19,11 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockField from "../../../../Controls/rockField";
 import { DragSource, DragTarget, IDragSourceOptions } from "../../../../Directives/dragDrop";
 import { areEqual, Guid, newGuid } from "../../../../Util/guid";
-import { ListItem, PublicAttribute } from "../../../../ViewModels";
+import { ListItemBag, PublicAttributeBag } from "../../../../ViewModels";
 import ConfigurableZone from "./configurableZone";
 import { FormField, FormSection } from "../Shared/types";
 
-function getAttributeFromField(field: FormField): PublicAttribute {
+function getAttributeFromField(field: FormField): PublicAttributeBag {
     return {
         attributeGuid: newGuid(),
         fieldTypeGuid: field.fieldTypeGuid,
@@ -52,7 +52,7 @@ const fieldWrapper = defineComponent({
     },
 
     setup(props) {
-        const attribute = ref<PublicAttribute>(getAttributeFromField(props.modelValue));
+        const attribute = ref<PublicAttributeBag>(getAttributeFromField(props.modelValue));
 
         const defaultValue = ref(props.modelValue.defaultValue ?? "");
 
@@ -109,7 +109,7 @@ export default defineComponent({
         },
 
         sectionTypeOptions: {
-            type: Array as PropType<ListItem[]>,
+            type: Array as PropType<ListItemBag[]>,
             default: []
         }
     },

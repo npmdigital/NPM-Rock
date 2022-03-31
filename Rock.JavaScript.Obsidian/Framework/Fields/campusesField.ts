@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { Component, defineAsyncComponent } from "vue";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import { FieldTypeBase } from "./fieldType";
 
 export const enum ConfigurationValueKey {
@@ -55,7 +55,7 @@ export class CampusesFieldType extends FieldTypeBase {
         }
 
         try {
-            const values = JSON.parse(configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
+            const values = JSON.parse(configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItemBag[];
             const userValues = value.split(",");
             const selectedValues = values.filter(o => userValues.includes(o.value));
 

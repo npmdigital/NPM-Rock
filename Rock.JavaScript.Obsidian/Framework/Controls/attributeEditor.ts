@@ -19,7 +19,7 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import CheckBox from "../Elements/checkBox";
 import TextBox from "../Elements/textBox";
 import { Guid } from "../Util/guid";
-import { FieldTypeConfigurationViewModel } from "../ViewModels/Controls/fieldTypeEditor";
+import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
 import { PublicEditableAttributeViewModel } from "../ViewModels/publicEditableAttribute";
 import CategoriesPicker from "./categoriesPicker";
 import FieldTypeEditor from "./fieldTypeEditor";
@@ -101,7 +101,7 @@ export default defineComponent({
         const preHtml = ref(props.modelValue?.preHtml ?? "");
         const postHtml = ref(props.modelValue?.postHtml ?? "");
         const categories = ref([...(props.modelValue?.categories ?? [])]);
-        const fieldTypeValue = ref<FieldTypeConfigurationViewModel>({
+        const fieldTypeValue = ref<FieldTypeConfigurationBag>({
             fieldTypeGuid: props.modelValue?.fieldTypeGuid ?? "",
             configurationValues: { ...(props.modelValue?.configurationValues ?? {}) },
             defaultValue: props.modelValue?.defaultValue ?? ""

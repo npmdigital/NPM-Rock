@@ -19,7 +19,7 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
 import RockForm from "../../../Controls/rockForm";
 import RockButton from "../../../Elements/rockButton";
-import { PublicAttribute } from "../../../ViewModels";
+import { PublicAttributeBag } from "../../../ViewModels";
 import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent({
@@ -42,8 +42,8 @@ export default defineComponent({
             return registrationEntryState.firstStep === registrationEntryState.steps.intro;
         });
 
-        const attributes = computed((): Record<string, PublicAttribute> => {
-            const attrs: Record<string, PublicAttribute> = {};
+        const attributes = computed((): Record<string, PublicAttributeBag> => {
+            const attrs: Record<string, PublicAttributeBag> = {};
 
             for (const a of registrationEntryState.viewModel.registrationAttributesEnd) {
                 attrs[a.key] = a;

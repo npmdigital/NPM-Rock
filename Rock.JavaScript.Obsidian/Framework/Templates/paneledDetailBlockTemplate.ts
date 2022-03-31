@@ -18,7 +18,7 @@
 import { computed, defineComponent, PropType, ref } from "vue";
 import PaneledBlockTemplate from "./paneledBlockTemplate";
 import { useVModelPassthrough } from "../Util/component";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import RockForm from "../Controls/rockForm";
 import RockButton from "../Elements/rockButton";
 import { isPromise } from "../Util/util";
@@ -45,7 +45,7 @@ export default defineComponent({
         },
 
         labels: {
-            type: Array as PropType<ListItem[]>,
+            type: Array as PropType<ListItemBag[]>,
             required: false
         },
 
@@ -116,7 +116,7 @@ export default defineComponent({
             return props.title ?? "";
         });
 
-        const blockLabels = computed((): ListItem[] => {
+        const blockLabels = computed((): ListItemBag[] => {
             if (!props.labels) {
                 return [];
             }

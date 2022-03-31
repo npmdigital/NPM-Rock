@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { IEntity, ListItem } from "../../../ViewModels";
+import { IEntity, ListItemBag } from "../../../ViewModels";
 
 export const enum NavigationUrlKey {
     ParentPage = "ParentPage"
@@ -24,17 +24,17 @@ export const enum NavigationUrlKey {
 export type CampusScheduleBag = {
     guid?: string | null;
 
-    schedule?: ListItem | null;
+    schedule?: ListItemBag | null;
 
-    scheduleTypeValue?: ListItem | null;
+    scheduleTypeValue?: ListItemBag | null;
 }
 
 export type CampusBag = IEntity & {
     campusSchedules?: CampusScheduleBag[] | null;
 
-    campusStatusValue?: ListItem | null;
+    campusStatusValue?: ListItemBag | null;
 
-    campusTypeValue?: ListItem | null;
+    campusTypeValue?: ListItemBag | null;
 
     description?: string | null;
 
@@ -42,15 +42,15 @@ export type CampusBag = IEntity & {
 
     isSystem: boolean;
 
-    leaderPersonAlias?: ListItem | null;
+    leaderPersonAlias?: ListItemBag | null;
 
-    location?: ListItem | null;
+    location?: ListItemBag | null;
 
     name?: string | null;
 
     phoneNumber?: string | null;
 
-    serviceTimes?: ListItem[] | null;
+    serviceTimes?: ListItemBag[] | null;
 
     shortCode?: string | null;
 
@@ -62,7 +62,7 @@ export type CampusBag = IEntity & {
 export type CampusDetailOptionsBag = {
     isMultiTimeZoneSupported?: boolean;
 
-    timeZoneOptions?: ListItem[] | null;
+    timeZoneOptions?: ListItemBag[] | null;
 };
 
 // #region Core Types

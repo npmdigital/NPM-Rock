@@ -25,7 +25,7 @@ import { PublicFilterableAttribute } from "../publicFilterableAttribute";
  * name to display, how to identify the source value and any other information
  * required to build the filter UI.
  */
-export type FieldFilterSource = {
+export type FieldFilterSourceBag = {
     /** The unique identifier of this source item. */
     guid: Guid;
 

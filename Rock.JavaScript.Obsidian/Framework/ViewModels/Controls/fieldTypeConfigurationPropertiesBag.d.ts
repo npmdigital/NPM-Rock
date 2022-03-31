@@ -15,13 +15,11 @@
 // </copyright>
 //
 
-import { Guid } from "../../Util/guid";
-
 /**
  * Describes a field type configuration state. This provides the information
  * required to edit a field type on a remote system.
  */
-export type FieldTypeConfigurationPropertiesViewModel = {
+export type FieldTypeConfigurationPropertiesBag = {
     /**
      * Gets or sets the configuration properties that contain information
      * describing a field type edit operation.
@@ -38,22 +36,5 @@ export type FieldTypeConfigurationPropertiesViewModel = {
      * Gets or sets the default attribute value view model that corresponds
      * to the current configurationValues.
      */
-    defaultValue: string;
-};
-
-/**
- * Contains information required to update a field type's configuration.
- */
-export type FieldTypeConfigurationViewModel = {
-    /** Gets or sets the field type unique identifier. */
-    fieldTypeGuid: Guid;
-
-    /**
-     * Gets or sets the configuration values that describe the current
-     * selections when editing a field type.
-     */
-    configurationValues: Record<string, string>;
-
-    /** Gets or sets the default value currently set. */
     defaultValue: string;
 };

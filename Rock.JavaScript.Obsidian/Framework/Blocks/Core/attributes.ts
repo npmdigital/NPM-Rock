@@ -29,7 +29,7 @@ import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { alert, confirmDelete } from "../../Util/dialogs";
 import { Guid, normalize as normalizeGuid } from "../../Util/guid";
-import { ListItem, PublicAttribute } from "../../ViewModels";
+import { ListItemBag, PublicAttributeBag } from "../../ViewModels";
 import { PublicEditableAttributeViewModel } from "../../ViewModels/publicEditableAttribute";
 
 type BlockConfiguration = {
@@ -37,7 +37,7 @@ type BlockConfiguration = {
 
     entityTypeGuid?: Guid;
 
-    entityTypes?: ListItem[];
+    entityTypes?: ListItemBag[];
 
     hideColumns: boolean;
 
@@ -69,7 +69,7 @@ type GridRow = {
 
     isActive: boolean;
 
-    attribute: PublicAttribute;
+    attribute: PublicAttributeBag;
 
     value: string;
 
@@ -243,7 +243,7 @@ export default defineComponent({
 
         /** The current attribute value in an editable format. */
         const editAttributeValue = ref("");
-        const editAttribute = ref<PublicAttribute | null>(null);
+        const editAttribute = ref<PublicAttributeBag | null>(null);
 
         /** True if the edit attribute value modal should be visible. */
         const showEditAttributeValueModal = ref<boolean>(false);
@@ -270,7 +270,7 @@ export default defineComponent({
                 return;
             }
 
-            const result = await invokeBlockAction<{ attribute: PublicAttribute, value: string }>("GetEditAttributeValue", {
+            const result = await invokeBlockAction<{ attribute: PublicAttributeBag, value: string }>("GetEditAttributeValue", {
                 attributeGuid: row.guid
             });
 

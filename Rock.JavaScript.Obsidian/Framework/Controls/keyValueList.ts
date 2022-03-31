@@ -18,7 +18,7 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import DropDownList from "../Elements/dropDownList";
 import RockFormField from "../Elements/rockFormField";
 import TextBox from "../Elements/textBox";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 
 export type KeyValueItem = {
     key?: string | null;
@@ -42,7 +42,7 @@ export default defineComponent({
         },
 
         valueOptions: {
-            type: Array as PropType<ListItem[]>,
+            type: Array as PropType<ListItemBag[]>,
             required: false
         },
 
@@ -70,7 +70,7 @@ export default defineComponent({
         const internalValues = ref(props.modelValue ?? []);
 
         /** The options to choose from in the drop down list */
-        const options = computed((): ListItem[] => props.valueOptions ?? []);
+        const options = computed((): ListItemBag[] => props.valueOptions ?? []);
 
         const hasValues = computed((): boolean => options.value.length > 0);
 

@@ -21,10 +21,10 @@ import TextBox from "../Elements/textBox";
 import { ComparisonValue } from "../Reporting/comparisonValue";
 import { areEqual } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import { PublicFilterableAttribute } from "../ViewModels/publicFilterableAttribute";
-import { FieldFilterRule } from "../ViewModels/Reporting/fieldFilterRule";
-import { FieldFilterSource } from "../ViewModels/Reporting/fieldFilterSource";
+import { FieldFilterRuleBag } from "../ViewModels/Reporting/fieldFilterRuleBag";
+import { FieldFilterSourceBag } from "../ViewModels/Reporting/fieldFilterSourceBag";
 import RockAttributeFilter from "./rockAttributeFilter";
 
 export const FieldFilterRuleRow = defineComponent({
@@ -38,11 +38,11 @@ export const FieldFilterRuleRow = defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<FieldFilterRule>,
+            type: Object as PropType<FieldFilterRuleBag>,
             required: true
         },
         sources: {
-            type: Array as PropType<FieldFilterSource[]>,
+            type: Array as PropType<FieldFilterSourceBag[]>,
             required: true
         }
     },
@@ -71,7 +71,7 @@ export const FieldFilterRuleRow = defineComponent({
         });
 
         // Convert the list of sources into the options you can choose from the 
-        const attributeList = computed<ListItem[]>(() => {
+        const attributeList = computed<ListItemBag[]>(() => {
             return props.sources.map(source => {
                 return {
                     text: source.attribute?.name as string,
@@ -100,7 +100,7 @@ export const FieldFilterRuleRow = defineComponent({
 
         // Watch for changes to our internal values and update the model value.
         watch([attributeGuid, comparisonValue], () => {
-            const newValue: FieldFilterRule = {
+            const newValue: FieldFilterRuleBag = {
                 ...props.modelValue,
                 attributeGuid: attributeGuid.value,
                 comparisonType: comparisonValue.value.comparisonType ?? 0,

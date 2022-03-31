@@ -17,12 +17,12 @@
 
 import { FilterExpressionType } from "../../Reporting/filterExpressionType";
 import { Guid } from "../../Util/guid";
-import { FieldFilterRule } from "./fieldFilterRule";
+import { FieldFilterRuleBag } from "./fieldFilterRuleBag";
 
 /**
  * A group of filter rules/expressions that make up a logical comparison group.
  */
-export type FieldFilterGroup = {
+export type FieldFilterGroupBag = {
     /** The unique identifier of this filter group. */
     guid: Guid;
 
@@ -30,8 +30,8 @@ export type FieldFilterGroup = {
     expressionType: FilterExpressionType;
 
     /** The collection of rules/expressions that make up this group. */
-    rules?: FieldFilterRule[] | null;
+    rules?: FieldFilterRuleBag[] | null;
 
     /** The collection of child groups that make up any nested expressions in this group. */
-    groups?: FieldFilterGroup[] | null;
+    groups?: FieldFilterGroupBag[] | null;
 };

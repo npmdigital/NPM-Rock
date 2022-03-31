@@ -17,7 +17,7 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import { Guid } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
-import { ListItem } from "../ViewModels";
+import { ListItemBag } from "../ViewModels";
 import RockFormField from "./rockFormField";
 
 export default defineComponent({
@@ -34,7 +34,7 @@ export default defineComponent({
         },
 
         options: {
-            type: Array as PropType<Array<ListItem>>,
+            type: Array as PropType<Array<ListItemBag>>,
             required: true
         },
 
@@ -55,10 +55,10 @@ export default defineComponent({
         watch(() => props.modelValue, () => updateRefValue(internalValue, props.modelValue));
         watch(internalValue, () => emit("update:modelValue", internalValue.value));
 
-        const valueForOption = (option: ListItem): string => option.value;
-        const textForOption = (option: ListItem): string => option.text;
+        const valueForOption = (option: ListItemBag): string => option.value;
+        const textForOption = (option: ListItemBag): string => option.text;
 
-        const uniqueIdForOption = (uniqueId: Guid, option: ListItem): string => `${uniqueId}-${option.value.replace(" ", "-")}`;
+        const uniqueIdForOption = (uniqueId: Guid, option: ListItemBag): string => `${uniqueId}-${option.value.replace(" ", "-")}`;
 
         const containerClasses = computed(() => {
             const classes: string[] = [];

@@ -14,18 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import { Guid } from "../Util/guid";
 
 /**
- * Specifies a single category that a ClientAttributeValue is a member of.
+ * An item to be displayed in a list.
  */
-export type PublicAttributeValueCategory = {
-    /** Unique identifier of the category. */
-    guid: Guid;
+export declare type ListItemBag = {
+    /** The raw value to associated with this item. */
+    value: string;
 
-    /** Display name of the category. */
-    name: string;
+    /** The value to display to the person. */
+    text: string;
 
-    /** Display order of the category. */
-    order: number;
+    /** The name of the category this item belongs to. */
+    category?: string | null;
 };

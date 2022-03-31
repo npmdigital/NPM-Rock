@@ -16,7 +16,7 @@
 //
 
 import { Guid } from "../../../../Util/guid";
-import { ListItem } from "../../../../ViewModels";
+import { ListItemBag } from "../../../../ViewModels";
 import { FieldFilterGroup } from "../../../../ViewModels/Reporting/fieldFilterGroup";
 
 // #region Enums
@@ -268,10 +268,10 @@ export type FormNotificationEmail = {
     destination?: FormNotificationEmailDestination;
 
     /**
-     * The ListItem that identifies the current person that will receive
+     * The ListItemBag that identifies the current person that will receive
      * the e-mail.
      */
-    recipient?: ListItem | null;
+    recipient?: ListItemBag | null;
 
     /**
      * Contains the e-mail address that will receive the notification e-mail.
@@ -314,7 +314,7 @@ export type FormGeneral = {
     template?: Guid | null;
 
     /** The category that this form belongs to for organization purposes. */
-    category?: ListItem | null;
+    category?: ListItemBag | null;
 
     /** The date and time this form will begin to allow entries. */
     entryStarts?: string | null;

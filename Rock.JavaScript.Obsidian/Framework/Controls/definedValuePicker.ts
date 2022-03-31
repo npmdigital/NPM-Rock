@@ -19,7 +19,7 @@ import BasePicker from "./basePicker";
 import RockFormField from "../Elements/rockFormField";
 import { useVModelPassthrough } from "../Util/component";
 import { Guid } from "../Util/guid";
-import { ListItem } from "../ViewModels/listItem";
+import { ListItemBag } from "../ViewModels/listItemBag";
 import { get } from "../Util/http";
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<ListItem>,
+            type: Object as PropType<ListItemBag>,
             required: false
         },
 
@@ -48,20 +48,20 @@ export default defineComponent({
 
     setup(props, { emit }) {
         const internalValue = useVModelPassthrough(props, "modelValue", emit);
-        const items = ref<ListItem[]>([]);
+        const items = ref<ListItemBag[]>([]);
         const isPickerOpen = ref(false);
 
         const validationValue = computed((): string => internalValue.value?.value ?? "");
         const selectedText = computed((): string => internalValue.value?.text ?? "");
 
-        const onSelectItem = (item: ListItem): void => {
+        const onSelectItem = (item: ListItemBag): void => {
             internalValue.value = item;
             isPickerOpen.value = false;
         };
 
         const onLoadData = async (): Promise<void> => {
             const url = `/api/v2/Controls/DefinedValuePicker/definedValues/${props.definedTypeGuid}`;
-            const result = await get<ListItem[]>(url);
+            const result = await get<ListItemBag[]>(url);
 
             if (result.isSuccess && result.data) {
                 items.value = result.data;
