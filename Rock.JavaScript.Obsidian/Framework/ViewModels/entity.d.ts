@@ -14,7 +14,8 @@
 // limitations under the License.
 // </copyright>
 //
-import { Guid } from "../Util/guid";
+
+import { Guid } from "@Obsidian/Types";
 import { PublicAttributeBag } from "./publicAttributeBag";
 
 export interface IEntity {

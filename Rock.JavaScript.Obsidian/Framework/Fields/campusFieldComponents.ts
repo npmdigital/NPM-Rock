@@ -14,6 +14,8 @@
 // limitations under the License.
 // </copyright>
 //
+
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, ref, watch } from "vue";
 import { getFieldConfigurationProps, getFieldEditorProps } from "./utils";
 import CheckBox from "../Elements/checkBox";
@@ -22,7 +24,7 @@ import DropDownList from "../Elements/dropDownList";
 import { ConfigurationPropertyKey, ConfigurationValueKey } from "./campusField";
 import { ListItemBag } from "../ViewModels";
 import { asBoolean, asTrueFalseOrNull } from "../Services/boolean";
-import { areEqual, Guid } from "../Util/guid";
+import { areEqual } from "../Util/guid";
 
 type CampusItem = {
     guid: Guid,

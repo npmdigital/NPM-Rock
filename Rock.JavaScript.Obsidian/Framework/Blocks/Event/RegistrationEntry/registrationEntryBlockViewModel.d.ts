@@ -15,8 +15,8 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { GatewayControlModel } from "../../../Controls/gatewayControl";
-import { Guid } from "../../../Util/guid";
 import { PublicAttributeBag, ListItemBag, SavedFinancialAccountListItemBag } from "../../../ViewModels";
 import { ComparisonType } from "../../../Reporting/comparisonType";
 import { FilterExpressionType } from "../../../Reporting/filterExpressionType";

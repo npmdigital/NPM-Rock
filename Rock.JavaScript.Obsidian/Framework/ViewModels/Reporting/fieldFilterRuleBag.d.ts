@@ -15,9 +15,9 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { ComparisonType } from "../../Reporting/comparisonType";
 import { FieldFilterSourceType } from "../../Reporting/fieldFilterSourceType";
-import { Guid } from "../../Util/guid";
 
 /**
  * Identifies a single filter rule/expression that will be used when determining

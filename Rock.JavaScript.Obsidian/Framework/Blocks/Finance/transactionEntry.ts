@@ -14,12 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
+
+import { Guid } from "@Obsidian/Types";
 import DropDownList from "../../Elements/dropDownList";
 import CurrencyBox from "../../Elements/currencyBox";
 import { defineComponent, inject } from "vue";
 import DatePicker from "../../Elements/datePicker";
 import RockButton from "../../Elements/rockButton";
-import { areEqual, Guid, newGuid } from "../../Util/guid";
+import { areEqual, newGuid } from "../../Util/guid";
 import { RockDateTime } from "../../Util/rockDateTime";
 import Alert from "../../Elements/alert";
 import { asFormattedString } from "../../Services/number";

@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from "../../../../Util/guid";
+import { Guid } from "@Obsidian/Types";
 import { ListItemBag } from "../../../../ViewModels";
 import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
 

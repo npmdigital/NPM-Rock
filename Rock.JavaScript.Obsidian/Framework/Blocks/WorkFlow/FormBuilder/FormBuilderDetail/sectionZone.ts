@@ -15,10 +15,11 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockField from "../../../../Controls/rockField";
 import { DragSource, DragTarget, IDragSourceOptions } from "../../../../Directives/dragDrop";
-import { areEqual, Guid, newGuid } from "../../../../Util/guid";
+import { areEqual, newGuid } from "../../../../Util/guid";
 import { ListItemBag, PublicAttributeBag } from "../../../../ViewModels";
 import ConfigurableZone from "./configurableZone";
 import { FormField, FormSection } from "../Shared/types";

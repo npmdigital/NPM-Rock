@@ -15,8 +15,8 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { FieldFilterSourceType } from "../../Reporting/fieldFilterSourceType";
-import { Guid } from "../../Util/guid";
 import { PublicAttributeBag } from "../publicAttributeBag";
 
 /**

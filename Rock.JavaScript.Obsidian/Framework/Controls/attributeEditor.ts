@@ -15,10 +15,10 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import CheckBox from "../Elements/checkBox";
 import TextBox from "../Elements/textBox";
-import { Guid } from "../Util/guid";
 import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
 import { PublicEditableAttributeBag } from "../ViewModels/publicEditableAttributeBag";
 import CategoriesPicker from "./categoriesPicker";

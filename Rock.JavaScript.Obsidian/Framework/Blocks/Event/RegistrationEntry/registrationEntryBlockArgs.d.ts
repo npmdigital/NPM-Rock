@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from "../../../Util/guid";
+import { Guid } from "@Obsidian/Types";
 import { RegistrantInfo, RegistrarInfo } from "./registrationEntryBlockViewModel";
 
 export type RegistrationEntryBlockArgs = {

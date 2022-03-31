@@ -15,17 +15,4 @@
 // </copyright>
 //
 
-import { Guid } from "@Obsidian/Types";
-import { IEntity, Person, DebugTiming } from "../ViewModels";
-
-export type State = {
-    areSecondaryBlocksShown: boolean;
-    currentPerson: Person | null;
-    pageParameters: Record<string, unknown>;
-    contextEntities: Record<string, IEntity>;
-    pageId: number;
-    pageGuid: Guid;
-    executionStartTime: number;
-    debugTimings: DebugTiming[],
-    loginUrlWithReturnUrl: string
-};
+export type Guid = string;

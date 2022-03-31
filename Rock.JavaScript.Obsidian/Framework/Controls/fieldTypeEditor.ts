@@ -208,7 +208,7 @@ export default defineComponent({
                         isInternalUpdate = true;
                         configurationProperties.value = result.data.configurationProperties;
                         configurationValues.value = result.data.configurationValues;
-                        defaultValue.value = result.data.defaultValue;
+                        defaultValue.value = result.data.defaultValue ?? "";
                         isInternalUpdate = false;
 
                         updateModelValue();

@@ -15,8 +15,8 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { FilterExpressionType } from "../../Reporting/filterExpressionType";
-import { Guid } from "../../Util/guid";
 import { FieldFilterRuleBag } from "./fieldFilterRuleBag";
 
 /**

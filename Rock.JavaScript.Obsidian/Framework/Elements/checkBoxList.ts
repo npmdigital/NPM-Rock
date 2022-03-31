@@ -14,8 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
+
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
-import { Guid } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
 import { ListItemBag } from "../ViewModels";
 import RockFormField from "./rockFormField";

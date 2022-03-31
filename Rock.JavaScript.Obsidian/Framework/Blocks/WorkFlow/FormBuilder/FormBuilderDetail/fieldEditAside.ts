@@ -386,7 +386,7 @@ export default defineComponent({
             visibilityRule.value = props.modelValue.visibilityRule ?? null;
 
             const isConfigChanged = fieldTypeValue.value.fieldTypeGuid !== props.modelValue.fieldTypeGuid
-                || !shallowStrictEqual(fieldTypeValue.value.configurationValues, props.modelValue.configurationValues ?? {})
+                || !shallowStrictEqual(fieldTypeValue.value.configurationValues ?? {}, props.modelValue.configurationValues ?? {})
                 || fieldTypeValue.value.defaultValue !== props.modelValue.defaultValue;
 
             // Only update the field type if anything actually changed.

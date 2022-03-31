@@ -15,6 +15,7 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { defineComponent, provide, reactive, ref } from "vue";
 import Alert from "../../Elements/alert";
 import CountdownTimer from "../../Elements/countdownTimer";
@@ -25,7 +26,7 @@ import NumberFilter, { toWord } from "../../Services/number";
 import StringFilter, { isNullOrWhiteSpace, toTitleCase } from "../../Services/string";
 import { useStore } from "../../Store/index";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
-import { Guid, newGuid } from "../../Util/guid";
+import { newGuid } from "../../Util/guid";
 import { List } from "../../Util/linq";
 import Page from "../../Util/page";
 import { RockDateTime } from "../../Util/rockDateTime";

@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from "../../Util/guid";
+import { Guid } from "@Obsidian/Types";
 
 /**
  * Contains information required to update a field type's configuration.

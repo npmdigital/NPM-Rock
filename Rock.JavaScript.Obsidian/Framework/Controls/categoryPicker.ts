@@ -15,8 +15,8 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { defineComponent, PropType, ref, watch } from "vue";
-import { Guid } from "../Util/guid";
 import { CategoryTreeItemProvider } from "../Util/treeItemProviders";
 import { updateRefValue } from "../Util/util";
 import { ListItemBag } from "../ViewModels";

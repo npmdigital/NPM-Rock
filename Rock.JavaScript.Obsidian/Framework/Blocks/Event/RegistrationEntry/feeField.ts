@@ -15,6 +15,7 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { defineComponent, PropType } from "vue";
 import Alert from "../../../Elements/alert";
 import CheckBox from "../../../Elements/checkBox";
@@ -22,7 +23,7 @@ import DropDownList from "../../../Elements/dropDownList";
 import NumberUpDown from "../../../Elements/numberUpDown";
 import NumberUpDownGroup, { NumberUpDownGroupOption } from "../../../Elements/numberUpDownGroup";
 import Number from "../../../Services/number";
-import GuidHelper, { Guid } from "../../../Util/guid";
+import GuidHelper from "../../../Util/guid";
 import { ListItemBag } from "../../../ViewModels";
 import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from "./registrationEntryBlockViewModel";
 

@@ -14,9 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
+
+import { Guid } from "@Obsidian/Types";
 import axios, { AxiosResponse } from "axios";
 import { ListItemBag } from "../ViewModels/listItemBag";
-import { Guid } from "./guid";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 export type HttpUrlParams = Record<string, unknown> | undefined | null;

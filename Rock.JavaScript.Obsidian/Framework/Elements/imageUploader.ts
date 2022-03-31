@@ -15,10 +15,10 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import Alert from "../Elements/alert";
 import { BinaryFiletype } from "../SystemGuids";
-import { Guid } from "../Util/guid";
 import { uploadBinaryFile } from "../Util/http";
 import { ListItemBag } from "../ViewModels";
 import RockFormField from "./rockFormField";

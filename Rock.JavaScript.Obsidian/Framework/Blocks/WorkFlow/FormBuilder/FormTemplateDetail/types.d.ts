@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from "../../../../Util/guid";
+import { Guid } from "@Obsidian/Types";
 import { ListItemBag } from "../../../../ViewModels";
 import { AuditDetailBag } from "../../../../ViewModels/auditDetailBag";
 import { FormCompletionAction, FormConfirmationEmail, FormPersonEntry } from "../Shared/types";

@@ -15,6 +15,7 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { defineComponent, inject, PropType } from "vue";
 import DropDownList from "../../../Elements/dropDownList";
 import RadioButtonList from "../../../Elements/radioButtonList";
@@ -26,7 +27,7 @@ import RegistrantPersonField from "./registrantPersonField";
 import RegistrantAttributeField from "./registrantAttributeField";
 import Alert from "../../../Elements/alert";
 import { RegistrantInfo, RegistrantsSameFamily, RegistrationEntryBlockFamilyMemberViewModel, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockViewModel, RegistrationFieldSource } from "./registrationEntryBlockViewModel";
-import { areEqual, Guid, newGuid } from "../../../Util/guid";
+import { areEqual, newGuid } from "../../../Util/guid";
 import RockForm from "../../../Controls/rockForm";
 import FeeField from "./feeField";
 import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from "../../../Elements/itemsWithPreAndPostHtml";

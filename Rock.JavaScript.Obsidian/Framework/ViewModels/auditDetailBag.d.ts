@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from "../Util/guid";
+import { Guid } from "@Obsidian/Types";
 
 /**
  * Contains the information required to show the audit panel details for a model.

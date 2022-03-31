@@ -15,13 +15,13 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { defineComponent, inject } from "vue";
 import InlineCheckBox from "../../../Elements/inlineCheckBox";
 import EmailBox from "../../../Elements/emailBox";
 import RadioButtonList from "../../../Elements/radioButtonList";
 import StaticFormControl from "../../../Elements/staticFormControl";
 import TextBox from "../../../Elements/textBox";
-import { Guid } from "../../../Util/guid";
 import { ListItemBag, Person } from "../../../ViewModels";
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";

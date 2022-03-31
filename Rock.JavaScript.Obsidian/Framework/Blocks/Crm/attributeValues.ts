@@ -14,12 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
+
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, ref } from "vue";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import Loading from "../../Controls/loading";
 import Alert from "../../Elements/alert";
 import { useStore } from "../../Store/index";
-import { Guid } from "../../Util/guid";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import RockForm from "../../Controls/rockForm";

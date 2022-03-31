@@ -15,6 +15,7 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, ref, watch } from "vue";
 import AttributeEditor from "../../Controls/attributeEditor";
 import Modal from "../../Controls/modal";
@@ -28,7 +29,7 @@ import { FieldType } from "../../SystemGuids";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { alert, confirmDelete } from "../../Util/dialogs";
-import { Guid, normalize as normalizeGuid } from "../../Util/guid";
+import { normalize as normalizeGuid } from "../../Util/guid";
 import { ListItemBag, PublicAttributeBag } from "../../ViewModels";
 import { PublicEditableAttributeBag } from "../../ViewModels/publicEditableAttributeBag";
 

@@ -14,11 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
+
+import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref } from "vue";
 import BasePicker from "./basePicker";
 import RockFormField from "../Elements/rockFormField";
 import { useVModelPassthrough } from "../Util/component";
-import { Guid } from "../Util/guid";
 import { ListItemBag } from "../ViewModels/listItemBag";
 import { get } from "../Util/http";
 

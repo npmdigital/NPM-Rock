@@ -15,6 +15,7 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { Component, computed, defineComponent, PropType, reactive, ref } from "vue";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
 import PanelWidget from "../../Elements/panelWidget";
@@ -23,7 +24,6 @@ import { FieldType as FieldTypeGuids } from "../../SystemGuids";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { useVModelPassthrough } from "../../Util/component";
-import { Guid } from "../../Util/guid";
 import { PublicAttributeBag, ListItemBag } from "../../ViewModels";
 
 /**

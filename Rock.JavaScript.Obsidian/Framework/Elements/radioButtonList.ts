@@ -15,8 +15,8 @@
 // </copyright>
 //
 
+import { Guid } from "@Obsidian/Types";
 import { defineComponent, PropType } from "vue";
-import { Guid } from "../Util/guid";
 import { ListItemBag } from "../ViewModels";
 import RockFormField from "./rockFormField";
 

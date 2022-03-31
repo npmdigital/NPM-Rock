@@ -15,7 +15,8 @@
 // </copyright>
 //
 
-import { emptyGuid, Guid } from "../Util/guid";
+import { Guid } from "@Obsidian/Types";
+import { emptyGuid } from "../Util/guid";
 import { get, post } from "../Util/http";
 import { TreeItemBag } from "../ViewModels/treeItemBag";
 

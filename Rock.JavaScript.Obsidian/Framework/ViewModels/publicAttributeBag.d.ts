@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from "../Util/guid";
+import { Guid } from "@Obsidian/Types";
 import { ListItemBag } from "./listItemBag";
 
 export type PublicAttributeBag = {
