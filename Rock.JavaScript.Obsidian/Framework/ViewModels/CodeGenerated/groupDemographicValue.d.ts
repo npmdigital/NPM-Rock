@@ -22,7 +22,7 @@
 //
 
 import { IEntity } from "../entity";
-import { Guid } from "../../Util/guid";
+import { Guid } from "@Obsidian/Types";
 
 export type GroupDemographicValue = IEntity & {
     groupDemographicTypeId?: number;

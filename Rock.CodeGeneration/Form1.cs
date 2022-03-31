@@ -1345,7 +1345,7 @@ namespace Rock.ViewModel
                     if ( type == typeof( Guid ) )
                     {
                         tsType = "Guid";
-                        imports.Add( "import { Guid } from \"../../Util/guid\";" );
+                        imports.Add( "import { Guid } from \"@Obsidian/Types\";" );
                     }
                     else if ( type.IsArray )
                     {
