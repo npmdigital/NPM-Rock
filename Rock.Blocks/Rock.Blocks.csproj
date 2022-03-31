@@ -60,9 +60,12 @@
     <Compile Include="Core\CampusDetail.cs" />
     <Compile Include="Event\RegistrationEntry.cs" />
     <Compile Include="Example\FieldTypeGallery.cs" />
+    <Compile Include="ExtensionMethods\IEntityExtensions.cs" />
+    <Compile Include="ExtensionMethods\IValidPropertiesBoxExtensions.cs" />
     <Compile Include="RockObsidianBlockType.cs" />
     <Compile Include="Example\ControlGallery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RockObsidianDetailBlockType.cs" />
     <Compile Include="WorkFlow\FormBuilder\ExtensionMethods.cs" />
     <Compile Include="WorkFlow\FormBuilder\FormBuilderDetail.cs" />
     <Compile Include="WorkFlow\FormBuilder\FormTemplateDetail.cs" />

@@ -146,13 +146,13 @@ namespace Rock.Blocks.Core
         /// Gets a list of the entity types that can be selected in the picker.
         /// </summary>
         /// <returns>A collection of ListItemViewModel objects that represent the entity types.</returns>
-        private List<ListItemViewModel> GetEntityTypes()
+        private List<ListItemBag> GetEntityTypes()
         {
             var entityTypes = EntityTypeCache.All()
                 .Where( t => t.IsEntity )
                 .OrderByDescending( t => t.IsCommon )
                 .ThenBy( t => t.FriendlyName )
-                .Select( t => new ListItemViewModel
+                .Select( t => new ListItemBag
                 {
                     Value = t.Guid.ToString(),
                     Text = t.FriendlyName,
@@ -160,7 +160,7 @@ namespace Rock.Blocks.Core
                 } )
                 .ToList();
 
-            entityTypes.Insert( 0, new ListItemViewModel
+            entityTypes.Insert( 0, new ListItemBag
             {
                 Value = Guid.Empty.ToString(),
                 Text = "None (Global Attributes)"
@@ -312,7 +312,7 @@ namespace Rock.Blocks.Core
         /// <param name="rockContext">The rock database context.</param>
         /// <param name="attribute">The attribute whose value will be viewed.</param>
         /// <returns>A <see cref="PublicAttributeValueViewModel"/> that represents the attribute value.</returns>
-        private PublicAttributeViewModel GetPublicAttribute( RockContext rockContext, AttributeCache attribute )
+        private PublicAttributeBag GetPublicAttribute( RockContext rockContext, AttributeCache attribute )
         {
             var entityId = GetEntityId();
 
@@ -620,7 +620,7 @@ namespace Rock.Blocks.Core
 
         public bool IsActive { get; set; }
 
-        public PublicAttributeViewModel Attribute { get; set; }
+        public PublicAttributeBag Attribute { get; set; }
 
         public string Value { get; set; }
 

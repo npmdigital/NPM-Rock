@@ -15,37 +15,26 @@
 // </copyright>
 //
 
-using System;
-
 namespace Rock.ViewModel.NonEntities
 {
     /// <summary>
-    /// The category that an attribute is associated with.
+    /// A list item that describes an payment account the individual has
+    /// previously setup that can be used again.
     /// </summary>
-    public class PublicAttributeValueCategoryViewModel : IViewModel
+    /// <seealso cref="Rock.ViewModel.NonEntities.ListItemBag" />
+    public class SavedFinancialAccountListItemBag : ListItemBag
     {
         /// <summary>
-        /// Gets or sets the category unique identifier.
+        /// Gets or sets the description of the card to help identify it to the
+        /// individual.
         /// </summary>
-        /// <value>
-        /// The category unique identifier.
-        /// </value>
-        public Guid Guid { get; set; }
+        /// <value>The description of the card to help identify it to the individual..</value>
+        public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the image to be displayed to help identify the card.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the order.
-        /// </summary>
-        /// <value>
-        /// The order.
-        /// </value>
-        public int Order { get; set; }
+        /// <value>The image to be displayed to help identify the card.</value>
+        public string Image { get; set; }
     }
 }

@@ -96,7 +96,7 @@ namespace Rock.ViewModel.NonEntities
         /// Gets or sets the categories the attribute is associated with.
         /// </summary>
         /// <value>The categories the attribute is associated with.</value>
-        public List<ListItemViewModel> Categories { get; set; }
+        public List<ListItemBag> Categories { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this attribute is used for analytics.

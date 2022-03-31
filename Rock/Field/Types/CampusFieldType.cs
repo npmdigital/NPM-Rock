@@ -132,7 +132,7 @@ namespace Rock.Field.Types
             }
 
             var publicValues = GetListSource( privateConfigurationValues )
-                .Select( kvp => new ListItemViewModel
+                .Select( kvp => new ListItemBag
                 {
                     Value = kvp.Key,
                     Text = kvp.Value

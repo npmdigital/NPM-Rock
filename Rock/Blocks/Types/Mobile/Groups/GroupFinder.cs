@@ -517,7 +517,7 @@ namespace Rock.Blocks.Types.Mobile.Groups
         /// </summary>
         /// <param name="rockContext">The rock context.</param>
         /// <returns>A collection of list items.</returns>
-        private List<ViewModel.NonEntities.ListItemViewModel> GetValidCampuses( RockContext rockContext )
+        private List<ViewModel.NonEntities.ListItemBag> GetValidCampuses( RockContext rockContext )
         {
             var campusClientService = new CampusClientService( rockContext, RequestContext.CurrentPerson );
 
@@ -1078,7 +1078,7 @@ namespace Rock.Blocks.Types.Mobile.Groups
         /// Custom class to store the value along with the attribute. This is for
         /// backwards compatibility with Mobile Shell.
         /// </summary>
-        private class PublicEditableAttributeValueViewModel : PublicAttributeViewModel
+        private class PublicEditableAttributeValueViewModel : PublicAttributeBag
         {
             /// <summary>
             /// Gets or sets the value.

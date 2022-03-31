@@ -21,10 +21,10 @@ using Rock.ViewModel.NonEntities;
 
 namespace Rock.ViewModel.Blocks.Core.CampusDetail
 {
-    public class CampusDetailOptionsBox
+    public class CampusDetailOptionsBag
     {
         public bool IsMultiTimeZoneSupported { get; set; }
 
-        public List<ListItemViewModel> TimeZoneOptions { get; set; }
+        public List<ListItemBag> TimeZoneOptions { get; set; }
     }
 }

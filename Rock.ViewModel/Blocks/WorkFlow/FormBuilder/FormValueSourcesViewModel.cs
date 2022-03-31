@@ -30,42 +30,42 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
         /// <summary>
         /// The list of campus topic options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> CampusTopicOptions { get; set; }
+        public List<ListItemBag> CampusTopicOptions { get; set; }
 
         /// <summary>
         /// The list of campus type options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> CampusTypeOptions { get; set; }
+        public List<ListItemBag> CampusTypeOptions { get; set; }
 
         /// <summary>
         /// The list of campus status options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> CampusStatusOptions { get; set; }
+        public List<ListItemBag> CampusStatusOptions { get; set; }
 
         /// <summary>
         /// The list of record status options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> RecordStatusOptions { get; set; }
+        public List<ListItemBag> RecordStatusOptions { get; set; }
 
         /// <summary>
         /// The list of connection status options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> ConnectionStatusOptions { get; set; }
+        public List<ListItemBag> ConnectionStatusOptions { get; set; }
 
         /// <summary>
         /// The list of address type options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> AddressTypeOptions { get; set; }
+        public List<ListItemBag> AddressTypeOptions { get; set; }
 
         /// <summary>
         /// The list of e-mail template options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> EmailTemplateOptions { get; set; }
+        public List<ListItemBag> EmailTemplateOptions { get; set; }
 
         /// <summary>
         /// The list of section type options that are available to pick from.
         /// </summary>
-        public List<ListItemViewModel> SectionTypeOptions { get; set; }
+        public List<ListItemBag> SectionTypeOptions { get; set; }
 
         /// <summary>
         /// The list of field types that are available to pick from.

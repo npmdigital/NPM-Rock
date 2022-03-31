@@ -32,7 +32,7 @@ namespace Rock.ViewModel
         /// <value>
         /// The attributes.
         /// </value>
-        Dictionary<string, PublicAttributeViewModel> Attributes { get; set; }
+        Dictionary<string, PublicAttributeBag> Attributes { get; set; }
 
         /// <summary>
         /// Gets or sets the attribute values.

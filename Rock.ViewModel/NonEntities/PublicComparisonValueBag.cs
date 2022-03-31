@@ -20,7 +20,7 @@ namespace Rock.ViewModel.NonEntities
     /// <summary>
     /// Describes a field type comparison value send to and from remote systems.
     /// </summary>
-    public class PublicComparisonValueViewModel
+    public class PublicComparisonValueBag
     {
         /// <summary>
         /// Gets or sets the comparison type that will be performed with the value.

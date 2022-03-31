@@ -18,23 +18,33 @@
 namespace Rock.ViewModel.NonEntities
 {
     /// <summary>
-    /// A list item that describes an payment account the individual has
-    /// previously setup that can be used again.
+    /// Identifies a single item that will be displayed through some UI control.
     /// </summary>
-    /// <seealso cref="Rock.ViewModel.NonEntities.ListItemViewModel" />
-    public class SavedFinancialAccountListItemViewModel : ListItemViewModel
+    public class ListItemBag
     {
         /// <summary>
-        /// Gets or sets the description of the card to help identify it to the
-        /// individual.
+        /// Gets or sets the value.
         /// </summary>
-        /// <value>The description of the card to help identify it to the individual..</value>
-        public string Description { get; set; }
+        /// <value>
+        /// The value.
+        /// </value>
+        public string Value { get; set; }
 
         /// <summary>
-        /// Gets or sets the image to be displayed to help identify the card.
+        /// Gets or sets the text.
         /// </summary>
-        /// <value>The image to be displayed to help identify the card.</value>
-        public string Image { get; set; }
+        /// <value>
+        /// The text.
+        /// </value>
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category for this item.
+        /// </summary>
+        /// <value>
+        /// The category for this item.
+        /// </value>
+        /// <remarks>Categories are only supported on certain UI controls.</remarks>
+        public string Category { get; set; }
     }
 }

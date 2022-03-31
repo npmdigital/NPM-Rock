@@ -139,7 +139,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The registration attributes start.
         /// </value>
-        public IEnumerable<PublicAttributeViewModel> RegistrationAttributesStart { get; set; }
+        public IEnumerable<PublicAttributeBag> RegistrationAttributesStart { get; set; }
 
         /// <summary>
         /// Gets or sets the registration attributes end.
@@ -147,7 +147,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The registration attributes end.
         /// </value>
-        public IEnumerable<PublicAttributeViewModel> RegistrationAttributesEnd { get; set; }
+        public IEnumerable<PublicAttributeBag> RegistrationAttributesEnd { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum registrants.
@@ -195,7 +195,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The gateway control.
         /// </value>
-        public GatewayControlViewModel GatewayControl { get; set; }
+        public GatewayControlBag GatewayControl { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is redirect gateway.
@@ -315,7 +315,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The campuses available for the user to select.
         /// </value>
-        public List<ListItemViewModel> Campuses { get; set; }
+        public List<ListItemBag> Campuses { get; set; }
 
         /// <summary>
         /// Gets or sets the marital statuses available for the user to select.
@@ -323,7 +323,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The marital statuses available for the user to select.
         /// </value>
-        public List<ListItemViewModel> MaritalStatuses { get; set; }
+        public List<ListItemBag> MaritalStatuses { get; set; }
 
         /// <summary>
         /// Gets or sets the connection statuses available for the user to select.
@@ -331,7 +331,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The connection statuses available for the user to select.
         /// </value>
-        public List<ListItemViewModel> ConnectionStatuses { get; set; }
+        public List<ListItemBag> ConnectionStatuses { get; set; }
 
         /// <summary>
         /// Gets or sets the grades available for the user to select.
@@ -339,7 +339,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The grades available for the user to select.
         /// </value>
-        public List<ListItemViewModel> Grades { get; set; }
+        public List<ListItemBag> Grades { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the save account option should be available.
@@ -355,7 +355,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The saved accounts that can be offered to use for payment.
         /// </value>
-        public List<SavedFinancialAccountListItemViewModel> SavedAccounts { get; set; }
+        public List<SavedFinancialAccountListItemBag> SavedAccounts { get; set; }
     }
 
     /// <summary>
@@ -545,7 +545,7 @@ namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
         /// <value>
         /// The attribute.
         /// </value>
-        public PublicAttributeViewModel Attribute { get; set; }
+        public PublicAttributeBag Attribute { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the visibility rule.

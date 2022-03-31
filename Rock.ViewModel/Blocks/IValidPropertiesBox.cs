@@ -15,27 +15,12 @@
 // </copyright>
 //
 
-namespace Rock.ViewModel.Controls
-{
-    /// <summary>
-    /// GatewayControlViewModel
-    /// </summary>
-    public sealed class GatewayControlViewModel
-    {
-        /// <summary>
-        /// Gets or sets the file URL.
-        /// </summary>
-        /// <value>
-        /// The file URL.
-        /// </value>
-        public string FileUrl { get;set;}
+using System.Collections.Generic;
 
-        /// <summary>
-        /// Gets or sets the settings.
-        /// </summary>
-        /// <value>
-        /// The settings.
-        /// </value>
-        public object Settings { get;set;}
+namespace Rock.ViewModel.Blocks
+{
+    public interface IValidPropertiesBox
+    {
+        List<string> ValidProperties { get; }
     }
 }

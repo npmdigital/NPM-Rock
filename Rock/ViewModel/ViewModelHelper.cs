@@ -169,7 +169,7 @@ namespace Rock.ViewModel
                     modelWithAttributes.LoadAttributes();
                 }
 
-                viewModelWithAttributes.PopulatePublicAttributesAndValuesForEdit( modelWithAttributes, currentPerson );
+                viewModelWithAttributes.LoadAttributesAndValuesForPublicEdit( modelWithAttributes, currentPerson );
             }
         }
 

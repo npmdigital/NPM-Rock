@@ -63,7 +63,7 @@ namespace Rock.Field.Types
             }
 
             var values = GetListSource( privateConfigurationValues.ToDictionary( k => k.Key, k => new ConfigurationValue( k.Value ) ) )
-                    .Select( kvp => new ListItemViewModel
+                    .Select( kvp => new ListItemBag
                     {
                         Value = kvp.Key,
                         Text = kvp.Value

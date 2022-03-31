@@ -15,59 +15,65 @@
 // </copyright>
 //
 
+using System;
+
 namespace Rock.ViewModel.Controls
 {
     /// <summary>
     /// Address Control View Model
     /// </summary>
-    public sealed class AddressControlViewModel : IViewModel
+    public sealed class BirthdayPickerBag : IViewModel
     {
         /// <summary>
-        /// Gets or sets the street1.
+        /// Gets or sets the year.
         /// </summary>
         /// <value>
-        /// The street1.
+        /// The year.
         /// </value>
-        public string Street1 { get; set; }
+        public int Year { get; set; }
 
         /// <summary>
-        /// Gets or sets the street2.
+        /// Gets or sets the month.
         /// </summary>
         /// <value>
-        /// The street2.
+        /// The month.
         /// </value>
-        public string Street2 { get; set; }
+        public int Month { get; set; }
 
         /// <summary>
-        /// Gets or sets the city.
+        /// Gets or sets the day.
         /// </summary>
         /// <value>
-        /// The city.
+        /// The day.
         /// </value>
-        public string City { get; set; }
+        public int Day { get; set; }
+    }
 
+    /// <summary>
+    /// Birthday Picker View Model Extensions
+    /// </summary>
+    public static class BirthdayPickerViewModelExtensions
+    {
         /// <summary>
-        /// Gets or sets the state.
+        /// Converts to datetime.
         /// </summary>
-        /// <value>
-        /// The state.
-        /// </value>
-        public string State { get; set; }
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
+        public static DateTime? ToDateTime( this BirthdayPickerBag viewModel )
+        {
+            if ( viewModel == null )
+            {
+                return null;
+            }
 
-        /// <summary>
-        /// Gets or sets the postal code.
-        /// </summary>
-        /// <value>
-        /// The postal code.
-        /// </value>
-        public string PostalCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the country.
-        /// </summary>
-        /// <value>
-        /// The country.
-        /// </value>
-        public string Country { get; set; }
+            try
+            {
+                return new DateTime( viewModel.Year, viewModel.Month, viewModel.Day );
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

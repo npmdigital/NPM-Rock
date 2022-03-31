@@ -19,14 +19,12 @@ using System.Collections.Generic;
 
 namespace Rock.ViewModel.Blocks
 {
-    public interface IValidPropertiesBox
-    {
-        List<string> ValidProperties { get; }
-    }
-
-    public class DetailBlockBox<TEntityBag> : IValidPropertiesBox
+    public class DetailBlockBox<TEntityBag, TOptions> : IValidPropertiesBox
+        where TOptions : new()
     {
         public TEntityBag Entity { get; set; }
+
+        public TOptions Options { get; set; } = new TOptions();
 
         public string ErrorMessage { get; set; }
 
@@ -35,12 +33,5 @@ namespace Rock.ViewModel.Blocks
         public Dictionary<string, string> NavigationUrls { get; set; } = new Dictionary<string, string>();
 
         public List<string> ValidProperties { get; set; }
-    }
-
-
-    public class DetailBlockBox<TEntityBag, TOptions> : DetailBlockBox<TEntityBag>
-        where TOptions : new()
-    {
-        public TOptions Options { get; set; } = new TOptions();
     }
 }

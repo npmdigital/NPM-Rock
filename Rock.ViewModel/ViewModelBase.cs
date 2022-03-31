@@ -47,7 +47,7 @@ namespace Rock.ViewModel
         /// The attributes.
         /// </value>
         [TypeScriptType( "Record<string, PublicAttribute> | null", "import { PublicAttribute } from './publicAttribute';" )]
-        public Dictionary<string, PublicAttributeViewModel> Attributes { get; set; }
+        public Dictionary<string, PublicAttributeBag> Attributes { get; set; }
 
         /// <summary>
         /// Gets or sets the attribute values.

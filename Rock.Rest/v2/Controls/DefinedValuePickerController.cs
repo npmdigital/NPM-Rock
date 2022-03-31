@@ -61,7 +61,7 @@ namespace Rock.Rest.v2.Controls
                         && ( includeInactive || v.IsActive ) )
                     .OrderBy( v => v.Order )
                     .ThenBy( v => v.Value )
-                    .Select( v => new ListItemViewModel
+                    .Select( v => new ListItemBag
                     {
                         Value = v.Guid.ToString(),
                         Text = v.Value

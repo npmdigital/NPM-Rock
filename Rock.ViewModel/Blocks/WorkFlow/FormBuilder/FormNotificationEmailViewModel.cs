@@ -44,7 +44,7 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
         /// The ListItemViewModel that identifies the current person that
         /// will receive the e-mail.
         /// </summary>
-        public ListItemViewModel Recipient { get; set; }
+        public ListItemBag Recipient { get; set; }
 
         /// <summary>
         /// Contains the e-mail addresses that will receive the notification

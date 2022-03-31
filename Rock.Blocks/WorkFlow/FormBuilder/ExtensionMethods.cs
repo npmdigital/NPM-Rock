@@ -186,7 +186,7 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
                 return new FormNotificationEmailViewModel();
             }
 
-            ListItemViewModel recipient = null;
+            ListItemBag recipient = null;
 
             if ( emailSettings.RecipientAliasId.HasValue )
             {
@@ -197,7 +197,7 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
 
                 if ( personAlias != null )
                 {
-                    recipient = new ListItemViewModel
+                    recipient = new ListItemBag
                     {
                         Value = personAlias.Guid.ToString(),
                         Text = personAlias.Person.FullName

@@ -43,7 +43,7 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder.FormTemplateDetail
         /// Gets or sets the list of workflow types that use this form template.
         /// </summary>
         /// <value>The list of workflow types that use this form template.</value>
-        public List<ListItemViewModel> UsedBy { get; set; }
+        public List<ListItemBag> UsedBy { get; set; }
 
         /// <summary>
         /// Gets or sets a value that indicates if this form template is active and
@@ -59,6 +59,6 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder.FormTemplateDetail
         /// Gets or sets the details that describe the audit trail for this view model.
         /// </summary>
         /// <value>The details that describe the audit trail for this view model.</value>
-        public AuditDetailViewModel AuditDetails { get; set; }
+        public AuditDetailBag AuditDetails { get; set; }
     }
 }

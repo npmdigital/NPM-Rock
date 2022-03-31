@@ -22,7 +22,7 @@ namespace Rock.ViewModel.NonEntities
     /// <summary>
     /// Describes a single item that can be displayed in a tree view.
     /// </summary>
-    public class TreeItemViewModel
+    public class TreeItemBag
     {
         /// <summary>
         /// Gets or sets the generic identifier of this item.
@@ -80,6 +80,6 @@ namespace Rock.ViewModel.NonEntities
         /// <value>
         /// The child tree items of this item.
         /// </value>
-        public List<TreeItemViewModel> Children { get; set; }
+        public List<TreeItemBag> Children { get; set; }
     }
 }

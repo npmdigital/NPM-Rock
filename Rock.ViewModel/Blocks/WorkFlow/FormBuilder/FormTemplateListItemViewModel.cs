@@ -20,10 +20,10 @@ using Rock.ViewModel.NonEntities;
 namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
 {
     /// <summary>
-    /// Custom <see cref="ListItemViewModel"/> that extends the item to include
+    /// Custom <see cref="ListItemBag"/> that extends the item to include
     /// details about what forced settings the template has.
     /// </summary>
-    public class FormTemplateListItemViewModel : ListItemViewModel
+    public class FormTemplateListItemViewModel : ListItemBag
     {
         /// <summary>
         /// Gets or sets the form header content that will be displayed above

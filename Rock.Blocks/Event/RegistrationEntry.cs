@@ -1002,7 +1002,7 @@ namespace Rock.Blocks.Event
                     return person.Gender.ConvertToInt().ToString();
 
                 case RegistrationPersonFieldType.Birthdate:
-                    return new BirthdayPickerViewModel
+                    return new BirthdayPickerBag
                     {
                         Year = person.BirthYear ?? 0,
                         Month = person.BirthMonth ?? 0,
@@ -1010,7 +1010,7 @@ namespace Rock.Blocks.Event
                     };
 
                 case RegistrationPersonFieldType.AnniversaryDate:
-                    return new BirthdayPickerViewModel
+                    return new BirthdayPickerBag
                     {
                         Year = person.AnniversaryDate?.Year ?? 0,
                         Month = person.AnniversaryDate?.Month ?? 0,
@@ -1020,7 +1020,7 @@ namespace Rock.Blocks.Event
                 case RegistrationPersonFieldType.Address:
                     var location = person.GetHomeLocation( rockContext );
 
-                    return new AddressControlViewModel
+                    return new AddressControlBag
                     {
                         Street1 = location?.Street1 ?? string.Empty,
                         Street2 = location?.Street2 ?? string.Empty,
@@ -1305,7 +1305,7 @@ namespace Rock.Blocks.Event
             var firstName = GetPersonFieldValue( context.RegistrationSettings, RegistrationPersonFieldType.FirstName, registrantInfo.FieldValues ).ToStringSafe();
             var lastName = GetPersonFieldValue( context.RegistrationSettings, RegistrationPersonFieldType.LastName, registrantInfo.FieldValues ).ToStringSafe();
             var email = GetPersonFieldValue( context.RegistrationSettings, RegistrationPersonFieldType.Email, registrantInfo.FieldValues ).ToStringSafe();
-            var birthday = GetPersonFieldValue( context.RegistrationSettings, RegistrationPersonFieldType.Birthdate, registrantInfo.FieldValues ).ToStringSafe().FromJsonOrNull<BirthdayPickerViewModel>().ToDateTime();
+            var birthday = GetPersonFieldValue( context.RegistrationSettings, RegistrationPersonFieldType.Birthdate, registrantInfo.FieldValues ).ToStringSafe().FromJsonOrNull<BirthdayPickerBag>().ToDateTime();
             var mobilePhone = GetPersonFieldValue( context.RegistrationSettings, RegistrationPersonFieldType.MobilePhone, registrantInfo.FieldValues ).ToStringSafe();
 
             registrant = context.Registration.Registrants.FirstOrDefault( r => r.Guid == registrantInfo.Guid );
@@ -1442,7 +1442,7 @@ namespace Rock.Blocks.Event
                             break;
 
                         case RegistrationPersonFieldType.Address:
-                            var addressViewModel = fieldValue.ToStringSafe().FromJsonOrNull<AddressControlViewModel>();
+                            var addressViewModel = fieldValue.ToStringSafe().FromJsonOrNull<AddressControlBag>();
 
                             if ( addressViewModel != null )
                             {
@@ -1465,7 +1465,7 @@ namespace Rock.Blocks.Event
                             var oldBirthDay = person.BirthDay;
                             var oldBirthYear = person.BirthYear;
 
-                            person.SetBirthDate( fieldValue.ToStringSafe().FromJsonOrNull<BirthdayPickerViewModel>().ToDateTime() );
+                            person.SetBirthDate( fieldValue.ToStringSafe().FromJsonOrNull<BirthdayPickerBag>().ToDateTime() );
 
                             History.EvaluateChange( personChanges, "Birth Month", oldBirthMonth, person.BirthMonth );
                             History.EvaluateChange( personChanges, "Birth Day", oldBirthDay, person.BirthDay );
@@ -1480,7 +1480,7 @@ namespace Rock.Blocks.Event
 
                         case RegistrationPersonFieldType.AnniversaryDate:
                             var oldAnniversaryDate = person.AnniversaryDate;
-                            person.AnniversaryDate = fieldValue.ToStringSafe().FromJsonOrNull<BirthdayPickerViewModel>().ToDateTime();
+                            person.AnniversaryDate = fieldValue.ToStringSafe().FromJsonOrNull<BirthdayPickerBag>().ToDateTime();
                             History.EvaluateChange( personChanges, "Anniversary Date", oldAnniversaryDate, person.AnniversaryDate );
                             break;
 
@@ -2058,7 +2058,7 @@ namespace Rock.Blocks.Event
 
             // If we are using saved accounts and have all the details that we
             // need then attempt to load the current person's saved accounts.
-            List<SavedFinancialAccountListItemViewModel> savedAccounts = null;
+            List<SavedFinancialAccountListItemBag> savedAccounts = null;
             if ( enableSavedAccount && RequestContext.CurrentPerson != null && financialGateway != null )
             {
                 var accountOptions = new SavedFinancialAccountOptions
@@ -2135,7 +2135,7 @@ namespace Rock.Blocks.Event
                 ForceEmailUpdate = forceEmailUpdate,
                 RegistrarOption = ( int ) context.RegistrationSettings.RegistrarOption,
                 Cost = baseCost,
-                GatewayControl = isRedirectGateway ? null : new GatewayControlViewModel
+                GatewayControl = isRedirectGateway ? null : new GatewayControlBag
                 {
                     FileUrl = financialGatewayComponent?.GetObsidianControlFileUrl( financialGateway ) ?? string.Empty,
                     Settings = financialGatewayComponent?.GetObsidianControlSettings( financialGateway, null ) ?? new object()
@@ -2161,7 +2161,7 @@ namespace Rock.Blocks.Event
                 MaritalStatuses = DefinedTypeCache.Get( SystemGuid.DefinedType.PERSON_MARITAL_STATUS )
                     .DefinedValues
                     .OrderBy( v => v.Order )
-                    .Select( v => new ListItemViewModel
+                    .Select( v => new ListItemBag
                     {
                         Value = v.Guid.ToString(),
                         Text = v.Value
@@ -2170,7 +2170,7 @@ namespace Rock.Blocks.Event
                 ConnectionStatuses = DefinedTypeCache.Get( SystemGuid.DefinedType.PERSON_CONNECTION_STATUS )
                     .DefinedValues
                     .OrderBy( v => v.Order )
-                    .Select( v => new ListItemViewModel
+                    .Select( v => new ListItemBag
                     {
                         Value = v.Guid.ToString(),
                         Text = v.Value
@@ -2179,7 +2179,7 @@ namespace Rock.Blocks.Event
                 Grades = DefinedTypeCache.Get( SystemGuid.DefinedType.SCHOOL_GRADES )
                     .DefinedValues
                     .OrderBy( v => v.Order )
-                    .Select( v => new ListItemViewModel
+                    .Select( v => new ListItemBag
                     {
                         Value = v.Guid.ToString(),
                         Text = v.GetAttributeValue( "Abbreviation" )

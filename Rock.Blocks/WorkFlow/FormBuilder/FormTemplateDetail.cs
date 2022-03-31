@@ -150,7 +150,7 @@ namespace Rock.Blocks.Workflow.FormBuilder
             // perform any security checking since we are only showing the name.
             var usedBy = new WorkflowTypeService( rockContext ).Queryable()
                 .Where( t => t.FormBuilderTemplateId.HasValue && t.FormBuilderTemplateId == template.Id )
-                .Select( t => new ListItemViewModel
+                .Select( t => new ListItemBag
                 {
                     Value = t.Guid.ToString(),
                     Text = t.Name

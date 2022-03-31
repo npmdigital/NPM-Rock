@@ -27,6 +27,6 @@ namespace Rock.ViewModel.NonEntities
         /// Gets or sets the current value used for comparison.
         /// </summary>
         /// <value>The current value used for comparison.</value>
-        public PublicComparisonValueViewModel Value { get; set; }
+        public PublicComparisonValueBag Value { get; set; }
     }
 }

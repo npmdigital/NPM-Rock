@@ -24,7 +24,7 @@ namespace Rock.ViewModel.NonEntities
     /// A slimmed down version of <see cref="AttributeViewModel"/> designed
     /// for normal transmission of attribute values to the client when needed.
     /// </summary>
-    public class PublicAttributeViewModel : IViewModel
+    public class PublicAttributeBag : IViewModel
     {
         /// <summary>
         /// Gets or sets the field type unique identifier.
@@ -88,7 +88,7 @@ namespace Rock.ViewModel.NonEntities
         /// <value>
         /// The categories.
         /// </value>
-        public List<PublicAttributeValueCategoryViewModel> Categories { get; set; }
+        public List<ListItemBag> Categories { get; set; }
 
         /// <summary>
         /// Gets or sets the configuration values.

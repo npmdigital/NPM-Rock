@@ -37,18 +37,18 @@ namespace Rock.ViewModel.Blocks.Core.CampusDetail
 
         public string PhoneNumber { get; set; }
 
-        public List<ListItemViewModel> ServiceTimes { get; set; }
+        public List<ListItemBag> ServiceTimes { get; set; }
 
         public string TimeZoneId { get; set; }
 
         public List<CampusScheduleBag> CampusSchedules { get; set; }
 
-        public ListItemViewModel Location { get; set; }
+        public ListItemBag Location { get; set; }
 
-        public ListItemViewModel LeaderPersonAlias { get; set; }
+        public ListItemBag LeaderPersonAlias { get; set; }
 
-        public ListItemViewModel CampusStatusValue { get; set; }
+        public ListItemBag CampusStatusValue { get; set; }
 
-        public ListItemViewModel CampusTypeValue { get; set; }
+        public ListItemBag CampusTypeValue { get; set; }
     }
 }

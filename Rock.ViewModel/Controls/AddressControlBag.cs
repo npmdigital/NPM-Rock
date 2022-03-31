@@ -15,65 +15,59 @@
 // </copyright>
 //
 
-using System;
-
 namespace Rock.ViewModel.Controls
 {
     /// <summary>
     /// Address Control View Model
     /// </summary>
-    public sealed class BirthdayPickerViewModel : IViewModel
+    public sealed class AddressControlBag : IViewModel
     {
         /// <summary>
-        /// Gets or sets the year.
+        /// Gets or sets the street1.
         /// </summary>
         /// <value>
-        /// The year.
+        /// The street1.
         /// </value>
-        public int Year { get; set; }
+        public string Street1 { get; set; }
 
         /// <summary>
-        /// Gets or sets the month.
+        /// Gets or sets the street2.
         /// </summary>
         /// <value>
-        /// The month.
+        /// The street2.
         /// </value>
-        public int Month { get; set; }
+        public string Street2 { get; set; }
 
         /// <summary>
-        /// Gets or sets the day.
+        /// Gets or sets the city.
         /// </summary>
         /// <value>
-        /// The day.
+        /// The city.
         /// </value>
-        public int Day { get; set; }
-    }
+        public string City { get; set; }
 
-    /// <summary>
-    /// Birthday Picker View Model Extensions
-    /// </summary>
-    public static class BirthdayPickerViewModelExtensions
-    {
         /// <summary>
-        /// Converts to datetime.
+        /// Gets or sets the state.
         /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns></returns>
-        public static DateTime? ToDateTime( this BirthdayPickerViewModel viewModel )
-        {
-            if ( viewModel == null )
-            {
-                return null;
-            }
+        /// <value>
+        /// The state.
+        /// </value>
+        public string State { get; set; }
 
-            try
-            {
-                return new DateTime( viewModel.Year, viewModel.Month, viewModel.Day );
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        /// <summary>
+        /// Gets or sets the postal code.
+        /// </summary>
+        /// <value>
+        /// The postal code.
+        /// </value>
+        public string PostalCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the country.
+        /// </summary>
+        /// <value>
+        /// The country.
+        /// </value>
+        public string Country { get; set; }
     }
 }

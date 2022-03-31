@@ -479,7 +479,7 @@ namespace Rock.Blocks.Workflow.FormBuilder
 
             if ( workflowType.Category != null )
             {
-                viewModel.Category = new ListItemViewModel
+                viewModel.Category = new ListItemBag
                 {
                     Value = workflowType.Category.Guid.ToString(),
                     Text = workflowType.Category.Name
@@ -631,7 +631,7 @@ namespace Rock.Blocks.Workflow.FormBuilder
                 SectionTypeOptions = DefinedTypeCache.Get( SystemGuid.DefinedType.SECTION_TYPE.AsGuid() )
                     .DefinedValues
                     .Where( v => v.IsActive )
-                    .Select( v => new ListItemViewModel
+                    .Select( v => new ListItemBag
                     {
                         Value = v.Guid.ToString(),
                         Text = v.Value,

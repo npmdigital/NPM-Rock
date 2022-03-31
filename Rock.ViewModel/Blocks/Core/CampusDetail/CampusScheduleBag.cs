@@ -25,8 +25,8 @@ namespace Rock.ViewModel.Blocks.Core.CampusDetail
     {
         public Guid Guid { get; set; }
 
-        public ListItemViewModel Schedule { get; set; }
+        public ListItemBag Schedule { get; set; }
 
-        public ListItemViewModel ScheduleTypeValue { get; set; }
+        public ListItemBag ScheduleTypeValue { get; set; }
     }
 }

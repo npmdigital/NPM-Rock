@@ -48,7 +48,7 @@ namespace Rock.Blocks.Core
     /// <summary>
     /// Displays the details of a particular campus.
     /// </summary>
-    /// <seealso cref="Rock.Blocks.RockObsidianBlockType" />
+    /// <seealso cref="Rock.Blocks.RockObsidianDetailBlockType" />
 
     [DisplayName( "Campus Detail" )]
     [Category( "Obsidian > Core" )]
@@ -59,7 +59,7 @@ namespace Rock.Blocks.Core
 
     #endregion
 
-    public class CampusDetail : RockObsidianBlockType
+    public class CampusDetail : RockObsidianDetailBlockType
     {
         #region Keys
 
@@ -84,9 +84,9 @@ namespace Rock.Blocks.Core
         {
             using ( var rockContext = new RockContext() )
             {
-                var box = new DetailBlockBox<CampusBag, CampusDetailOptionsBox>();
+                var box = new DetailBlockBox<CampusBag, CampusDetailOptionsBag>();
 
-                SetBagInitialEntityState( box, rockContext );
+                SetBagInitialEntityState( box, true, rockContext );
 
                 box.NavigationUrls = GetBoxNavigationUrls();
                 box.Options = GetBoxOptions( box.IsEditable );
@@ -101,9 +101,9 @@ namespace Rock.Blocks.Core
         /// </summary>
         /// <param name="isEditable"><c>true</c> if the entity is editable; otherwise <c>false</c>.</param>
         /// <returns>The options that provide additional details to the block.</returns>
-        private CampusDetailOptionsBox GetBoxOptions( bool isEditable )
+        private CampusDetailOptionsBag GetBoxOptions( bool isEditable )
         {
-            var options = new CampusDetailOptionsBox
+            var options = new CampusDetailOptionsBag
             {
                 IsMultiTimeZoneSupported = Rock.Web.SystemSettings.GetValue( Rock.SystemKey.SystemSetting.ENABLE_MULTI_TIME_ZONE_SUPPORT ).AsBoolean()
             };
@@ -114,7 +114,7 @@ namespace Rock.Blocks.Core
             if ( options.IsMultiTimeZoneSupported )
             {
                 options.TimeZoneOptions = TimeZoneInfo.GetSystemTimeZones()
-                    .Select( tz => new ListItemViewModel
+                    .Select( tz => new ListItemBag
                     {
                         Value = tz.Id,
                         Text = tz.DisplayName
@@ -130,15 +130,15 @@ namespace Rock.Blocks.Core
         /// can be used by the client.
         /// </summary>
         /// <param name="serviceTimes">The campus service times.</param>
-        /// <returns>A collection of <see cref="ListItemViewModel"/> objects that represent the service times.</returns>
-        private static List<ListItemViewModel> ConvertServiceTimesToPack( string serviceTimes )
+        /// <returns>A collection of <see cref="ListItemBag"/> objects that represent the service times.</returns>
+        private static List<ListItemBag> ConvertServiceTimesToPack( string serviceTimes )
         {
             if ( serviceTimes.IsNullOrWhiteSpace() )
             {
-                return new List<ListItemViewModel>();
+                return new List<ListItemBag>();
             }
 
-            var packs = new List<ListItemViewModel>();
+            var packs = new List<ListItemBag>();
 
             // Format is "Day 1^Time 1|Day 2^Time 2"
             var services = serviceTimes.Split( new[] { '|' }, StringSplitOptions.RemoveEmptyEntries );
@@ -148,7 +148,7 @@ namespace Rock.Blocks.Core
 
                 if (segments.Length >= 2)
                 {
-                    packs.Add( new ListItemViewModel
+                    packs.Add( new ListItemBag
                     {
                         Value = segments[0],
                         Text = segments[1]
@@ -165,7 +165,7 @@ namespace Rock.Blocks.Core
         /// </summary>
         /// <param name="packs">The packs that represent the service times.</param>
         /// <returns>A custom formatted <see cref="string"/> that contains the service times.</returns>
-        private static string ConvertServiceTimesFromPacks( List<ListItemViewModel> packs )
+        private static string ConvertServiceTimesFromPacks( List<ListItemBag> packs )
         {
             return packs
                 .Select( s => $"{s.Value}^{s.Text}" )
@@ -385,8 +385,6 @@ namespace Rock.Blocks.Core
             {
                 var entity = new CampusService( rockContext ).Get( guid );
 
-                // TODO: Discuss security on if it should come from entity or CMS.
-                // TODO: Possibly a block setting to decide on security source (or maybe code gen tool).
                 if ( entity == null || !entity.IsAuthorized( Security.Authorization.EDIT, RequestContext.CurrentPerson ) )
                 {
                     return ActionBadRequest();
@@ -394,9 +392,9 @@ namespace Rock.Blocks.Core
 
                 entity.LoadAttributes( rockContext );
 
-                var box = new DetailBlockBox<CampusBag>
+                var box = new DetailBlockBox<CampusBag, CampusDetailOptionsBag>
                 {
-                    Entity = GetEntityBagForEdit( entity )
+                    Entity = GetEntityBagForEdit( entity, true )
                 };
 
                 return ActionOk( box );
@@ -409,7 +407,7 @@ namespace Rock.Blocks.Core
         /// <param name="box">The box that contains all the information required to save.</param>
         /// <returns>A new entity bag to be used when returning to view mode, or the URL to redirect to after creating a new entity.</returns>
         [BlockAction]
-        public BlockActionResult Save( DetailBlockBox<CampusBag> box )
+        public BlockActionResult Save( DetailBlockBox<CampusBag, CampusDetailOptionsBag> box )
         {
             using ( var rockContext = new RockContext() )
             {
@@ -476,8 +474,9 @@ namespace Rock.Blocks.Core
 
                 // Ensure navigation properties will work now.
                 entity = entityService.Get( entity.Id );
+                entity.LoadAttributes( rockContext );
 
-                return ActionOk( GetEntityBagForView( entity ) );
+                return ActionOk( GetEntityBagForView( entity, true ) );
             }
         }
 
@@ -531,8 +530,9 @@ namespace Rock.Blocks.Core
         /// ErrorMessage properties depending on the entity and permissions.
         /// </summary>
         /// <param name="box">The box to be populated.</param>
+        /// <param name="loadAttributes"><c>true</c> if attributes and values should be loaded; otherwise <c>false</c>.</param>
         /// <param name="rockContext">The rock context.</param>
-        private void SetBagInitialEntityState( DetailBlockBox<CampusBag, CampusDetailOptionsBox> box, RockContext rockContext )
+        private void SetBagInitialEntityState( DetailBlockBox<CampusBag, CampusDetailOptionsBag> box, bool loadAttributes, RockContext rockContext )
         {
             var entity = GetInitialEntity( rockContext );
 
@@ -541,15 +541,17 @@ namespace Rock.Blocks.Core
                 var isViewable = entity.IsAuthorized( Security.Authorization.VIEW, RequestContext.CurrentPerson );
                 box.IsEditable = entity.IsAuthorized( Security.Authorization.EDIT, RequestContext.CurrentPerson );
 
-                // TODO: Make this a boolean parameter in the method signature to enable loading attributes.
-                entity.LoadAttributes( rockContext );
+                if ( loadAttributes )
+                {
+                    entity.LoadAttributes( rockContext );
+                }
 
                 if ( entity.Id != 0 )
                 {
                     // Existing entity was found, prepare for view mode by default.
                     if ( isViewable )
                     {
-                        box.Entity = GetEntityBagForView( entity );
+                        box.Entity = GetEntityBagForView( entity, loadAttributes );
                     }
                     else
                     {
@@ -561,7 +563,7 @@ namespace Rock.Blocks.Core
                     // New entity is being created, prepare for edit mode by default.
                     if ( box.IsEditable )
                     {
-                        box.Entity = GetEntityBagForEdit( entity );
+                        box.Entity = GetEntityBagForEdit( entity, loadAttributes );
                     }
                     else
                     {
@@ -612,8 +614,9 @@ namespace Rock.Blocks.Core
         /// Gets the bag for viewing the specied entity.
         /// </summary>
         /// <param name="entity">The entity to be represented for view purposes.</param>
+        /// <param name="loadAttributes"><c>true</c> if attributes and values should be loaded; otherwise <c>false</c>.</param>
         /// <returns>A <see cref="CampusBag"/> that represents the entity.</returns>
-        private CampusBag GetEntityBagForView( Campus entity )
+        private CampusBag GetEntityBagForView( Campus entity, bool loadAttributes )
         {
             if ( entity == null )
             {
@@ -622,7 +625,10 @@ namespace Rock.Blocks.Core
 
             var bag = GetCommonEntityBag( entity );
 
-            bag.PopulatePublicAttributesAndValuesForView( entity, RequestContext.CurrentPerson );
+            if ( loadAttributes )
+            {
+                bag.LoadAttributesAndValuesForPublicView( entity, RequestContext.CurrentPerson );
+            }
 
             return bag;
         }
@@ -631,8 +637,9 @@ namespace Rock.Blocks.Core
         /// Gets the bag for editing the specied entity.
         /// </summary>
         /// <param name="entity">The entity to be represented for edit purposes.</param>
+        /// <param name="loadAttributes"><c>true</c> if attributes and values should be loaded; otherwise <c>false</c>.</param>
         /// <returns>A <see cref="CampusBag"/> that represents the entity.</returns>
-        private CampusBag GetEntityBagForEdit( Campus entity )
+        private CampusBag GetEntityBagForEdit( Campus entity, bool loadAttributes )
         {
             if ( entity == null )
             {
@@ -641,8 +648,10 @@ namespace Rock.Blocks.Core
 
             var bag = GetCommonEntityBag( entity );
 
-            // TODO: Rename method and related to something else, maybe LoadAttributesForPublicView( IEntity, Person );
-            bag.PopulatePublicAttributesAndValuesForEdit( entity, RequestContext.CurrentPerson );
+            if ( loadAttributes )
+            {
+                bag.LoadAttributesAndValuesForPublicEdit( entity, RequestContext.CurrentPerson );
+            }
 
             return bag;
         }
@@ -654,7 +663,7 @@ namespace Rock.Blocks.Core
         /// <param name="box">The box containing the information to be updated.</param>
         /// <param name="rockContext">The rock context.</param>
         /// <returns><c>true</c> if the box was valid and the entity was updated, <c>false</c> otherwise.</returns>
-        private bool UpdateEntityFromBox( Campus entity, DetailBlockBox<CampusBag> box, RockContext rockContext )
+        private bool UpdateEntityFromBox( Campus entity, DetailBlockBox<CampusBag, CampusDetailOptionsBag> box, RockContext rockContext )
         {
             if ( box.ValidProperties == null )
             {
@@ -729,53 +738,6 @@ namespace Rock.Blocks.Core
         }
 
         /// <summary>
-        /// Gets the initial entity from page parameters or creates a new entity
-        /// if page parameters requested creation.
-        /// </summary>
-        /// <param name="rockContext">The rock context.</param>
-        /// <returns>The <see cref="Campus"/> to be viewed or edited on the page.</returns>
-        private TEntity GetInitialEntity<TEntity, TService>( RockContext rockContext, string entityIdKey, string entityGuidKey )
-            where TService : Service<TEntity>
-            where TEntity : Rock.Data.Entity<TEntity>, new()
-        {
-            // TODO: Relocate to ObsidianDetailBlockType
-            // TODO: Add Site option for "Allow Integer Identifiers"
-            int? id = null;
-            var guid = RequestContext.GetPageParameter( entityGuidKey ).AsGuidOrNull();
-
-            if ( true /* PageCache.SiteCache.IsIntegerIdentifierAllowed */ )
-            {
-                id = RequestContext.GetPageParameter( entityIdKey ).AsIntegerOrNull();
-            }
-
-            var entityService = ( Service<TEntity> ) Activator.CreateInstance( typeof( TService ), rockContext );
-
-            // If a zero identifier is specified then create a new entity.
-            if ( ( id.HasValue && id.Value == 0 ) || ( !id.HasValue && !guid.HasValue ) )
-            {
-                return new TEntity
-                {
-                    Id = 0,
-                    Guid = Guid.Empty
-                };
-            }
-
-            // Otherwise look for an existing one in the database.
-            if ( guid.HasValue )
-            {
-                return entityService.GetNoTracking( guid.Value );
-            }
-            else if ( id.HasValue )
-            {
-                return entityService.GetNoTracking( id.Value );
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Gets the box navigation URLs required for the page to operate.
         /// </summary>
         /// <returns>A dictionary of key names and URL values.</returns>
@@ -789,77 +751,4 @@ namespace Rock.Blocks.Core
 
         #endregion
     }
-
-    #region Code to be relocated
-
-    public static class ViewModelExtensions
-    {
-        public static ListItemViewModel ToListItemPack( this IEntity entity )
-        {
-            if ( entity == null )
-            {
-                return null;
-            }
-
-            var viewModel = new ListItemViewModel
-            {
-                Value = entity.Guid.ToString(),
-                Text = entity.ToString()
-            };
-
-            return viewModel;
-        }
-
-        public static List<ListItemViewModel> ToListItemPackList( this IEnumerable<IEntity> entities )
-        {
-            if ( entities == null )
-            {
-                return new List<ListItemViewModel>();
-            }
-
-            return entities.Select( e => e.ToListItemPack() ).ToList();
-        }
-
-        public static int? GetEntityId<TEntity>( this ListItemViewModel viewModel, RockContext rockContext )
-            where TEntity : IEntity
-        {
-            var guid = viewModel?.Value.AsGuidOrNull();
-
-            if ( !guid.HasValue )
-            {
-                return null;
-            }
-
-            var entityType = EntityTypeCache.Get<TEntity>( false, rockContext );
-
-            if ( entityType == null )
-            {
-                return null;
-            }
-
-            return Rock.Reflection.GetEntityIdForEntityType( entityType.Guid, guid.Value, rockContext );
-        }
-
-        public static void IfValidProperty( this IValidPropertiesBox box, string propertyName, Action executeIfValid )
-        {
-            if ( box.ValidProperties.Contains( propertyName, StringComparer.OrdinalIgnoreCase ) )
-            {
-                executeIfValid();
-            }
-        }
-
-        public static TReturn IfValidProperty<TReturn>( this IValidPropertiesBox box, string propertyName, Func<TReturn> executeIfValid, TReturn defaultValue )
-        {
-            if ( box.ValidProperties.Contains( propertyName, StringComparer.OrdinalIgnoreCase ) )
-            {
-                return executeIfValid();
-            }
-            else
-            {
-                return defaultValue;
-            }
-        }
-    }
-
-    #endregion
 }

@@ -74,7 +74,7 @@ namespace Rock.Rest.v2.Controls
                 qry = qry.Where( a => a.Name != null && a.Name != string.Empty );
 
                 List<Location> locationList = new List<Location>();
-                List<TreeItemViewModel> locationNameList = new List<TreeItemViewModel>();
+                List<TreeItemBag> locationNameList = new List<TreeItemBag>();
 
                 var person = GetPerson();
 
@@ -83,7 +83,7 @@ namespace Rock.Rest.v2.Controls
                     if ( location.IsAuthorized( Rock.Security.Authorization.VIEW, person ) )
                     {
                         locationList.Add( location );
-                        var treeViewItem = new TreeItemViewModel();
+                        var treeViewItem = new TreeItemBag();
                         treeViewItem.Value = location.Guid.ToString();
                         treeViewItem.Text = location.Name;
                         locationNameList.Add( treeViewItem );

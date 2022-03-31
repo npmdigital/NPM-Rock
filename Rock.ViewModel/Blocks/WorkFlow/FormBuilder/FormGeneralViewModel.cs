@@ -48,7 +48,7 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
         /// <summary>
         /// The category that this form belongs to for organization purposes.
         /// </summary>
-        public ListItemViewModel Category { get; set; }
+        public ListItemBag Category { get; set; }
 
         /// <summary>
         /// The date and time this form will begin to allow entries.

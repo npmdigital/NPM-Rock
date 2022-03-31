@@ -21,7 +21,7 @@ namespace Rock.ViewModel.NonEntities
     /// <summary>
     /// Contains the information required to show the audit panel details for a model.
     /// </summary>
-    public class AuditDetailViewModel
+    public class AuditDetailBag
     {
         /// <summary>
         /// Gets or sets the identifier of the model.

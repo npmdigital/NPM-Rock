@@ -80,7 +80,7 @@ namespace Rock.Attribute
                 IsShowOnBulk = attribute.ShowOnBulk,
                 FieldTypeGuid = fieldTypeCache.Guid,
                 Categories = attribute.Categories
-                    .Select( c => new ListItemViewModel
+                    .Select( c => new ListItemBag
                     {
                         Value = c.Guid.ToString(),
                         Text = c.Name
@@ -96,8 +96,8 @@ namespace Rock.Attribute
         /// public device for the purpose of viewing the value.
         /// </summary>
         /// <param name="attributeValue">The attribute value.</param>
-        /// <returns>A <see cref="PublicAttributeViewModel"/> instance that contains details about the attribute but not the value.</returns>
-        internal static PublicAttributeViewModel GetPublicAttributeForView( AttributeValueCache attributeValue )
+        /// <returns>A <see cref="PublicAttributeBag"/> instance that contains details about the attribute but not the value.</returns>
+        internal static PublicAttributeBag GetPublicAttributeForView( AttributeValueCache attributeValue )
         {
             var attribute = AttributeCache.Get( attributeValue.AttributeId );
 
@@ -110,21 +110,20 @@ namespace Rock.Attribute
         /// </summary>
         /// <param name="attribute">The attribute the value is associated with.</param>
         /// <param name="value">The value to be encoded for public use.</param>
-        /// <returns>A <see cref="PublicAttributeViewModel"/> instance that contains details about the attribute but not the value.</returns>
-        internal static PublicAttributeViewModel GetPublicAttributeForView( AttributeCache attribute, string value )
+        /// <returns>A <see cref="PublicAttributeBag"/> instance that contains details about the attribute but not the value.</returns>
+        internal static PublicAttributeBag GetPublicAttributeForView( AttributeCache attribute, string value )
         {
             var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
 
-            return new PublicAttributeViewModel
+            return new PublicAttributeBag
             {
                 FieldTypeGuid = attribute.FieldType.Guid,
                 AttributeGuid = attribute.Guid,
                 Name = attribute.Name,
-                Categories = attribute.Categories.Select( c => new PublicAttributeValueCategoryViewModel
+                Categories = attribute.Categories.OrderBy( c => c.Order ).Select( c => new ListItemBag
                 {
-                    Guid = c.Guid,
-                    Name = c.Name,
-                    Order = c.Order
+                    Value = c.Guid.ToString(),
+                    Text = c.Name
                 } ).ToList(),
                 Key = attribute.Key,
                 IsRequired = attribute.IsRequired,
@@ -139,8 +138,8 @@ namespace Rock.Attribute
         /// public device for the purpose of editing the value.
         /// </summary>
         /// <param name="attributeValue">The attribute value.</param>
-        /// <returns>A <see cref="PublicAttributeViewModel"/> instance that contains details about the attribute but not the value.</returns>
-        internal static PublicAttributeViewModel GetPublicAttributeForEdit( AttributeValueCache attributeValue )
+        /// <returns>A <see cref="PublicAttributeBag"/> instance that contains details about the attribute but not the value.</returns>
+        internal static PublicAttributeBag GetPublicAttributeForEdit( AttributeValueCache attributeValue )
         {
             var attribute = AttributeCache.Get( attributeValue.AttributeId );
 
@@ -151,22 +150,21 @@ namespace Rock.Attribute
         /// Converts an Attribute  to a view model that can be sent to a public
         /// device for the purpose of editing a value.
         /// </summary>
-        /// <returns>A <see cref="PublicAttributeViewModel"/> instance that contains details about the attribute but not the value.</returns>
-        /// <returns>A <see cref="PublicAttributeViewModel"/> instance.</returns>
-        internal static PublicAttributeViewModel GetPublicAttributeForEdit( AttributeCache attribute )
+        /// <returns>A <see cref="PublicAttributeBag"/> instance that contains details about the attribute but not the value.</returns>
+        /// <returns>A <see cref="PublicAttributeBag"/> instance.</returns>
+        internal static PublicAttributeBag GetPublicAttributeForEdit( AttributeCache attribute )
         {
             var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
 
-            return new PublicAttributeViewModel
+            return new PublicAttributeBag
             {
                 FieldTypeGuid = attribute.FieldType.Guid,
                 AttributeGuid = attribute.Guid,
                 Name = attribute.Name,
-                Categories = attribute.Categories.Select( c => new PublicAttributeValueCategoryViewModel
+                Categories = attribute.Categories.OrderBy( c => c.Order ).Select( c => new ListItemBag
                 {
-                    Guid = c.Guid,
-                    Name = c.Name,
-                    Order = c.Order
+                    Value = c.Guid.ToString(),
+                    Text = c.Name
                 } ).ToList(),
                 Order = attribute.Order,
                 Key = attribute.Key,

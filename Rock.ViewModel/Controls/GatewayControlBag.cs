@@ -15,36 +15,27 @@
 // </copyright>
 //
 
-namespace Rock.ViewModel.NonEntities
+namespace Rock.ViewModel.Controls
 {
     /// <summary>
-    /// Identifies a single item that will be displayed through some UI control.
+    /// GatewayControlViewModel
     /// </summary>
-    public class ListItemViewModel
+    public sealed class GatewayControlBag
     {
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the file URL.
         /// </summary>
         /// <value>
-        /// The value.
+        /// The file URL.
         /// </value>
-        public string Value { get; set; }
+        public string FileUrl { get;set;}
 
         /// <summary>
-        /// Gets or sets the text.
+        /// Gets or sets the settings.
         /// </summary>
         /// <value>
-        /// The text.
+        /// The settings.
         /// </value>
-        public string Text { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category for this item.
-        /// </summary>
-        /// <value>
-        /// The category for this item.
-        /// </value>
-        /// <remarks>Categories are only supported on certain UI controls.</remarks>
-        public string Category { get; set; }
+        public object Settings { get;set;}
     }
 }
