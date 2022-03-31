@@ -22,7 +22,7 @@ import { ComparisonValue } from "../Reporting/comparisonValue";
 import { areEqual } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
 import { ListItemBag } from "../ViewModels";
-import { PublicFilterableAttribute } from "../ViewModels/publicFilterableAttribute";
+import { PublicAttributeBag } from "../ViewModels/publicAttributeBag";
 import { FieldFilterRuleBag } from "../ViewModels/Reporting/fieldFilterRuleBag";
 import { FieldFilterSourceBag } from "../ViewModels/Reporting/fieldFilterSourceBag";
 import RockAttributeFilter from "./rockAttributeFilter";
@@ -62,12 +62,12 @@ export const FieldFilterRuleRow = defineComponent({
         });
 
         // Current Selected Attribute/Property
-        const currentAttribute = computed<PublicFilterableAttribute>(() => {
+        const currentAttribute = computed<PublicAttributeBag>(() => {
             const source = props.sources.find(source => {
                 return areEqual(attributeGuid.value ?? "", source.attribute?.attributeGuid ?? "");
             }) || props.sources[0];
 
-            return source.attribute as PublicFilterableAttribute;
+            return source.attribute as PublicAttributeBag;
         });
 
         // Convert the list of sources into the options you can choose from the 

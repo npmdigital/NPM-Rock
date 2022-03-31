@@ -503,7 +503,7 @@ namespace Rock.Blocks.Core
         /// <param name="attribute">The attribute to be created or updated.</param>
         /// <returns></returns>
         [BlockAction]
-        public BlockActionResult SaveEditAttribute( Guid? entityTypeGuid, string entityTypeQualifierColumn, string entityTypeQualifierValue, PublicEditableAttributeViewModel attribute )
+        public BlockActionResult SaveEditAttribute( Guid? entityTypeGuid, string entityTypeQualifierColumn, string entityTypeQualifierValue, PublicEditableAttributeBag attribute )
         {
             using ( var rockContext = new RockContext() )
             {
@@ -603,7 +603,7 @@ namespace Rock.Blocks.Core
 
         public string EntityTypeQualifierValue { get; set; }
 
-        public PublicEditableAttributeViewModel Attribute { get; set; }
+        public PublicEditableAttributeBag Attribute { get; set; }
     }
 
     public class GridRow

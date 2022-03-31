@@ -17,7 +17,7 @@
 
 import { Guid } from "../../../../Util/guid";
 import { ListItemBag } from "../../../../ViewModels";
-import { FieldFilterGroup } from "../../../../ViewModels/Reporting/fieldFilterGroup";
+import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
 import { FormConfirmationEmail, FormFieldType, FormNotificationEmail, FormPersonEntry, FormSection, FormSettings } from "../Shared/types";
 
 // #region Interfaces
@@ -69,7 +69,7 @@ export type SectionAsideSettings = {
     type: Guid | null;
 
     /** The rule that controls when this section is visible. */
-    visibilityRule?: FieldFilterGroup | null;
+    visibilityRule?: FieldFilterGroupBag | null;
 };
 
 /**

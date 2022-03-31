@@ -20,7 +20,7 @@ import CheckBox from "../Elements/checkBox";
 import TextBox from "../Elements/textBox";
 import { Guid } from "../Util/guid";
 import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
-import { PublicEditableAttributeViewModel } from "../ViewModels/publicEditableAttribute";
+import { PublicEditableAttributeBag } from "../ViewModels/publicEditableAttributeBag";
 import CategoriesPicker from "./categoriesPicker";
 import FieldTypeEditor from "./fieldTypeEditor";
 import StaticFormControl from "../Elements/staticFormControl";
@@ -41,7 +41,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<PublicEditableAttributeViewModel | null>,
+            type: Object as PropType<PublicEditableAttributeBag | null>,
             default: null
         },
 
@@ -138,7 +138,7 @@ export default defineComponent({
             categories,
             fieldTypeValue],
             () => {
-                const newModelValue: PublicEditableAttributeViewModel = {
+                const newModelValue: PublicEditableAttributeBag = {
                     ...(props.modelValue ?? {}),
                     name: attributeName.value,
                     abbreviatedName: abbreviatedName.value,

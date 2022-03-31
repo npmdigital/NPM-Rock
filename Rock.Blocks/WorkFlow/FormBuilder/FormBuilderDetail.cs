@@ -756,7 +756,7 @@ namespace Rock.Blocks.Workflow.FormBuilder
                 {
                     Guid = field.Guid,
                     Type = 0,
-                    Attribute = new PublicFilterableAttributeViewModel
+                    Attribute = new PublicAttributeBag
                     {
                         AttributeGuid = field.Guid,
                         ConfigurationValues = publicConfigurationValues,
@@ -780,7 +780,7 @@ namespace Rock.Blocks.Workflow.FormBuilder
 
             public int Type { get; set; }
 
-            public PublicFilterableAttributeViewModel Attribute { get; set; }
+            public PublicAttributeBag Attribute { get; set; }
         }
     }
 }

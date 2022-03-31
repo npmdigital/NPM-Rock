@@ -372,13 +372,11 @@
     <TypeScriptCompile Include="Framework\ViewModels\auditDetailBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\campusTopic.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeConfigurationBag.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicFilterableAttributeValue.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterSourceBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeConfigurationPropertiesBag.d.ts" />
     <TypeScriptCompile Include="Framework\Reporting\comparisonType.ts" />
     <TypeScriptCompile Include="Framework\Reporting\filterExpressionType.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicEditableAttribute.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicFilterableAttribute.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\publicEditableAttributeBag.d.ts" />
     <TypeScriptCompile Include="Framework\Reporting\fieldFilterSourceType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterGroupBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterRuleBag.d.ts" />

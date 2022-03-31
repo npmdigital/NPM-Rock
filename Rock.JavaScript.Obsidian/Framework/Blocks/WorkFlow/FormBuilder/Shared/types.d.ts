@@ -17,7 +17,7 @@
 
 import { Guid } from "../../../../Util/guid";
 import { ListItemBag } from "../../../../ViewModels";
-import { FieldFilterGroup } from "../../../../ViewModels/Reporting/fieldFilterGroup";
+import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
 
 // #region Enums
 
@@ -125,7 +125,7 @@ export type FormSection = {
     fields?: FormField[] | null;
 
     /** The rule that controls when this section is visible. */
-    visibilityRule?: FieldFilterGroup | null;
+    visibilityRule?: FieldFilterGroupBag | null;
 };
 
 /**
@@ -175,7 +175,7 @@ export type FormField = {
     configurationValues?: Record<string, string> | null;
 
     /** The rule that controls when this field is visible. */
-    visibilityRule?: FieldFilterGroup | null;
+    visibilityRule?: FieldFilterGroupBag | null;
 
     /** The default value that will be used when the field is initially displayed. */
     defaultValue?: string | null;

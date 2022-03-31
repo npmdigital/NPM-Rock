@@ -30,7 +30,7 @@ import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { alert, confirmDelete } from "../../Util/dialogs";
 import { Guid, normalize as normalizeGuid } from "../../Util/guid";
 import { ListItemBag, PublicAttributeBag } from "../../ViewModels";
-import { PublicEditableAttributeViewModel } from "../../ViewModels/publicEditableAttribute";
+import { PublicEditableAttributeBag } from "../../ViewModels/publicEditableAttributeBag";
 
 type BlockConfiguration = {
     attributeEntityTypeId: number;
@@ -53,7 +53,7 @@ type EditAttribute = {
 
     entityTypeQualifierValue?: string | null;
 
-    attribute: PublicEditableAttributeViewModel;
+    attribute: PublicEditableAttributeBag;
 };
 
 type GridRow = {
@@ -124,7 +124,7 @@ export default defineComponent({
         // #region Attribute Editing
 
         /** The current attribute in an editable format. */
-        const editableAttribute = ref<PublicEditableAttributeViewModel | null>(null);
+        const editableAttribute = ref<PublicEditableAttributeBag | null>(null);
 
         /** True if the edit attribute modal should be visible. */
         const showEditAttributeModal = ref<boolean>(false);

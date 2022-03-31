@@ -19,7 +19,6 @@ import { ComparisonType } from "../Reporting/comparisonType";
 import { ComparisonValue } from "../Reporting/comparisonValue";
 import { areEqual } from "../Util/guid";
 import { ListItemBag } from "../ViewModels";
-import { PublicFilterableAttribute } from "../ViewModels/publicFilterableAttribute";
 import { FieldTypeBase } from "./fieldType";
 import { getStandardFilterComponent } from "./utils";
 

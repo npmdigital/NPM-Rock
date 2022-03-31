@@ -17,7 +17,7 @@
 
 import { GatewayControlModel } from "../../../Controls/gatewayControl";
 import { Guid } from "../../../Util/guid";
-import { PublicAttribute, ListItem, SavedFinancialAccountListItem } from "../../../ViewModels";
+import { PublicAttributeBag, ListItemBag, SavedFinancialAccountListItemBag } from "../../../ViewModels";
 import { ComparisonType } from "../../../Reporting/comparisonType";
 import { FilterExpressionType } from "../../../Reporting/filterExpressionType";
 import { RegistrationEntryBlockSession } from "./registrationEntryBlockArgs";
@@ -80,8 +80,8 @@ export type RegistrationEntryBlockViewModel = {
     registrantForms: RegistrationEntryBlockFormViewModel[];
     fees: RegistrationEntryBlockFeeViewModel[];
     familyMembers: RegistrationEntryBlockFamilyMemberViewModel[];
-    registrationAttributesStart: PublicAttribute[];
-    registrationAttributesEnd: PublicAttribute[];
+    registrationAttributesStart: PublicAttributeBag[];
+    registrationAttributesEnd: PublicAttributeBag[];
     forceEmailUpdate: boolean;
     registrarOption: RegistrarOption;
     cost: number;
@@ -101,12 +101,12 @@ export type RegistrationEntryBlockViewModel = {
     allowRegistrationUpdates: boolean;
     startAtBeginning: boolean;
     gatewayGuid: Guid | null;
-    campuses: ListItem[];
-    maritalStatuses: ListItem[];
-    connectionStatuses: ListItem[];
-    grades: ListItem[];
+    campuses: ListItemBag[];
+    maritalStatuses: ListItemBag[];
+    connectionStatuses: ListItemBag[];
+    grades: ListItemBag[];
     enableSaveAccount: boolean;
-    savedAccounts: SavedFinancialAccountListItem[] | null;
+    savedAccounts: SavedFinancialAccountListItemBag[] | null;
 };
 
 export type RegistrationEntryBlockFamilyMemberViewModel = {
@@ -141,7 +141,7 @@ export type RegistrationEntryBlockFormFieldViewModel = {
     personFieldType: RegistrationPersonFieldType;
     isRequired: boolean;
     isSharedValue: boolean;
-    attribute: PublicAttribute | null;
+    attribute: PublicAttributeBag | null;
     visibilityRuleType: FilterExpressionType;
     visibilityRules: RegistrationEntryBlockFormFieldRuleViewModel[];
     preHtml: string;

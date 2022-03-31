@@ -24,7 +24,7 @@ namespace Rock.ViewModel.NonEntities
     /// Describes the data sent to and from remote systems to allow editing
     /// of attributes (not values, the attributes themselves).
     /// </summary>
-    public class PublicEditableAttributeViewModel
+    public class PublicEditableAttributeBag
     {
         /// <summary>
         /// Gets or sets the unique identifier of the existing attribute. If

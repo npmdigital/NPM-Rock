@@ -19,7 +19,7 @@ import { getFieldType } from "../Fields/index";
 import { ComparisonValue } from "../Reporting/comparisonValue";
 import { FilterMode } from "../Reporting/filterMode";
 import { useVModelPassthrough } from "../Util/component";
-import { PublicFilterableAttribute } from "../ViewModels/publicFilterableAttribute";
+import { PublicAttributeBag } from "../ViewModels/publicAttributeBag";
 
 export default defineComponent({
     name: "RockAttributeFilter",
@@ -30,7 +30,7 @@ export default defineComponent({
             default: { value: "" }
         },
         attribute: {
-            type: Object as PropType<PublicFilterableAttribute>,
+            type: Object as PropType<PublicAttributeBag>,
             required: true
         },
         required: {

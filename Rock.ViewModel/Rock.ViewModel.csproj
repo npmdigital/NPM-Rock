@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Rock.ViewModel.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -310,10 +311,8 @@
     <Compile Include="IViewModel.cs" />
     <Compile Include="IViewModelWithAttributes.cs" />
     <Compile Include="NonEntities\AttributeConfigurationValue.cs" />
-    <Compile Include="NonEntities\PublicEditableAttributeViewModel.cs" />
+    <Compile Include="NonEntities\PublicEditableAttributeBag.cs" />
     <Compile Include="NonEntities\ListItemBag.cs" />
-    <Compile Include="NonEntities\PublicFilterableAttributeViewModel.cs" />
-    <Compile Include="NonEntities\PublicFilterableAttributeValueViewModel.cs" />
     <Compile Include="NonEntities\SavedFinancialAccountListItemBag.cs" />
     <Compile Include="NonEntities\TreeItemBag.cs" />
     <Compile Include="Partials\AttributeValueViewModel.partial.cs" />

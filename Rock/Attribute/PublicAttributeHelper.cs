@@ -52,13 +52,13 @@ namespace Rock.Attribute
         /// </summary>
         /// <remarks>This is for editing the attribute itself, not the attribute value.</remarks>
         /// <param name="attribute">The attribute that will be represented.</param>
-        /// <returns>A <see cref="PublicEditableAttributeViewModel"/> that represents the attribute.</returns>
-        internal static PublicEditableAttributeViewModel GetPublicEditableAttributeViewModel( Rock.Model.Attribute attribute )
+        /// <returns>A <see cref="PublicEditableAttributeBag"/> that represents the attribute.</returns>
+        internal static PublicEditableAttributeBag GetPublicEditableAttributeViewModel( Rock.Model.Attribute attribute )
         {
             var fieldTypeCache = FieldTypeCache.Get( attribute.FieldTypeId );
             var configurationValues = attribute.AttributeQualifiers.ToDictionary( q => q.Key, q => q.Value );
 
-            return new PublicEditableAttributeViewModel
+            return new PublicEditableAttributeBag
             {
                 Guid = attribute.Guid,
                 Name = attribute.Name,

@@ -17,7 +17,7 @@
 
 import { FieldFilterSourceType } from "../../Reporting/fieldFilterSourceType";
 import { Guid } from "../../Util/guid";
-import { PublicFilterableAttribute } from "../publicFilterableAttribute";
+import { PublicAttributeBag } from "../publicAttributeBag";
 
 /**
  * Describes a single source item an individual can pick from when building a
@@ -33,5 +33,5 @@ export type FieldFilterSourceBag = {
     type: FieldFilterSourceType;
 
     /** The information about the attribute when the type is Attribute. */
-    attribute?: PublicFilterableAttribute | null;
+    attribute?: PublicAttributeBag | null;
 };

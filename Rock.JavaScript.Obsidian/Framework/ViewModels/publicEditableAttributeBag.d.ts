@@ -22,7 +22,7 @@ import { ListItemBag } from "../ViewModels";
  * Describes the data sent to and from remote systems to allow editing of
  * attributes (not values, the attributes themselves).
  */
-export type PublicEditableAttributeViewModel = {
+export type PublicEditableAttributeBag = {
     /**
      * The unique identifier of the existing attribute. If this is a new
      * attribute the value should be null.
