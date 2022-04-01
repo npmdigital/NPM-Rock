@@ -71,6 +71,7 @@
     <Folder Include="Framework\Elements\" />
     <Folder Include="Framework\Fields\" />
     <Folder Include="Framework\Directives\" />
+    <Folder Include="Framework\Types\" />
     <Folder Include="Framework\Reporting\" />
     <Folder Include="Framework\Rules\" />
     <Folder Include="Framework\Services\" />
@@ -365,6 +366,7 @@
     <TypeScriptCompile Include="Framework\SystemGuids\index.d.ts" />
     <TypeScriptCompile Include="Framework\Templates\paneledBlockTemplate.ts" />
     <TypeScriptCompile Include="Framework\Templates\paneledDetailBlockTemplate.ts" />
+    <TypeScriptCompile Include="Framework\Types\index.d.ts" />
     <TypeScriptCompile Include="Framework\Util\component.ts" />
     <TypeScriptCompile Include="Framework\Util\dialogs.ts" />
     <TypeScriptCompile Include="Framework\Util\form.ts" />
