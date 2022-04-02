@@ -145,7 +145,7 @@ namespace Rock.Web.UI.Controls
         ///   <c>true</c> if [display show inactive items]; otherwise, <c>false</c>.
         /// </value>
         public bool DisplayShowInactiveItems { get; set; }
-          
+
         /// <summary>
         /// Gets or sets the custom data items that will be serialized as a json object that is used to add custom properties to the itemPicker.js node object.
         /// This value should be specified as a json array (i.e. "[{\"itemKey\":\"jsClientPropName\",\"itemValueKey\":\"ServerPropName\"}]").
@@ -194,9 +194,10 @@ $@"Rock.controls.accountPicker.initialize({{
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
+
             _btnSelectAll = new HyperLink
             {
-                ID = this.ClientID + "_btnSelectAll",
+                ID = this.ID + "_btnSelectAll",
                 CssClass = "btn btn-default btn-xs js-select-all pull-right margin-l-sm",
                 Text = "Select All"
             };
@@ -215,7 +216,7 @@ $@"Rock.controls.accountPicker.initialize({{
                 AutoPostBack = true,
             };
             _cbShowInactiveAccounts.CheckedChanged += _cbShowInactiveAccounts_CheckedChanged;
-            Controls.Add( _cbShowInactiveAccounts );
+            this.Controls.Add( _cbShowInactiveAccounts );
 
             if ( EnhanceForLongLists )
             {
@@ -225,7 +226,7 @@ $@"Rock.controls.accountPicker.initialize({{
                     CssClass = "js-existing-search-value"
                 };
 
-                Controls.Add( _hfSearchValue );
+                this.Controls.Add( _hfSearchValue );
             }
         }
 
@@ -241,40 +242,6 @@ $@"Rock.controls.accountPicker.initialize({{
         /// <param name="writer">The writer.</param>
         public override void RenderCustomPickerActions( HtmlTextWriter writer )
         {
-            base.RenderCustomPickerActions( writer );
-                        
-            if ( this.AllowMultiSelect )
-            {
-                writer.Write( "<a class='btn btn-xs btn-link picker-preview' id='btnPreviewSelection_{0}'>Preview Selection</a>", this.ClientID );
-                writer.Write( "<a class='btn btn-xs btn-link picker-treeview' id='btnTreeView_{0}'>Tree View</a>", this.ClientID );
-                _btnSelectAll.RenderControl( writer );
-            }
-
-            if ( DisplayShowInactiveItems && _cbShowInactiveAccounts != null )
-            {
-                _cbShowInactiveAccounts.RenderControl( writer );
-            }
-
-        }
-                
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit( EventArgs e )
-        {
-            SetExtraRestParams();
-            base.OnInit( e );    
-        }
-
-        /// <summary>
-        /// This is where you implement the simple aspects of rendering your control.  The rest
-        /// will be handled by calling RenderControlHelper's RenderControl() method.
-        /// </summary>
-        /// <param name="writer">The writer.</param>
-        public override void RenderBaseControl( HtmlTextWriter writer )
-        {
-
             if ( EnhanceForLongLists )
             {
                 // style tag
@@ -306,6 +273,44 @@ $@"Rock.controls.accountPicker.initialize({{
                 // end style tag
             }
 
+            if ( _hfSearchValue != null )
+            {
+                _hfSearchValue.RenderControl( writer );
+            }
+
+            base.RenderCustomPickerActions( writer );
+
+            if ( this.AllowMultiSelect )
+            {
+                writer.Write( "<a class='btn btn-xs btn-link picker-preview' id='btnPreviewSelection_{0}'>Preview Selection</a>", this.ClientID );
+                writer.Write( "<a class='btn btn-xs btn-link picker-treeview' id='btnTreeView_{0}'>Tree View</a>", this.ClientID );
+                _btnSelectAll.RenderControl( writer );
+            }
+
+            if ( DisplayShowInactiveItems && _cbShowInactiveAccounts != null )
+            {
+                _cbShowInactiveAccounts.RenderControl( writer );
+            }
+
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnInit( EventArgs e )
+        {
+            SetExtraRestParams();
+            base.OnInit( e );
+        }
+
+        /// <summary>
+        /// This is where you implement the simple aspects of rendering your control.  The rest
+        /// will be handled by calling RenderControlHelper's RenderControl() method.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        public override void RenderBaseControl( HtmlTextWriter writer )
+        {
             if ( EnableFullWidth )
             {
                 this.RemoveCssClass( "picker-lg" );
@@ -316,24 +321,13 @@ $@"Rock.controls.accountPicker.initialize({{
             }
 
             base.IconCssClass = "fa fa-building-o";
-            base.ShowSelectChildren = true;
-            DisplayShowInactiveItems = true;
-            EnhanceForLongLists = true;
             base.PickerMenuCssClasses = "picker-menu-w500 dropdown-menu";
-            DisplayChildItemCountLabel = true;
             CustomDataItems = "[{\"itemKey\":\"glCode\",\"itemValueKey\":\"GlCode\"}]";
-
 
             if ( DisplayActiveOnly )
             {
                 DisplayShowInactiveItems = false;
             }
-
-            if ( _hfSearchValue != null )
-            {
-                _hfSearchValue.RenderControl( writer );
-            }
-
 
             // NOTE: The base ItemPicker.RenderBaseControl will do additional CSS class additions.
             base.RenderBaseControl( writer );

@@ -133,6 +133,7 @@
                         selectedNodes = rockTree.selectedNodes,
                         selectedIds = [],
                         selectedNames = [];
+
                     $.each(selectedNodes, function (index, node) {
                         var nodeName = $("<textarea/>").html(node.name).text();
                         selectedNames.push(nodeName);
@@ -156,7 +157,7 @@
                         self.updateScrollbar();
                     });
 
-                    if (!(el && el.originalEvent && el.originalEvent.srcElement == this)) {
+                    if (!(el && el.originalEvent && el.originalEvent.srcElement === this)) {
                         // if this event was called by something other than the button itself, make sure the execute the href (which is probably javascript)
                         var jsPostback = $(this).attr('href');
                         if (jsPostback) {

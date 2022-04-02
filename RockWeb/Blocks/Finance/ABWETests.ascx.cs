@@ -17,7 +17,7 @@ namespace RockWeb.Blocks.Finance
     [Category( "Finance" )]
     [Description( "ABWE Tests" )]
 
-    //[AccountField( "My Account", "My Account Field", Key = "MyAccountField" )]
+    [AccountField( "My Account", "My Account Field", Key = "MyAccountField", EnhancedForLongLists =true )]
     
     public partial class ABWETests : RockBlock
     {
@@ -25,10 +25,10 @@ namespace RockWeb.Blocks.Finance
         {
             base.OnLoad( e );
 
-            var entityTypes = new EntityTypeService( new RockContext() ).GetEntities()
+            dynamic entityTypes = new EntityTypeService( new RockContext() ).GetEntities()
               .ToList();
-
-            epEntityType.EntityTypes = entityTypes;
+                        
+            //epEntityType.EntityTypes = entityTypes;
         }
     }
 }

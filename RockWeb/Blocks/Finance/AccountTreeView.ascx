@@ -1,5 +1,25 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AccountTreeView.ascx.cs" Inherits="RockWeb.Blocks.Finance.AccountTreeView" %>
 
+<style>
+    .input-group-addon-override {
+        border-width: 1px 1px 1px 0px !important;
+        background-color: transparent;
+    }
+
+    .form-control-override {
+        border-width: 1px 0px 1px 1px !important;
+    }
+
+        .form-control-override:focus {
+            border-color: #dfe0e1 !important;
+            box-shadow: none !important;
+        }
+
+    .item-picker-search {
+        padding-bottom: 15px !important;
+    }
+</style>
+
 <asp:UpdatePanel ID="upAccountType" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
     <ContentTemplate>
         <asp:HiddenField ID="hfInitialAccountId" runat="server" />
@@ -17,6 +37,9 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-link btn-xs dropdown-toggle" onclick="$(this).closest('.js-accounttreeview').find('.js-group-search').slideToggle()">
+                                <i class="fa fa-search"></i>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -41,7 +64,18 @@
                                 <asp:LinkButton ID="lbOrderTopLevelAccounts" runat="server" CssClass="btn btn-xs btn-default" Text="Order Top-Level Accounts" OnClick="lbOrderTopLevelAccounts_Click" />
                             </div>
                         </div>
-                        </div>
+                    </div>
+
+                    <div class="rocktree-drawer form-group js-group-search" style="display: none">
+                        <asp:Label runat="server" AssociatedControlID="tbSearch" Text="Search" CssClass="control-label d-none" />
+                        <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btnSearch" CssClass="input-group">
+                            <asp:TextBox ID="tbSearch" runat="server" placeholder="Quick Find" CssClass="form-control input-sm" />
+                            <span class="input-group-btn">
+                                <asp:LinkButton ID="btnSearch" runat="server" CssClass="btn btn-default btn-sm"><i class="fa fa-search"></i></asp:LinkButton>
+                            </span>
+                        </asp:Panel>
+                    </div>
+
                     <div class="treeview-scroll scroll-container scroll-container-horizontal">
                         <div class="viewport">
                             <div class="overview">
@@ -62,12 +96,11 @@
             </div>
         </div>
 
+ <script type="text/javascript">
+     var <%=hfSelectedAccountId.ClientID%>IScroll = null;
 
-        <script type="text/javascript">
-            var <%=hfSelectedAccountId.ClientID%>IScroll = null;
-
-            $(function () {
-                var $selectedId = $('#<%=hfSelectedAccountId.ClientID%>'),
+     $(function () {
+         var $selectedId = $('#<%=hfSelectedAccountId.ClientID%>'),
                     $expandedIds = $('#<%=hfInitialAccountParentIds.ClientID%>');
 
                 var scrollbCategory = $('#<%=pnlTreeviewContent.ClientID%>').closest('.treeview-scroll');
@@ -141,18 +174,50 @@
                         selectedIds: $selectedId.val() ? $selectedId.val().split(',') : null,
                         expandedIds: $expandedIds.val() ? $expandedIds.val().split(',') : null
                     });
-            });
 
-                function resizeScrollbar(scrollControl) {
-                    var overviewHeight = $(scrollControl).find('.overview').height();
+         // Handle the input searching
+         var rockTree = $('#<%=pnlTreeviewContent.ClientID%>').data('rockTree');
 
-                    $(scrollControl).find('.viewport').height(overviewHeight);
+         var $searchInputControl = $('#<%=tbSearch.ClientID%>');
+         var $btnSearch = $('#<%=btnSearch.ClientID%>')
 
-                    if (<%=hfSelectedAccountId.ClientID%>IScroll) {
-                        <%=hfSelectedAccountId.ClientID%>IScroll.refresh();
-                    }
-                }
-        </script>
+         //execute ajax search
+         $btnSearch.off('click').on('click', function (e) {
 
-    </ContentTemplate>
+             var searchKeyword = $searchInputControl.val();
+             if (searchKeyword && searchKeyword.length > 0) {
+                 var restUrl = '<%=ResolveUrl( "~/api/FinancialAccounts/GetChildrenByKeyword/")%>'
+                 var restUrlParams =  '0/false/' + searchKeyword;
+
+                 restUrl = restUrl + restUrlParams;
+
+                 $.getJSON(restUrl, function (data, status) {
+
+                     var jsonString = JSON.stringify(data);
+
+                     console.debug("Data: " + jsonString + "\nStatus: " + status);
+                 });
+             }
+         });
+
+      }); //function()
+
+        function resizeScrollbar(scrollControl) {
+            var overviewHeight = $(scrollControl).find('.overview').height();
+
+            $(scrollControl).find('.viewport').height(overviewHeight);
+
+            if (<%=hfSelectedAccountId.ClientID%>IScroll) {
+                <%=hfSelectedAccountId.ClientID%>IScroll.refresh();
+         }
+     }
+     // jquery function to ensure HTML is state remains the same each time it is executed
+     $.fn.outerHTML = function (s) {
+         return (s)
+             ? this.before(s).remove()
+             : $("<p>").append(this.eq(0).clone()).html();
+     }
+ </script>
+    
+</ContentTemplate>
 </asp:UpdatePanel>

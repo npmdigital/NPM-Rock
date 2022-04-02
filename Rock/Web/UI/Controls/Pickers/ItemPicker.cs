@@ -249,6 +249,7 @@ namespace Rock.Web.UI.Controls
 
         private HtmlAnchor _btnSelect;
         private HtmlAnchor _btnSelectNone;
+
         #endregion
 
         #region Properties
@@ -719,6 +720,7 @@ $@"Rock.controls.itemPicker.initialize({{
         /// <summary>
         /// Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
         /// </summary>
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -794,7 +796,7 @@ $@"Rock.controls.itemPicker.initialize({{
             Controls.Add( _hfItemRestUrlExtraParams );
             Controls.Add( _btnSelect );
             Controls.Add( _btnSelectNone );
-
+                
             RockControlHelper.CreateChildControls( this, Controls );
 
             RequiredFieldValidator.InitialValue = Constants.None.IdValue;

@@ -154,7 +154,8 @@
                 // clear session storage
                 $(document).ready(function () {
                     if (!self.options.isPostBack) {
-                        self.removeTreeState();
+                        self.removeTreeState('treeView');
+                        self.removeTreeState('search');
                     }
                 });
 
@@ -199,6 +200,7 @@
                     })
                     .on('rockTree:expand rockTree:collapse rockTree:dataBound', function (evt, data) {
                         var $treeItems = $(self.getTreeState(true));
+
                         // set\remove expanded items
                         $treeItems.find('[node-open]').each(function (i, v) {
                             var opened = $(v).attr('node-open') === 'true' ? true : false;
@@ -217,8 +219,8 @@
                         self.updateScrollbar();
                     })
                     .on('rockTree:rendered', function (evt, data) {
-                        self.renderedNodes = data.nodes;
 
+                        self.renderedNodes = data.nodes;
                         if (self.$hfItemIds.val() && self.$hfItemIds !== '0') {
                             self.options.selectedIds = self.$hfItemIds.val().split(',');
                             self.addSelectedNodes(self.options.selectedIds);
@@ -236,18 +238,6 @@
 
                         // Render the search control if EnhanceForLongLists is true from the server
                         self.createSearchControl();
-
-                        // Store the original rendered HTML for later reference
-                        // Used throughout to restore the tree to the original state if having to present different UI modes
-
-                        //if (!self.getTreeState()) {
-                        //    self.setTreeState();
-                        //}
-
-                        //$control.find('.treeview').trigger('rockTree:selected');
-
-                        //reset this after render
-                        console.debug('rendered->isPostBack', self.options.isPostBack);
                     })
                     .on('rockTree:fetchCompleted', function (evt, data) {
                         // intentionally empty
@@ -268,8 +258,8 @@
                     $treeItems.find('.rocktree-name').removeClass('selected');
 
                     // clear search input & show
-                    $control.find('.item-picker-search > input').val('');
-                    $control.find('.js-existing-search-value').val('');
+                    self.removeSearchMode();
+
                     $control.find('.item-picker-search').show();
 
                     // clear selected items
@@ -507,18 +497,14 @@
                 // Tree View link click
                 $control.find('.picker-treeview').on('click', function () {
 
-                    self.removeSearchControl();
+                    self.removeSearchMode();
 
                     var rockTree = $control.find('.treeview').data('rockTree');
 
                     // rebind the original click event in rockTree.js so the tree selection
                     // functions as normal when not in search mode
-                    // this event could become unbound in the search mode and then not be rebound before the treeview is clicked
+                    // this event will become unbound in the search mode and then not be rebound before the treeview link is clicked
                     rockTree.rebindEvent('click', '.rocktree-item > span', 'onSelectHandler');
-
-                    //clear search input
-                    $control.find('.item-picker-search > input').val('');
-                    $control.find('.js-existing-search-value').val('');
 
                     if (self.getSelectedNodes().length > 0) {
                         $control.find('.picker-preview').show();
@@ -531,7 +517,7 @@
 
                     $('#' + self.options.controlId + '_btnSelectAll').show();
 
-                    self.rebuildTreeSelections();
+                    self.rebuildTreeSelections('treeView');
 
                     $control.find('.item-picker-search').show();
                     //$control.find('.treeview').trigger('rockTree:selected');
@@ -600,6 +586,11 @@
 
                     $spanNames.text(self.options.defaultText);
                     $spanNames.attr('title', $spanNames.text());
+
+                    self.removeSearchMode();
+                    self.removeSelectedNodes();
+                    self.removeTreeState('tree');
+                    self.removeTreeState('search');
                 });
 
                 // clicking on the 'select all' btn
@@ -701,7 +692,7 @@
                     var searchInputControl = '#' + controlId + '_itemPickerSearchInput';
 
                     // A hidden value to store the current search criteria to be read on post-backs
-                    var $searchValueField = $('.js-existing-search-value');
+                    var $searchValueField = $control.find('.js-existing-search-value');
 
                     var searchControl =
                         '<div id="' + controlId + '_itemPickerSearch">' +
@@ -737,9 +728,7 @@
                             $control.find('.picker-preview').hide();
 
                             /*** Enter Search mode ***/
-
-                            // push control to the array to keep track when we are in search mode
-                            self.setSearchControl();
+                            self.setSearchMode();
 
                             // find the matching elements
                             var $matchingListElements = $allListElements
@@ -760,7 +749,7 @@
                             /*** Exit Search mode ***/
 
                             // we are no longer in search mode if the text is empty so remove it from the array
-                            self.removeSearchControl();
+                            self.removeSearchMode();
 
                             // rebind the original click event in rockTree.js so the tree selection
                             // functions as normal when not in search mode
@@ -782,12 +771,12 @@
                                 $(treeItem).find('.rocktree-name > .fa-file-o').remove();
 
                                 var $searchInputCheckbox = $rockTreeNodeName.find('.rock-tree-input-cb > input');
-                                var $searchInputRadioOption = $rockTreeNodeName.find('.rock-tree-input-ro > input');
+                                var $searchInputRadioOption = $rockTreeNodeName.find('.rock-tree-input-rb > input');
 
                                 if (self.options.allowMultiSelect) {
                                     // check boxes if using multi-select picker
                                     if (!$searchInputCheckbox.length) {
-                                        $rockTreeNodeName.prepend('<span class="pr-2 rock-tree-input-cb"><input data-id="' + nodeId + '" type="checkbox"></span>');
+                                        $rockTreeNodeName.prepend('<span class="pr-2 rock-tree-input-cb"><input class="js-node-check-box" data-id="' + nodeId + '" type="checkbox"></span>');
                                     }
 
                                     $searchInputCheckbox = $rockTreeNodeName.find('.rock-tree-input-cb > input');
@@ -796,60 +785,75 @@
                                     if ($rockTreeName.hasClass('selected')) {
                                         $searchInputCheckbox.attr('checked', 'checked');
                                         $searchInputCheckbox.trigger('checked');
-                                        // we don't need this class to show in the search mode
-                                        $rockTreeName.removeClass('selected');
                                     }
                                 }
                                 else {
                                     // otherwise use radio options for single select
                                     if (!$searchInputRadioOption.length) {
-                                        $rockTreeNodeName.prepend('<span class="pr-2 rock-tree-input-ro"><input data-id="' + nodeId + '" type="radio"></span>');
+                                        $rockTreeNodeName.prepend('<span class="pr-2 rock-tree-input-rb"><input class="js-node-radio-button" data-id="' + nodeId + '" type="radio"></span>');
                                     }
 
-                                    $searchInputRadioOption = $rockTreeNodeName.find('.rock-tree-input-ro > input');
+                                    $searchInputRadioOption = $rockTreeNodeName.find('.rock-tree-input-rb > input');
 
                                     // set the radio value if the tree-view item is selected
-                                    if ($searchInputRadioOption.length && $rockTreeName.hasClass('selected')) {
-                                        $searchInputRadioOption.attr('checked', 'checked');
+                                    if ($rockTreeName.hasClass('selected')) {
+                                        $searchInputRadioOption.prop('checked', true);
+                                        $searchInputRadioOption.trigger('checked');
                                     }
                                 }
 
+                                // we don't need this class to show in the search mode
+                                $rockTreeName.removeClass('selected');
                             });
 
                             $allListElements.hide();
                             $matchingListElements.show();
 
-                            // Check-box selection event
-                            $('.rock-tree-input-cb > input').off().on('change', function (e) {
+                            // multi-select Check-box selection event
+                            $control.find('.rock-tree-input-cb > input').off().on('change', function (e) {
                                 var checked = this.checked;
                                 var $this = $(this);
+                                var nodeId = $this.attr('data-id');
+                                var nodeName = $('#node-item-' + nodeId + ' > .rocktree-name').attr('title');
 
                                 if (checked) {
-                                    self.addSelectedNodes($this.attr('data-id'))
+                                    self.addSelectedNodes(nodeId, 'selected')
+                                    if (!rockTree.selectedNodes.find(function (v) { v.id === nodeId })) {
+                                        rockTree.selectedNodes.push({ id: nodeId, name: nodeName });
+                                    }
                                 }
                                 else {
-                                    self.removeSelectedNodes($this.attr('data-id'))
+                                    self.removeSelectedNodes(nodeId, 'selected')
+                                    if (rockTree.selectedNodes.find(function (v) { v.id === nodeId })) {
+                                        rockTree.selectedNodes.filter(function (v) { return v.id !== nodeId; });
+                                    }
                                 }
                             });
 
                             // Radio option selection event
-                            $('.rock-tree-input-rb > input').off().on('change', function (e) {
+                            $control.find('.rock-tree-input-rb > input').off().on('change', function (e) {
                                 var checked = this.checked;
                                 var $this = $(this);
+                                var nodeId = $this.attr('data-id');
+                                var nodeName = $('#node-item-' + nodeId + ' > .rocktree-name').attr('title');
+
+                                $('.rock-tree-input-rb > input').removeAttr('checked');
+                                self.removeSelectedNodes();
 
                                 if (checked) {
-                                    self.addSelectedNodes($this.attr('data-id'))
-                                }
-                                else {
-                                    self.removeSelectedNodes($this.attr('data-id'))
+                                    self.addSelectedNodes(nodeId, 'selected')
+                                    $this.prop('checked', true);
+                                    //need to add the selected node name so the select works from the search mode
+                                    rockTree.selectedNodes = [];
+                                    if (!rockTree.selectedNodes.find(function (v) { v.id === nodeId })) {
+                                        rockTree.selectedNodes.push({ id: nodeId, name: nodeName });
+                                    }
                                 }
                             });
                         }
-
-                        console.debug('search control created');
                     });
 
-                    // Check for existing input val (likely on postbacks) then set the search value and fire the search
+                    // Check for existing input val (likely on post backs) then set the search value and fire the search
                     var existingVal = $searchValueField.val();
                     if (existingVal && existingVal.length > 0) {
                         $(searchInputControl).val(existingVal);
@@ -954,8 +958,6 @@
 
                 var nodeIds = self.options[selectedProp];
 
-                console.debug('getSelectedNodes->' + type, nodeIds)
-
                 return nodeIds;
             },
             removeSelectedNodes: function (idOrIds, type) {
@@ -1016,7 +1018,7 @@
                     self.$hfExpandedIds = $ids;
                 }
             },
-            hasSearchControl: function () {
+            isSearchMode: function () {
                 var self = this;
                 var isSearchCtl = false;
                 if (self.searchControls) {
@@ -1024,16 +1026,21 @@
                 }
                 return isSearchCtl;
             },
-            setSearchControl: function () {
+            setSearchMode: function () {
                 var self = this;
-                if (!self.hasSearchControl()) {
+                if (!self.isSearchMode()) {
                     self.searchControls.push('search-mode-' + self.options.controlId);
                 }
             },
-            removeSearchControl: function () {
+            removeSearchMode: function () {
                 var self = this;
+                var controlId = self.options.controlId;
+                var $control = $('#' + controlId);
 
-                if (self.hasSearchControl()) {
+                $control.find('.item-picker-search > input').val('');
+                $control.find('.js-existing-search-value').val('');
+
+                if (self.isSearchMode()) {
                     self.searchControls = self.searchControls.filter(function (v) {
                         return v !== 'search-mode-' + self.options.controlId;
                     });
@@ -1041,9 +1048,10 @@
             },
             setTreeState: function (optionalTreeHtml) {
                 var self = this;
+                var storageStateSource = self.isSearchMode() ? 'search' : 'tree';
 
                 // do not store the tree state on postback because we could be in a weird state
-                if (self.options.isPostBack===true) {
+                if (self.options.isPostBack === true) {
                     return;
                 }
 
@@ -1067,19 +1075,20 @@
 
                 if (html !== null) {
                     // per tab\session storage
-                    var storageKey = self.options.controlId + '-treeview-html';
+                    var storageKey = self.options.controlId + '-treeview-html-' + storageStateSource;
                     var sessionItem = Rock.utility.encodeUnicode(html);
                     sessionStorage.setItem(storageKey, sessionItem);
                 }
             },
             getTreeState: function (useTreeItemsElementHtml) {
                 var self = this;
+                var storageStateSource = self.isSearchMode() ? 'search' : 'tree';
 
                 if (useTreeItemsElementHtml) {
                     return $('#' + self.options.controlId + '_treeItems').outerHTML();
                 }
 
-                var storageKey = self.options.controlId + '-treeview-html';
+                var storageKey = self.options.controlId + '-treeview-html-' + storageStateSource;
                 var sessionItem = sessionStorage.getItem(storageKey);
                 if (sessionItem) {
                     var html = Rock.utility.decodeUnicode(sessionItem);
@@ -1093,24 +1102,24 @@
 
                 $('#' + self.options.controlId + '_treeItems').outerHTML(self.getTreeState());
             },
-            removeTreeState: function () {
+            removeTreeState: function (source) {
                 var self = this;
-                var storageKey = self.options.controlId + '-treeview-html';
+                var storageStateSource = source === undefined ? 'tree' : 'search';
+
+                var storageKey = self.options.controlId + '-treeview-html-' + storageStateSource;
 
                 if (self.getTreeState()) {
                     sessionStorage.removeItem(storageKey);
                 }
             },
             rebuildTreeSelections: function () {
-
-                console.debug('rebuildTreeSelections');
-
                 var self = this;
 
-                var searchMode = self.hasSearchControl();
-                                
+                var searchMode = self.isSearchMode();
+
+                var $treeState = $(self.getTreeState());
+
                 if (!searchMode) {
-                    var $treeState = $(self.getTreeState());
 
                     $treeState.find('.rocktree-name').removeClass('selected');
 
@@ -1134,25 +1143,41 @@
                             }
                         });
                     }
-                                        
+
                     self.setTreeState($treeState.outerHTML());
                     self.showTreeState();
                 }
                 else {
-                    $('.rock-tree-input-cb').removeAttr('checked');
 
-                    // reselect selected nodes
-                    if (self.getSelectedNodes('selected')) {
-                        self.getSelectedNodes('selected').forEach(function (id) {
-                            var $nodeToCheck = $('#node-item-' + id).find('.rocktree-name').first();
+                    if ($('.rock-tree-input-cb').length) {
+                        $('.rock-tree-input-cb').removeAttr('checked');
 
-                            if (self.options.allowMultiSelect) {
+                        // reselect selected nodes
+                        if (self.getSelectedNodes('selected')) {
+                            self.getSelectedNodes('selected').forEach(function (id) {
+                                var $nodeToCheck = $('#node-item-' + id).find('.rocktree-name').first();
+
                                 var $cbToCheck = $nodeToCheck.find('input');
-                                $cbToCheck.removeAttr('checked', 'checked');
-                            }
-                        });
+                                $cbToCheck.attr('checked', 'checked');
+                            });
+                        }
+                    }
+
+                    if ($('.rock-tree-input-rb').length) {
+                        $('.rock-tree-input-rb').removeAttr('checked');
+                        // reselect selected nodes
+                        if (self.getSelectedNodes('selected')) {
+                            self.getSelectedNodes('selected').forEach(function (id) {
+                                var $nodeToCheck = $('#node-item-' + id).find('.rocktree-name').first();
+
+                                var $rbToCheck = $nodeToCheck.find('input');
+                                $rbToCheck.prop('checked', true);
+                            });
+                        }
                     }
                 }
+
+
 
                 // when need to turn this back off after a postback and the search control has been created and invoked
                 self.options.isPostBack = false;

@@ -14,14 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
+
 using System.Collections.Generic;
 
 namespace Rock.Web.UI.Controls
 {
     /// <summary>
-    /// 
+    /// Class AccountTreeViewItem.
     /// </summary>
-    public class TreeViewItem
+    public class AccountTreeViewItem
     {
         /// <summary>
         /// 
@@ -45,12 +46,30 @@ namespace Rock.Web.UI.Controls
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TreeViewItem"/> class.
+        /// Initializes a new instance of the <see cref="AccountTreeViewItem"/> class.
         /// </summary>
-        public TreeViewItem()
+        public AccountTreeViewItem()
         {
             IsActive = true;
         }
+
+        /// <summary>
+        /// Gets or sets the parent identifier.
+        /// </summary>
+        /// <value>The parent identifier.</value>
+        public string ParentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gl code.
+        /// </summary>
+        /// <value>The gl code.</value>
+        public string GlCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is key word result.
+        /// </summary>
+        /// <value><c>true</c> if this instance is key word result; otherwise, <c>false</c>.</value>
+        public bool IsKeyWordResult { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
@@ -114,7 +133,7 @@ namespace Rock.Web.UI.Controls
         /// <value>
         /// The children.
         /// </value>
-        public List<TreeViewItem> Children { get; set; }
+        public List<AccountTreeViewItem> Children { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

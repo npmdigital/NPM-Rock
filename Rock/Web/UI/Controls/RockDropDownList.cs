@@ -238,7 +238,7 @@ namespace Rock.Web.UI.Controls
         #endregion
 
         /// <summary>
-        /// Gets or sets a value indicating whether the dropdownlist should allow a searc when used for single select
+        /// Gets or sets a value indicating whether the dropdownlist should allow a search when used for single select
         /// </summary>
         /// <value>
         ///   <c>true</c> if [enhance for long list]; otherwise, <c>false</c>.

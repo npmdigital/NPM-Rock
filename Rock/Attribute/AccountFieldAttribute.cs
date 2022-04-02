@@ -26,7 +26,7 @@ namespace Rock.Attribute
         private const string DISPLAY_PUBLIC_NAME = "displaypublicname";
         private const string DISPLAY_CHILD_ITEM_COUNTS = "displaychilditemcounts";
         private const string DISPLAY_ACTIVE_ONLY = "displayactiveitemsonly";
-
+        private const string ENHANCED_FOR_LONG_LISTS = "enhancedforlonglists";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountFieldAttribute"/> class.
@@ -44,6 +44,24 @@ namespace Rock.Attribute
             DisplayActiveItemsOnly = true;
             DisplayChildItemCounts = false;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [enhanced for long lists].
+        /// </summary>
+        /// <value><c>true</c> if [enhanced for long lists]; otherwise, <c>false</c>.</value>
+        public virtual bool EnhancedForLongLists
+        {
+            get
+            {
+                return FieldConfigurationValues.GetValueOrNull( ENHANCED_FOR_LONG_LISTS ).AsBoolean();
+            }
+
+            set
+            {
+                FieldConfigurationValues.AddOrReplace( ENHANCED_FOR_LONG_LISTS, new Field.ConfigurationValue( value.ToString() ) );
+            }
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether [display public name].
         /// </summary>
