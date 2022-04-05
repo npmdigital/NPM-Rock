@@ -27,6 +27,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RockWeb.Blocks.Connection
@@ -70,10 +72,11 @@ namespace RockWeb.Blocks.Connection
 
         #region Properties
 
-        public ConnectionOpportunity ConnectionOpportunity { get; set; }
-        public List<ConnectionActivityType> ConnectionActivityTypes { get; set; } = new List<ConnectionActivityType>();
+        private ConnectionOpportunity ConnectionOpportunity { get; set; }
+        private List<ConnectionActivityType> ConnectionActivityTypes { get; set; } = new List<ConnectionActivityType>();
         private List<ConnectionCampusCountViewModel> ConnectionCampusCountViewModelsState { get; set; } = new List<ConnectionCampusCountViewModel>();
         private List<int> RequestIdsState { get; set; } = new List<int>();
+        private List<string> SelectedFields { get; set; } = new List<string>();
 
         #endregion Properties
 
@@ -86,6 +89,65 @@ namespace RockWeb.Blocks.Connection
         protected override void OnInit( EventArgs e )
         {
             base.OnInit( e );
+
+            var script = string.Format( @"
+
+    // Add the 'bulk-item-selected' class to form-group of any item selected after postback
+    $( 'label.control-label' ).has( 'span.js-select-item > i.fa-check-circle-o').each( function() {{
+        $(this).closest('.form-group').addClass('bulk-item-selected');
+    }});
+
+    // Handle the click event for any label that contains a 'js-select-span' span
+    $( 'label.control-label' ).has( 'span.js-select-item').on('click', function() {{
+
+        var formGroup = $(this).closest('.form-group');
+        var selectIcon = formGroup.find('span.js-select-item').children('i');
+
+        // Toggle the selection of the form group
+        formGroup.toggleClass('bulk-item-selected');
+        var enabled = formGroup.hasClass('bulk-item-selected');
+
+        // Set the selection icon to show selected
+        selectIcon.toggleClass('fa-check-circle-o', enabled);
+        selectIcon.toggleClass('fa-circle-o', !enabled);
+
+        // Checkboxes needs special handling
+        var checkboxes = formGroup.find(':checkbox');
+        if ( checkboxes.length ) {{
+            $(checkboxes).each(function() {{
+                if (this.nodeName === 'INPUT' ) {{
+                    $(this).toggleClass('aspNetDisabled', !enabled);
+                    $(this).prop('disabled', !enabled);
+                    $(this).closest('label').toggleClass('text-muted', !enabled);
+                    $(this).closest('.form-group').toggleClass('bulk-item-selected', enabled);
+                }}
+            }});
+        }}
+
+        // Enable/Disable the controls
+        formGroup.find('.form-control').each( function() {{
+
+            $(this).toggleClass('aspNetDisabled', !enabled);
+            $(this).prop('disabled', !enabled);
+
+        }});
+
+        // Update the hidden field with the client id of each selected control, (if client id ends with '_hf' as in the case of multi-select attributes, strip the ending '_hf').
+        var newValue = '';
+        $('div.bulk-item-selected').each(function( index ) {{
+            $(this).find('[id]').each(function() {{
+                var re = /_hf$/;
+                var ctrlId = $(this).prop('id').replace(re, '');
+                newValue += ctrlId + '|';
+            }});
+        }});
+        $('#{0}').val(newValue);
+        if($(this).closest('.form-group.attribute-matrix-editor').length){{
+        __doPostBack('{1}', null);
+        }}
+    }});
+", hfSelectedItems.ClientID, pnlEntry.ClientID );
+            ScriptManager.RegisterStartupScript( hfSelectedItems, hfSelectedItems.GetType(), "select-items-" + BlockId.ToString(), script, true );
         }
 
         /// <summary>
@@ -100,6 +162,16 @@ namespace RockWeb.Blocks.Connection
             {
                 GetDetails();
             }
+            SetControlSelection();
+        }
+
+        /// <summary>
+        /// Sets the control selection.
+        /// </summary>
+        private void SetControlSelection()
+        {
+            SetControlSelection( ddlStatus, "Status" );
+            SetControlSelection( ddlState, "State" );
         }
 
         /// <summary>
@@ -152,6 +224,16 @@ namespace RockWeb.Blocks.Connection
             {
                 RequestIdsState = JsonConvert.DeserializeObject<List<int>>( json );
             }
+
+            string selectedItemsValue = Request.Form[hfSelectedItems.UniqueID];
+            if ( !string.IsNullOrWhiteSpace( selectedItemsValue ) )
+            {
+                SelectedFields = selectedItemsValue.Split( new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries ).ToList();
+            }
+            else
+            {
+                SelectedFields = new List<string>();
+            }
         }
 
         #endregion Control Methods
@@ -178,6 +260,41 @@ namespace RockWeb.Blocks.Connection
         }
 
         protected void btnBulkRequestUpdateCancel_Click( object sender, EventArgs e )
+        {
+            if ( !string.IsNullOrWhiteSpace( ddlStatus.SelectedValue ) && !string.IsNullOrWhiteSpace( ddlState.SelectedValue ) )
+            {
+                string changes = GetChanges();
+
+                phConfirmation.Controls.Add( new LiteralControl( changes ) );
+                pnlEntry.Visible = false;
+                pnlConfirm.Visible = true;
+                nbBulkUpdateNotification.Visible = false;
+            }
+            else
+            {
+                nbBulkUpdateNotification.Visible = true;
+                nbBulkUpdateNotification.NotificationBoxType = NotificationBoxType.Info;
+                nbBulkUpdateNotification.Text = "You have not selected anything to update.";
+            }
+        }
+
+        protected void cbAddActivity_CheckedChanged( object sender, EventArgs e )
+        {
+            if ( cbAddActivity.Checked )
+            {
+                GetActivityDetails();
+            }
+
+            dvActivity.Visible = cbAddActivity.Checked;
+        }
+
+        protected void btnBack_Click( object sender, EventArgs e )
+        {
+            pnlEntry.Visible = true;
+            pnlConfirm.Visible = false;
+        }
+
+        protected void btnConfirm_Click( object sender, EventArgs e )
         {
             var rockContext = new RockContext();
             var connectionActivity = new ConnectionActivityType();
@@ -244,16 +361,6 @@ namespace RockWeb.Blocks.Connection
             }
 
             rockContext.SaveChanges();
-        }
-
-        protected void cbAddActivity_CheckedChanged( object sender, EventArgs e )
-        {
-            if ( cbAddActivity.Checked )
-            {
-                GetActivityDetails();
-            }
-
-            dvActivity.Visible = cbAddActivity.Checked;
         }
 
         #endregion Events
@@ -470,6 +577,51 @@ namespace RockWeb.Blocks.Connection
                 .ToList();
 
             return ConnectionActivityTypes;
+        }
+
+        private void SetControlSelection( IRockControl control, string label )
+        {
+            bool controlEnabled = SelectedFields.Contains( control.ClientID, StringComparer.OrdinalIgnoreCase );
+            string iconCss = controlEnabled ? "fa-check-circle-o" : "fa-circle-o";
+            control.Label = string.Format( "<span class='js-select-item'><i class='fa {0}'></i></span> {1}", iconCss, label );
+            var webControl = control as WebControl;
+            if ( webControl != null )
+            {
+                webControl.Enabled = controlEnabled;
+            }
+        }
+
+        private string GetChanges()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat( "<p>You are about to make the following updates to {0} connection requests:</p>", RequestIdsState.Count.ToString( "N0" ) );
+            sb.AppendLine();
+
+            sb.AppendLine( "<ul>" );
+            const string template = "<span class='field-name'>{0}</span> to <span class='field-value'>{1}</span>";
+            if ( !string.IsNullOrWhiteSpace( ddlStatus.SelectedValue ) )
+            {
+                string change = string.Format( template, "Connection Status", ddlStatus.SelectedValue );
+                sb.AppendFormat( "<li>{0}</li>", change );
+            }
+
+            if ( !string.IsNullOrWhiteSpace( ddlState.SelectedValue ) )
+            {
+                string change = string.Format( template, "Connection State", ddlState.SelectedValue );
+                sb.AppendFormat( "<li>{0}</li>", change );
+            }
+
+            if ( cbAddActivity.Checked )
+            {
+                string change = $"Add Activity Type <span class='field-name'>{ddlActivityType.SelectedItem.Text}</span> with note <span class='field-name'>{tbActivityNote.Text}</span> by <span class='field-name'>{ddlActivityConnector.SelectedItem.Text}</span>";
+                sb.AppendFormat( "<li>{0}</li>", change );
+            }
+
+            sb.AppendLine( "</ul>" );
+
+            sb.AppendLine( "<p>Please confirm that you want to make these updates.</p>" );
+
+            return sb.ToString();
         }
 
         #endregion Methods
