@@ -13,6 +13,9 @@
                     <div class="col-md-12">
 
                         <Rock:RockControlWrapper ID="rcwBulkUpdateCampuses" runat="server" Visible="false" Label="Campus" Help="Help Text">
+                            <Rock:RockRadioButtonList ID="rblBulkUpdateCampuses" runat="server" RepeatDirection="Horizontal">
+
+                            </Rock:RockRadioButtonList>
                         </Rock:RockControlWrapper>
 
                     </div>
@@ -82,8 +85,8 @@
                 </div>
 
                 <div class="actions text-right">
-                    <asp:LinkButton ID="btnBulkRequestsUpdateSave" runat="server" AccessKey="s" ToolTip="Alt+s" Text="Update" CssClass="btn btn-primary"></asp:LinkButton>
-                    <asp:LinkButton ID="btnBulkRequestUpdateCancel" runat="server" AccessKey="c" ToolTip="Alt+c" Text="Cancel" CssClass="btn btn-link" CausesValidation="false" OnClick="btnBulkRequestUpdateCancel_Click"></asp:LinkButton>
+                    <asp:LinkButton ID="btnBulkRequestsUpdateSave" runat="server" AccessKey="s" ToolTip="Alt+s" Text="Update" CssClass="btn btn-primary" OnClick="btnBulkRequestUpdateCancel_Click"></asp:LinkButton>
+                    <asp:LinkButton ID="btnBulkRequestUpdateCancel" runat="server" AccessKey="c" ToolTip="Alt+c" Text="Cancel" CssClass="btn btn-link" CausesValidation="false"></asp:LinkButton>
                 </div>
 
             </div>
