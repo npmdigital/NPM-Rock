@@ -13,6 +13,7 @@
 
                 <asp:Panel ID="pnlEntry" runat="server">
 
+                    <asp:ValidationSummary ID="ValidationSummary" runat="server" HeaderText="Please correct the following:" CssClass="alert alert-validation" />
                     <Rock:NotificationBox ID="nbBulkUpdateNotification" runat="server" Visible="false"></Rock:NotificationBox>
 
                     <div class="row mb-3">
@@ -77,6 +78,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <Rock:RockDropDownList ID="ddlActivityType" runat="server" Label="Activity Type" />
+                                <asp:CustomValidator ID="cvSelection" runat="server" OnServerValidate="cvSelection_ServerValidate" Display="None" ErrorMessage="You have not selected an activity type" />
                             </div>
 
                             <div class="col-md-6">

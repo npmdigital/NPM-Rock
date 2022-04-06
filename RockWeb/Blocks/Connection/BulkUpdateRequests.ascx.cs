@@ -14,12 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-using CSScriptLibrary;
+
 using Humanizer;
 using Newtonsoft.Json;
 using Rock;
 using Rock.Data;
 using Rock.Model;
+using Rock.Transactions;
 using Rock.Web.UI;
 using Rock.Web.UI.Controls;
 using System;
@@ -42,15 +43,6 @@ namespace RockWeb.Blocks.Connection
     [Description( "Used for updating information about several Connection Requests at once. The QueryString must have both the EntitySetId as well as the ConnectionTypeId, and all the connection requests must be for the same opportunity." )]
     public partial class BulkUpdateRequests : RockBlock
     {
-        #region Attribute Keys
-
-        private static class AttributeKey
-        {
-            public const string DetailPage = "DetailPage";
-        }
-
-        #endregion Attribute Keys
-
         #region PageParameterKeys
 
         /// <summary>
@@ -64,8 +56,8 @@ namespace RockWeb.Blocks.Connection
 
         private static class ViewStateKeys
         {
-            public const string CONNECTION_OPPORTUNITY_STATE_KEY = "ConnectionOpportunityStateKey";
             public const string CONNECTION_REQUEST_IDS_KEY = "ConnectionRequestIdsKey";
+            public const string CONNECTION_CAMPUS_COUNT_KEY = "ConnectionCampusCount";
         }
 
         #endregion PageParameterKeys
@@ -162,16 +154,8 @@ namespace RockWeb.Blocks.Connection
             {
                 GetDetails();
             }
-            SetControlSelection();
-        }
 
-        /// <summary>
-        /// Sets the control selection.
-        /// </summary>
-        private void SetControlSelection()
-        {
-            SetControlSelection( ddlStatus, "Status" );
-            SetControlSelection( ddlState, "State" );
+            SetControlSelection();
         }
 
         /// <summary>
@@ -188,8 +172,8 @@ namespace RockWeb.Blocks.Connection
                 ContractResolver = new Rock.Utility.IgnoreUrlEncodedKeyContractResolver()
             };
 
-            ViewState[ViewStateKeys.CONNECTION_OPPORTUNITY_STATE_KEY] = JsonConvert.SerializeObject( ConnectionCampusCountViewModelsState, Formatting.None, jsonSetting );
             ViewState[ViewStateKeys.CONNECTION_REQUEST_IDS_KEY] = JsonConvert.SerializeObject( RequestIdsState, Formatting.None, jsonSetting );
+            ViewState[ViewStateKeys.CONNECTION_CAMPUS_COUNT_KEY] = JsonConvert.SerializeObject( ConnectionCampusCountViewModelsState, Formatting.None, jsonSetting );
 
             return base.SaveViewState();
         }
@@ -203,7 +187,7 @@ namespace RockWeb.Blocks.Connection
             base.LoadViewState( savedState );
 
             var entitySetId = PageParameter( PageParameterKey.EntitySetId ).AsInteger();
-            string json = ViewState[ViewStateKeys.CONNECTION_OPPORTUNITY_STATE_KEY] as string;
+            string json = ViewState[ViewStateKeys.CONNECTION_CAMPUS_COUNT_KEY] as string;
 
             if ( string.IsNullOrWhiteSpace(json) )
             {
@@ -248,8 +232,7 @@ namespace RockWeb.Blocks.Connection
         protected void ddlOpportunity_SelectedIndexChanged( object sender, EventArgs e )
         {
             var rockContext = new RockContext();
-            var connectionOpportunityId = ddlOpportunity.SelectedValue.AsIntegerOrNull();
-            var connectionOpportunity = new ConnectionOpportunityService( rockContext ).Get( connectionOpportunityId.Value );
+            var connectionOpportunity = GetConnectionOpportunity(rockContext );
 
             if ( connectionOpportunity != null )
             {
@@ -261,20 +244,44 @@ namespace RockWeb.Blocks.Connection
 
         protected void btnBulkRequestUpdateCancel_Click( object sender, EventArgs e )
         {
-            if ( !string.IsNullOrWhiteSpace( ddlStatus.SelectedValue ) && !string.IsNullOrWhiteSpace( ddlState.SelectedValue ) )
+            if ( !Page.IsValid )
             {
-                string changes = GetChanges();
+                return;
+            }
 
-                phConfirmation.Controls.Add( new LiteralControl( changes ) );
+            var currentOpportunityId = ConnectionCampusCountViewModelsState.FirstOrDefault().OpportunityId;
+            var selectedOpportunity = ddlOpportunity.SelectedValue.AsInteger();
+            var selectedCampusId = rblBulkUpdateCampuses.SelectedValue.AsIntegerOrNull();
+
+            bool hasChangeValue = SelectedFields.Count > 0 || currentOpportunityId != selectedOpportunity || !rbBulkUpdateCurrentConnector.Checked || cbAddActivity.Checked || wtpLaunchWorkflow.SelectedValue != "0";
+
+            if ( hasChangeValue )
+            {
+                var rockContext = new RockContext();
+                List<string> changes = GetChangesSummary( rockContext );
+
+                var requestCount = new ConnectionRequestService( rockContext ).Queryable().AsNoTracking()
+                .Where( cr => RequestIdsState.Contains( cr.Id ) && cr.CampusId == selectedCampusId ).Count();
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendFormat( "<p>You are about to make the following updates to {0} connection requests:</p>", requestCount.ToString( "N0" ) );
+                sb.AppendLine();
+
+                sb.AppendLine( "<ul>" );
+                changes.ForEach( c => sb.AppendFormat( "<li>{0}</li>\n", c ) );
+                sb.AppendLine( "</ul>" );
+
+                sb.AppendLine( "<p>Please confirm that you want to make these updates.</p>" );
+
+                phConfirmation.Controls.Add( new LiteralControl( sb.ToString() ) );
+
                 pnlEntry.Visible = false;
                 pnlConfirm.Visible = true;
                 nbBulkUpdateNotification.Visible = false;
             }
             else
             {
-                nbBulkUpdateNotification.Visible = true;
-                nbBulkUpdateNotification.NotificationBoxType = NotificationBoxType.Info;
-                nbBulkUpdateNotification.Text = "You have not selected anything to update.";
+                ShowNotification( NotificationBoxType.Info, "You have not selected anything to update." );
             }
         }
 
@@ -297,23 +304,26 @@ namespace RockWeb.Blocks.Connection
         protected void btnConfirm_Click( object sender, EventArgs e )
         {
             var rockContext = new RockContext();
-            var connectionActivity = new ConnectionActivityType();
 
             var selectedCampusId = rblBulkUpdateCampuses.SelectedValue.AsIntegerOrNull();
             var connectionRequestService = new ConnectionRequestService( rockContext );
+            var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
+            var connectionOpportunity = GetConnectionOpportunity(rockContext );
 
-            var connectionRequests = connectionRequestService.Queryable().AsNoTracking()
+            var guid = Rock.SystemGuid.ConnectionActivityType.BULK_UPDATE.AsGuid();
+            var bulkUpdateActivityId = new ConnectionActivityTypeService( rockContext ).Queryable()
+                .AsNoTracking()
+                .Where( t => t.Guid == guid )
+                .Select( t => t.Id )
+                .FirstOrDefault();
+
+            var connectionRequests = connectionRequestService.Queryable()
                 .Include( cr => cr.Campus )
-                .Where( cr => RequestIdsState.Contains( cr.Id ) ).ToList();
+                .Where( cr => RequestIdsState.Contains( cr.Id ) && cr.CampusId == selectedCampusId ).ToList();
 
             foreach ( var connectionRequest in connectionRequests )
             {
                 connectionRequest.ConnectionOpportunityId = ddlOpportunity.SelectedValue.AsInteger();
-
-                if ( selectedCampusId.HasValue )
-                {
-                    connectionRequest.CampusId = selectedCampusId.Value;
-                }
 
                 if ( !string.IsNullOrWhiteSpace( ddlStatus.SelectedValue ) )
                 {
@@ -322,7 +332,7 @@ namespace RockWeb.Blocks.Connection
 
                 if ( !string.IsNullOrWhiteSpace( ddlState.SelectedValue ) )
                 {
-                    connectionRequest.ConnectionState = ddlStatus.SelectedValue.ConvertToEnum<ConnectionState>();
+                    connectionRequest.ConnectionState = ddlState.SelectedValue.ConvertToEnum<ConnectionState>();
                 }
 
                 if ( rbBulkUpdateCurrentConnector.Checked )
@@ -331,7 +341,7 @@ namespace RockWeb.Blocks.Connection
                 }
                 else if ( rbBulkUpdateDefaultConnector.Checked )
                 {
-                    connectionRequest.ConnectorPersonAliasId = ConnectionOpportunity.GetDefaultConnectorPersonAliasId( selectedCampusId );
+                    connectionRequest.ConnectorPersonAliasId = GetConnectionOpportunity( rockContext ).GetDefaultConnectorPersonAliasId( selectedCampusId );
                 }
                 else if ( rbBulkUpdateSelectConnector.Checked )
                 {
@@ -348,19 +358,55 @@ namespace RockWeb.Blocks.Connection
 
                     connectionRequest.ConnectorPersonAliasId = connectorPersonAliasId;
                 }
-
-                if ( !string.IsNullOrWhiteSpace( wtpLaunchWorkflow.SelectedValue ) )
+                else if ( rbBulkUpdateNoConnector.Checked )
                 {
-                    var parameters = new Dictionary<string, string>();
-                    parameters.Add( "EntityGuid", connectionRequest.Guid.ToString() );
-
-                    connectionRequest.LaunchWorkflow( wtpLaunchWorkflow.SelectedValue.AsGuid(), "Request", parameters, CurrentPersonAliasId );
+                    connectionRequest.ConnectorPersonAliasId = null;
                 }
 
-                connectionRequestService.Add( connectionRequest );
+                if ( cbAddActivity.Checked )
+                {
+                    var connectors = GetConnectors( connectionOpportunity, rockContext, selectedCampusId );
+
+                    var connectionRequestActivity = new ConnectionRequestActivity();
+                    var connector = connectors.ContainsKey( ddlActivityConnector.SelectedValue.AsInteger() ) ? connectors[ddlActivityConnector.SelectedValue.AsInteger()] : null;
+                    connectionRequestActivity.ConnectionRequestId = connectionRequest.Id;
+                    connectionRequestActivity.ConnectionActivityTypeId = ddlActivityType.SelectedValue.AsInteger();
+                    connectionRequestActivity.ConnectorPersonAliasId = connector?.PrimaryAliasId;
+                    connectionRequestActivity.ConnectionOpportunityId = connectionOpportunity.Id;
+                    connectionRequestActivity.Note = tbActivityNote.Text;
+
+                    connectionRequestActivityService.Add( connectionRequestActivity );
+                }
+
+                var bulkUpdateActivity = new ConnectionRequestActivity();
+
+                bulkUpdateActivity.ConnectionRequestId = connectionRequest.Id;
+                bulkUpdateActivity.ConnectionActivityTypeId = bulkUpdateActivityId;
+                bulkUpdateActivity.ConnectionOpportunityId = connectionOpportunity.Id;
+                bulkUpdateActivity.Note = tbActivityNote.Text;
+
+                connectionRequestActivityService.Add( bulkUpdateActivity );
             }
 
             rockContext.SaveChanges();
+
+            int intValue = wtpLaunchWorkflow.SelectedValue.AsInteger();
+            if ( intValue != 0 )
+            {
+                // Queue a transaction to launch workflow
+                var workflowDetails = connectionRequests.ConvertAll( p => new LaunchWorkflowDetails( p ) );
+                var launchWorkflowsTxn = new LaunchWorkflowsTransaction( intValue, workflowDetails );
+                launchWorkflowsTxn.InitiatorPersonAliasId = CurrentPersonAliasId;
+                RockQueue.TransactionQueue.Enqueue( launchWorkflowsTxn );
+            }
+
+            pnlEntry.Visible = true;
+            pnlConfirm.Visible = false;
+        }
+
+        protected void cvSelection_ServerValidate( object source, ServerValidateEventArgs args )
+        {
+            args.IsValid = cbAddActivity.Checked && !string.IsNullOrWhiteSpace( ddlActivityType.SelectedValue );
         }
 
         #endregion Events
@@ -404,7 +450,7 @@ namespace RockWeb.Blocks.Connection
                     CampusId = cr.Key,
                     Campus = cr.FirstOrDefault().CampusId == null ? "No Campus" : cr.FirstOrDefault().Campus.Name,
                     Count = cr.Count(),
-                    OpportunityId = cr.FirstOrDefault().ConnectionOpportunityId
+                    OpportunityId = cr.FirstOrDefault().ConnectionOpportunityId,
                 } ).ToList();
 
             ConnectionCampusCountViewModelsState.Add( new ConnectionCampusCountViewModel { Campus = "Main Campus", CampusId = 2, Count = 1, OpportunityId = 1 } );
@@ -534,11 +580,10 @@ namespace RockWeb.Blocks.Connection
         {
             var rockContext = new RockContext();
             var selectedCampusId = rblBulkUpdateCampuses.SelectedValue.AsIntegerOrNull();
-            var connectionOpportunityId = ddlOpportunity.SelectedValue.AsIntegerOrNull();
-            ConnectionOpportunity = ConnectionOpportunity ?? new ConnectionOpportunityService( rockContext ).Get( connectionOpportunityId.Value );
+            var connectionOpportunity = GetConnectionOpportunity( rockContext );
 
             // Get connectors and add to dropdown list
-            var connectors = GetConnectors( ConnectionOpportunity, rockContext, selectedCampusId );
+            var connectors = GetConnectors( connectionOpportunity, rockContext, selectedCampusId );
             ddlActivityConnector.Items.Clear();
             ddlActivityConnector.Items.Add( new ListItem( string.Empty, string.Empty ) );
             connectors.ToList()
@@ -548,7 +593,7 @@ namespace RockWeb.Blocks.Connection
             if ( ddlActivityType.Items.Count == 0 )
             {
                 ddlActivityType.Items.Add( new ListItem( string.Empty, string.Empty ) );
-                GetActivityTypes( ConnectionOpportunity, rockContext )
+                GetActivityTypes( connectionOpportunity, rockContext )
                     .ForEach( at => ddlActivityType.Items.Add( new ListItem( at.Name, at.Id.ToString() ) ) );
             }
         }
@@ -579,6 +624,24 @@ namespace RockWeb.Blocks.Connection
             return ConnectionActivityTypes;
         }
 
+        /// <summary>
+        /// Sets the control selection.
+        /// </summary>
+        private void SetControlSelection()
+        {
+            SetControlSelection( ddlStatus, "Status" );
+            SetControlSelection( ddlState, "State" );
+
+            SetControlSelection( ddlActivityType, "Activity Type" );
+            SetControlSelection( ddlActivityConnector, "Connector" );
+            SetControlSelection( tbActivityNote, "Note" );
+        }
+
+        /// <summary>
+        /// Sets the control selection for a control
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="label"></param>
         private void SetControlSelection( IRockControl control, string label )
         {
             bool controlEnabled = SelectedFields.Contains( control.ClientID, StringComparer.OrdinalIgnoreCase );
@@ -591,37 +654,85 @@ namespace RockWeb.Blocks.Connection
             }
         }
 
-        private string GetChanges()
+        private List<string> GetChangesSummary( RockContext rockContext )
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat( "<p>You are about to make the following updates to {0} connection requests:</p>", RequestIdsState.Count.ToString( "N0" ) );
-            sb.AppendLine();
+            var changes = new List<string>();
 
-            sb.AppendLine( "<ul>" );
-            const string template = "<span class='field-name'>{0}</span> to <span class='field-value'>{1}</span>";
-            if ( !string.IsNullOrWhiteSpace( ddlStatus.SelectedValue ) )
+            if ( SelectedFields.Any( m => m.Contains( ddlStatus.ID ) ) )
             {
-                string change = string.Format( template, "Connection Status", ddlStatus.SelectedValue );
-                sb.AppendFormat( "<li>{0}</li>", change );
+                EvaluateChange( changes, "Status", ddlStatus.SelectedItem.Text );
             }
 
-            if ( !string.IsNullOrWhiteSpace( ddlState.SelectedValue ) )
+            if ( SelectedFields.Any( m => m.Contains( ddlState.ID ) ) )
             {
-                string change = string.Format( template, "Connection State", ddlState.SelectedValue );
-                sb.AppendFormat( "<li>{0}</li>", change );
+                EvaluateChange( changes, "State", ddlState.SelectedItem.Text );
             }
 
-            if ( cbAddActivity.Checked )
+            if ( cbAddActivity.Checked && !string.IsNullOrWhiteSpace( ddlActivityType.SelectedValue ) )
             {
-                string change = $"Add Activity Type <span class='field-name'>{ddlActivityType.SelectedItem.Text}</span> with note <span class='field-name'>{tbActivityNote.Text}</span> by <span class='field-name'>{ddlActivityConnector.SelectedItem.Text}</span>";
-                sb.AppendFormat( "<li>{0}</li>", change );
+                const string template = "Add new Connection Activity of type <span class='field-name'>{0}</span>";
+                changes.Add( string.Format( template, ddlActivityType.SelectedItem.Text ) );
             }
 
-            sb.AppendLine( "</ul>" );
+            if ( rbBulkUpdateNoConnector.Checked )
+            {
+                EvaluateChange( changes, "Connector", string.Empty );
+            }
 
-            sb.AppendLine( "<p>Please confirm that you want to make these updates.</p>" );
+            if ( rbBulkUpdateSelectConnector.Checked )
+            {
+                EvaluateChange( changes, "Connector", ddlBulkUpdateOpportunityConnector.SelectedItem.Text );
+            }
 
-            return sb.ToString();
+            if ( rbBulkUpdateDefaultConnector.Checked )
+            {
+                var conectionOpportunityName = ConnectionOpportunity != null ? ConnectionOpportunity.Name : GetConnectionOpportunity( rockContext ).Name;
+                EvaluateChange( changes, "Connector", $"Default Connector for {conectionOpportunityName}" );
+            }
+
+            if ( wtpLaunchWorkflow.SelectedValue != "0" )
+            {
+                const string template = "Launch Workflow <span class='field-name'>{0}</span>";
+                changes.Add( string.Format( template, wtpLaunchWorkflow.ItemName ) );
+            }
+
+            var currentOpportunityId = ConnectionCampusCountViewModelsState.FirstOrDefault().OpportunityId;
+            var selectedOpportunity = ddlOpportunity.SelectedValue.AsInteger();
+
+            if ( currentOpportunityId != selectedOpportunity )
+            {
+                EvaluateChange( changes, "Opportunity", ddlOpportunity.SelectedItem.Text );
+            }
+
+            return changes;
+        }
+
+        private void EvaluateChange( List<string> historyMessages, string propertyName, string newValue )
+        {
+            if ( !string.IsNullOrWhiteSpace( newValue ) )
+            {
+                historyMessages.Add( string.Format( "Update <span class='field-name'>{0}</span> to value of <span class='field-value'>{1}</span>.", propertyName, newValue ) );
+            }
+            else
+            {
+                historyMessages.Add( string.Format( "Clear <span class='field-name'>{0}</span> value.", propertyName ) );
+            }
+        }
+
+        public ConnectionOpportunity GetConnectionOpportunity( RockContext rockContext )
+        {
+            var connectionOpportunityId = ddlOpportunity.SelectedValue.AsIntegerOrNull();
+            return ConnectionOpportunity ?? new ConnectionOpportunityService( rockContext )
+                .Queryable()
+                .AsNoTracking()
+                .FirstOrDefault(c => c.Id == connectionOpportunityId.Value );
+        }
+
+        private void ShowNotification( NotificationBoxType notificationType, string message )
+        {
+            nbBulkUpdateNotification.Visible = true;
+            nbBulkUpdateNotification.NotificationBoxType = notificationType;
+            nbBulkUpdateNotification.Text = message;
         }
 
         #endregion Methods

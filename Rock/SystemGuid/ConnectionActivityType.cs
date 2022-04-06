@@ -40,5 +40,10 @@ namespace Rock.SystemGuid
         /// The Future Follow-up Complete activity type
         /// </summary>
         public const string FUTURE_FOLLOWUP_COMPLETE = "D0FBB866-9029-4705-B3BA-07364F3D7FC1";
+
+        /// <summary>
+        /// The Bulk Update activity type
+        /// </summary>
+        public const string BULK_UPDATE = "10104830-5AFC-491F-9885-747521A2AA75";
     }
 }
