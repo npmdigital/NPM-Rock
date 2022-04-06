@@ -21,10 +21,10 @@ import Alert from "../Elements/alert";
 import InlineCheckBox from "../Elements/inlineCheckBox";
 import RockButton from "../Elements/rockButton";
 import TextBox from "../Elements/textBox";
-import { Person } from "../ViewModels";
 import { BlockHttp } from "../Util/block";
 import RockForm from "./rockForm";
 import { useStore } from "../Store/index";
+import { Person } from "@Obsidian/ViewModel/Entities/person";
 
 const store = useStore();
 

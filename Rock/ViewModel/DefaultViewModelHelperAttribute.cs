@@ -22,7 +22,7 @@ using Rock.Attribute;
 namespace Rock.ViewModel
 {
     /// <summary>
-    /// Identifies this <see cref="IViewModelHelper"/> or <see cref="IViewModel"/> as
+    /// Identifies this <see cref="IViewModelHelper"/> or <see cref="Rock.ViewModel.Utility.IViewModel"/> as
     /// the default one for the model type specified.
     /// </summary>
     /// <seealso cref="System.Attribute" />

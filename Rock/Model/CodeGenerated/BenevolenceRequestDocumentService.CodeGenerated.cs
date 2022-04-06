@@ -62,7 +62,7 @@ namespace Rock.Model
     /// BenevolenceRequestDocument View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( BenevolenceRequestDocument ) )]
-    public partial class BenevolenceRequestDocumentViewModelHelper : ViewModelHelper<BenevolenceRequestDocument, Rock.ViewModel.BenevolenceRequestDocumentViewModel>
+    public partial class BenevolenceRequestDocumentViewModelHelper : ViewModelHelper<BenevolenceRequestDocument, Rock.ViewModel.Entities.BenevolenceRequestDocumentBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.BenevolenceRequestDocumentViewModel CreateViewModel( BenevolenceRequestDocument model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.BenevolenceRequestDocumentBag CreateViewModel( BenevolenceRequestDocument model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.BenevolenceRequestDocumentViewModel
+            var viewModel = new Rock.ViewModel.Entities.BenevolenceRequestDocumentBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +174,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.BenevolenceRequestDocumentViewModel ToViewModel( this BenevolenceRequestDocument model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.BenevolenceRequestDocumentBag ToViewModel( this BenevolenceRequestDocument model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new BenevolenceRequestDocumentViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

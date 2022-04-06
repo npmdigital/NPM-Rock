@@ -62,7 +62,7 @@ namespace Rock.Model
     /// InteractionComponent View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( InteractionComponent ) )]
-    public partial class InteractionComponentViewModelHelper : ViewModelHelper<InteractionComponent, Rock.ViewModel.InteractionComponentViewModel>
+    public partial class InteractionComponentViewModelHelper : ViewModelHelper<InteractionComponent, Rock.ViewModel.Entities.InteractionComponentBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.InteractionComponentViewModel CreateViewModel( InteractionComponent model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.InteractionComponentBag CreateViewModel( InteractionComponent model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.InteractionComponentViewModel
+            var viewModel = new Rock.ViewModel.Entities.InteractionComponentBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -187,7 +187,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.InteractionComponentViewModel ToViewModel( this InteractionComponent model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.InteractionComponentBag ToViewModel( this InteractionComponent model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new InteractionComponentViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

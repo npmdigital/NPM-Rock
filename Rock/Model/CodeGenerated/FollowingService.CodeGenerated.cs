@@ -62,7 +62,7 @@ namespace Rock.Model
     /// Following View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Following ) )]
-    public partial class FollowingViewModelHelper : ViewModelHelper<Following, Rock.ViewModel.FollowingViewModel>
+    public partial class FollowingViewModelHelper : ViewModelHelper<Following, Rock.ViewModel.Entities.FollowingBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FollowingViewModel CreateViewModel( Following model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FollowingBag CreateViewModel( Following model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FollowingViewModel
+            var viewModel = new Rock.ViewModel.Entities.FollowingBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -176,7 +176,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FollowingViewModel ToViewModel( this Following model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FollowingBag ToViewModel( this Following model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FollowingViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

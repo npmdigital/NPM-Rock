@@ -22,7 +22,7 @@ using System.Linq;
 using Rock.ClientService.Core.DefinedValue.Options;
 using Rock.Data;
 using Rock.Model;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.ClientService.Core.DefinedValue

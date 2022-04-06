@@ -62,7 +62,7 @@ namespace Rock.Model
     /// FinancialPersonBankAccount View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FinancialPersonBankAccount ) )]
-    public partial class FinancialPersonBankAccountViewModelHelper : ViewModelHelper<FinancialPersonBankAccount, Rock.ViewModel.FinancialPersonBankAccountViewModel>
+    public partial class FinancialPersonBankAccountViewModelHelper : ViewModelHelper<FinancialPersonBankAccount, Rock.ViewModel.Entities.FinancialPersonBankAccountBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FinancialPersonBankAccountViewModel CreateViewModel( FinancialPersonBankAccount model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FinancialPersonBankAccountBag CreateViewModel( FinancialPersonBankAccount model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FinancialPersonBankAccountViewModel
+            var viewModel = new Rock.ViewModel.Entities.FinancialPersonBankAccountBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +174,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FinancialPersonBankAccountViewModel ToViewModel( this FinancialPersonBankAccount model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FinancialPersonBankAccountBag ToViewModel( this FinancialPersonBankAccount model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FinancialPersonBankAccountViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

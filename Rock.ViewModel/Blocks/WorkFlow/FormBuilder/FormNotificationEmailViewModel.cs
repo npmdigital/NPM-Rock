@@ -17,7 +17,7 @@
 
 using System;
 
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 
 namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
 {

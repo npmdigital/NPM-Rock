@@ -62,7 +62,7 @@ namespace Rock.Model
     /// EventItemAudience View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( EventItemAudience ) )]
-    public partial class EventItemAudienceViewModelHelper : ViewModelHelper<EventItemAudience, Rock.ViewModel.EventItemAudienceViewModel>
+    public partial class EventItemAudienceViewModelHelper : ViewModelHelper<EventItemAudience, Rock.ViewModel.Entities.EventItemAudienceBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.EventItemAudienceViewModel CreateViewModel( EventItemAudience model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.EventItemAudienceBag CreateViewModel( EventItemAudience model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.EventItemAudienceViewModel
+            var viewModel = new Rock.ViewModel.Entities.EventItemAudienceBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -172,7 +172,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.EventItemAudienceViewModel ToViewModel( this EventItemAudience model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.EventItemAudienceBag ToViewModel( this EventItemAudience model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new EventItemAudienceViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

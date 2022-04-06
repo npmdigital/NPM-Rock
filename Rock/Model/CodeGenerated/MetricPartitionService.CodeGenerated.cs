@@ -62,7 +62,7 @@ namespace Rock.Model
     /// MetricPartition View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( MetricPartition ) )]
-    public partial class MetricPartitionViewModelHelper : ViewModelHelper<MetricPartition, Rock.ViewModel.MetricPartitionViewModel>
+    public partial class MetricPartitionViewModelHelper : ViewModelHelper<MetricPartition, Rock.ViewModel.Entities.MetricPartitionBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.MetricPartitionViewModel CreateViewModel( MetricPartition model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.MetricPartitionBag CreateViewModel( MetricPartition model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.MetricPartitionViewModel
+            var viewModel = new Rock.ViewModel.Entities.MetricPartitionBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -182,7 +182,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.MetricPartitionViewModel ToViewModel( this MetricPartition model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.MetricPartitionBag ToViewModel( this MetricPartition model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new MetricPartitionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

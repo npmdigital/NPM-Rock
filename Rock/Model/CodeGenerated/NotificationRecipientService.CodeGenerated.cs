@@ -62,7 +62,7 @@ namespace Rock.Model
     /// NotificationRecipient View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( NotificationRecipient ) )]
-    public partial class NotificationRecipientViewModelHelper : ViewModelHelper<NotificationRecipient, Rock.ViewModel.NotificationRecipientViewModel>
+    public partial class NotificationRecipientViewModelHelper : ViewModelHelper<NotificationRecipient, Rock.ViewModel.Entities.NotificationRecipientBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.NotificationRecipientViewModel CreateViewModel( NotificationRecipient model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.NotificationRecipientBag CreateViewModel( NotificationRecipient model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.NotificationRecipientViewModel
+            var viewModel = new Rock.ViewModel.Entities.NotificationRecipientBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -176,7 +176,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.NotificationRecipientViewModel ToViewModel( this NotificationRecipient model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.NotificationRecipientBag ToViewModel( this NotificationRecipient model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new NotificationRecipientViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

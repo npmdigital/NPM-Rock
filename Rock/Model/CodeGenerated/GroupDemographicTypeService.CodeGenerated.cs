@@ -62,7 +62,7 @@ namespace Rock.Model
     /// GroupDemographicType View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( GroupDemographicType ) )]
-    public partial class GroupDemographicTypeViewModelHelper : ViewModelHelper<GroupDemographicType, Rock.ViewModel.GroupDemographicTypeViewModel>
+    public partial class GroupDemographicTypeViewModelHelper : ViewModelHelper<GroupDemographicType, Rock.ViewModel.Entities.GroupDemographicTypeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.GroupDemographicTypeViewModel CreateViewModel( GroupDemographicType model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.GroupDemographicTypeBag CreateViewModel( GroupDemographicType model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.GroupDemographicTypeViewModel
+            var viewModel = new Rock.ViewModel.Entities.GroupDemographicTypeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -184,7 +184,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.GroupDemographicTypeViewModel ToViewModel( this GroupDemographicType model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.GroupDemographicTypeBag ToViewModel( this GroupDemographicType model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new GroupDemographicTypeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

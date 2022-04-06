@@ -62,7 +62,7 @@ namespace Rock.Model
     /// SignalType View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( SignalType ) )]
-    public partial class SignalTypeViewModelHelper : ViewModelHelper<SignalType, Rock.ViewModel.SignalTypeViewModel>
+    public partial class SignalTypeViewModelHelper : ViewModelHelper<SignalType, Rock.ViewModel.Entities.SignalTypeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.SignalTypeViewModel CreateViewModel( SignalType model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.SignalTypeBag CreateViewModel( SignalType model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.SignalTypeViewModel
+            var viewModel = new Rock.ViewModel.Entities.SignalTypeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -178,7 +178,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.SignalTypeViewModel ToViewModel( this SignalType model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.SignalTypeBag ToViewModel( this SignalType model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new SignalTypeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

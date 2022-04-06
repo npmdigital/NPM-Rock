@@ -17,11 +17,11 @@
 
 using System.Collections.Generic;
 
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 
 namespace Rock.ViewModel.Blocks.Core.CampusDetail
 {
-    public class CampusBag : ViewModelBase
+    public class CampusBag : EntityBagBase
     {
         public string Name { get; set; }
 

@@ -168,7 +168,7 @@ namespace Rock.Model
     /// Group View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Group ) )]
-    public partial class GroupViewModelHelper : ViewModelHelper<Group, Rock.ViewModel.GroupViewModel>
+    public partial class GroupViewModelHelper : ViewModelHelper<Group, Rock.ViewModel.Entities.GroupBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -177,14 +177,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.GroupViewModel CreateViewModel( Group model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.GroupBag CreateViewModel( Group model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.GroupViewModel
+            var viewModel = new Rock.ViewModel.Entities.GroupBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -340,7 +340,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.GroupViewModel ToViewModel( this Group model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.GroupBag ToViewModel( this Group model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new GroupViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

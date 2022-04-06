@@ -16,7 +16,9 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { IEntity, Person, DebugTiming } from "../ViewModels";
+import { IEntity } from "@Obsidian/ViewModel/entity";
+import { DebugTiming } from "@Obsidian/ViewModel/debugTiming";
+import { Person } from "@Obsidian/ViewModel/Entities/person";
 
 export type State = {
     areSecondaryBlocksShown: boolean;

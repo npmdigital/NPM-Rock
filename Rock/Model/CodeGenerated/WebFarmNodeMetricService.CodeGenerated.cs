@@ -62,7 +62,7 @@ namespace Rock.Model
     /// WebFarmNodeMetric View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( WebFarmNodeMetric ) )]
-    public partial class WebFarmNodeMetricViewModelHelper : ViewModelHelper<WebFarmNodeMetric, Rock.ViewModel.WebFarmNodeMetricViewModel>
+    public partial class WebFarmNodeMetricViewModelHelper : ViewModelHelper<WebFarmNodeMetric, Rock.ViewModel.Entities.WebFarmNodeMetricBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.WebFarmNodeMetricViewModel CreateViewModel( WebFarmNodeMetric model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.WebFarmNodeMetricBag CreateViewModel( WebFarmNodeMetric model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.WebFarmNodeMetricViewModel
+            var viewModel = new Rock.ViewModel.Entities.WebFarmNodeMetricBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -178,7 +178,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.WebFarmNodeMetricViewModel ToViewModel( this WebFarmNodeMetric model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.WebFarmNodeMetricBag ToViewModel( this WebFarmNodeMetric model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new WebFarmNodeMetricViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

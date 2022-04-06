@@ -62,7 +62,7 @@ namespace Rock.Model
     /// FollowingSuggested View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FollowingSuggested ) )]
-    public partial class FollowingSuggestedViewModelHelper : ViewModelHelper<FollowingSuggested, Rock.ViewModel.FollowingSuggestedViewModel>
+    public partial class FollowingSuggestedViewModelHelper : ViewModelHelper<FollowingSuggested, Rock.ViewModel.Entities.FollowingSuggestedBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FollowingSuggestedViewModel CreateViewModel( FollowingSuggested model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FollowingSuggestedBag CreateViewModel( FollowingSuggested model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FollowingSuggestedViewModel
+            var viewModel = new Rock.ViewModel.Entities.FollowingSuggestedBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -182,7 +182,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FollowingSuggestedViewModel ToViewModel( this FollowingSuggested model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FollowingSuggestedBag ToViewModel( this FollowingSuggested model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FollowingSuggestedViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

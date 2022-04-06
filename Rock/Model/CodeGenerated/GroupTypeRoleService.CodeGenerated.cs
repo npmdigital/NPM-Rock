@@ -92,7 +92,7 @@ namespace Rock.Model
     /// GroupTypeRole View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( GroupTypeRole ) )]
-    public partial class GroupTypeRoleViewModelHelper : ViewModelHelper<GroupTypeRole, Rock.ViewModel.GroupTypeRoleViewModel>
+    public partial class GroupTypeRoleViewModelHelper : ViewModelHelper<GroupTypeRole, Rock.ViewModel.Entities.GroupTypeRoleBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -101,14 +101,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.GroupTypeRoleViewModel CreateViewModel( GroupTypeRole model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.GroupTypeRoleBag CreateViewModel( GroupTypeRole model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.GroupTypeRoleViewModel
+            var viewModel = new Rock.ViewModel.Entities.GroupTypeRoleBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -222,7 +222,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.GroupTypeRoleViewModel ToViewModel( this GroupTypeRole model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.GroupTypeRoleBag ToViewModel( this GroupTypeRole model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new GroupTypeRoleViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

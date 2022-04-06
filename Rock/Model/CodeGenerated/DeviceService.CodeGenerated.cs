@@ -86,7 +86,7 @@ namespace Rock.Model
     /// Device View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Device ) )]
-    public partial class DeviceViewModelHelper : ViewModelHelper<Device, Rock.ViewModel.DeviceViewModel>
+    public partial class DeviceViewModelHelper : ViewModelHelper<Device, Rock.ViewModel.Entities.DeviceBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -95,14 +95,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.DeviceViewModel CreateViewModel( Device model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.DeviceBag CreateViewModel( Device model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.DeviceViewModel
+            var viewModel = new Rock.ViewModel.Entities.DeviceBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -216,7 +216,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.DeviceViewModel ToViewModel( this Device model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.DeviceBag ToViewModel( this Device model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new DeviceViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

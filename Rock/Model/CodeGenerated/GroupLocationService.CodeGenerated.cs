@@ -68,7 +68,7 @@ namespace Rock.Model
     /// GroupLocation View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( GroupLocation ) )]
-    public partial class GroupLocationViewModelHelper : ViewModelHelper<GroupLocation, Rock.ViewModel.GroupLocationViewModel>
+    public partial class GroupLocationViewModelHelper : ViewModelHelper<GroupLocation, Rock.ViewModel.Entities.GroupLocationBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -77,14 +77,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.GroupLocationViewModel CreateViewModel( GroupLocation model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.GroupLocationBag CreateViewModel( GroupLocation model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.GroupLocationViewModel
+            var viewModel = new Rock.ViewModel.Entities.GroupLocationBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -188,7 +188,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.GroupLocationViewModel ToViewModel( this GroupLocation model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.GroupLocationBag ToViewModel( this GroupLocation model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new GroupLocationViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

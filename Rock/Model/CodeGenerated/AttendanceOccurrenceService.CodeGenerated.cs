@@ -64,7 +64,7 @@ namespace Rock.Model
     /// AttendanceOccurrence View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( AttendanceOccurrence ) )]
-    public partial class AttendanceOccurrenceViewModelHelper : ViewModelHelper<AttendanceOccurrence, Rock.ViewModel.AttendanceOccurrenceViewModel>
+    public partial class AttendanceOccurrenceViewModelHelper : ViewModelHelper<AttendanceOccurrence, Rock.ViewModel.Entities.AttendanceOccurrenceBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -73,14 +73,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.AttendanceOccurrenceViewModel CreateViewModel( AttendanceOccurrence model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.AttendanceOccurrenceBag CreateViewModel( AttendanceOccurrence model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.AttendanceOccurrenceViewModel
+            var viewModel = new Rock.ViewModel.Entities.AttendanceOccurrenceBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -200,7 +200,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.AttendanceOccurrenceViewModel ToViewModel( this AttendanceOccurrence model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.AttendanceOccurrenceBag ToViewModel( this AttendanceOccurrence model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new AttendanceOccurrenceViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

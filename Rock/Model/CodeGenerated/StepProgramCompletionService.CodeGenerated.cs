@@ -62,7 +62,7 @@ namespace Rock.Model
     /// StepProgramCompletion View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( StepProgramCompletion ) )]
-    public partial class StepProgramCompletionViewModelHelper : ViewModelHelper<StepProgramCompletion, Rock.ViewModel.StepProgramCompletionViewModel>
+    public partial class StepProgramCompletionViewModelHelper : ViewModelHelper<StepProgramCompletion, Rock.ViewModel.Entities.StepProgramCompletionBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.StepProgramCompletionViewModel CreateViewModel( StepProgramCompletion model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.StepProgramCompletionBag CreateViewModel( StepProgramCompletion model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.StepProgramCompletionViewModel
+            var viewModel = new Rock.ViewModel.Entities.StepProgramCompletionBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -178,7 +178,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.StepProgramCompletionViewModel ToViewModel( this StepProgramCompletion model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.StepProgramCompletionBag ToViewModel( this StepProgramCompletion model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new StepProgramCompletionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

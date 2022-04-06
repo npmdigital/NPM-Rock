@@ -23,6 +23,7 @@ using System.Reflection;
 using Rock.Attribute;
 using Rock.Model;
 using Rock.Security;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.ViewModel

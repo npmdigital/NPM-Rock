@@ -62,7 +62,7 @@ namespace Rock.Model
     /// StepWorkflowTrigger View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( StepWorkflowTrigger ) )]
-    public partial class StepWorkflowTriggerViewModelHelper : ViewModelHelper<StepWorkflowTrigger, Rock.ViewModel.StepWorkflowTriggerViewModel>
+    public partial class StepWorkflowTriggerViewModelHelper : ViewModelHelper<StepWorkflowTrigger, Rock.ViewModel.Entities.StepWorkflowTriggerBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.StepWorkflowTriggerViewModel CreateViewModel( StepWorkflowTrigger model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.StepWorkflowTriggerBag CreateViewModel( StepWorkflowTrigger model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.StepWorkflowTriggerViewModel
+            var viewModel = new Rock.ViewModel.Entities.StepWorkflowTriggerBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -182,7 +182,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.StepWorkflowTriggerViewModel ToViewModel( this StepWorkflowTrigger model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.StepWorkflowTriggerBag ToViewModel( this StepWorkflowTrigger model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new StepWorkflowTriggerViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

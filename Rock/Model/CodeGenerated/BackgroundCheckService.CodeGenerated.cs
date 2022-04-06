@@ -62,7 +62,7 @@ namespace Rock.Model
     /// BackgroundCheck View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( BackgroundCheck ) )]
-    public partial class BackgroundCheckViewModelHelper : ViewModelHelper<BackgroundCheck, Rock.ViewModel.BackgroundCheckViewModel>
+    public partial class BackgroundCheckViewModelHelper : ViewModelHelper<BackgroundCheck, Rock.ViewModel.Entities.BackgroundCheckBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.BackgroundCheckViewModel CreateViewModel( BackgroundCheck model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.BackgroundCheckBag CreateViewModel( BackgroundCheck model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.BackgroundCheckViewModel
+            var viewModel = new Rock.ViewModel.Entities.BackgroundCheckBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -192,7 +192,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.BackgroundCheckViewModel ToViewModel( this BackgroundCheck model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.BackgroundCheckBag ToViewModel( this BackgroundCheck model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new BackgroundCheckViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

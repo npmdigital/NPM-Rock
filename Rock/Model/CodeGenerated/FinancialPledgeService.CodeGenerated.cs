@@ -62,7 +62,7 @@ namespace Rock.Model
     /// FinancialPledge View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FinancialPledge ) )]
-    public partial class FinancialPledgeViewModelHelper : ViewModelHelper<FinancialPledge, Rock.ViewModel.FinancialPledgeViewModel>
+    public partial class FinancialPledgeViewModelHelper : ViewModelHelper<FinancialPledge, Rock.ViewModel.Entities.FinancialPledgeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FinancialPledgeViewModel CreateViewModel( FinancialPledge model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FinancialPledgeBag CreateViewModel( FinancialPledge model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FinancialPledgeViewModel
+            var viewModel = new Rock.ViewModel.Entities.FinancialPledgeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -182,7 +182,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FinancialPledgeViewModel ToViewModel( this FinancialPledge model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FinancialPledgeBag ToViewModel( this FinancialPledge model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FinancialPledgeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

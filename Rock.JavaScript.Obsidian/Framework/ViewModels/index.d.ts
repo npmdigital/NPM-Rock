@@ -21,8 +21,6 @@ import { ListItemBag } from "./listItemBag";
 import { SavedFinancialAccountListItemBag } from "./savedFinancialAccountListItemBag";
 import { DebugTiming } from "./debugTiming";
 
-export * from "./CodeGenerated/generated-index";
-
 export {
     IEntity,
     PublicAttributeBag,

@@ -80,7 +80,7 @@ namespace Rock.Model
     /// StepType View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( StepType ) )]
-    public partial class StepTypeViewModelHelper : ViewModelHelper<StepType, Rock.ViewModel.StepTypeViewModel>
+    public partial class StepTypeViewModelHelper : ViewModelHelper<StepType, Rock.ViewModel.Entities.StepTypeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -89,14 +89,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.StepTypeViewModel CreateViewModel( StepType model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.StepTypeBag CreateViewModel( StepType model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.StepTypeViewModel
+            var viewModel = new Rock.ViewModel.Entities.StepTypeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -220,7 +220,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.StepTypeViewModel ToViewModel( this StepType model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.StepTypeBag ToViewModel( this StepType model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new StepTypeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

@@ -62,7 +62,7 @@ namespace Rock.Model
     /// AttributeValueHistorical View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( AttributeValueHistorical ) )]
-    public partial class AttributeValueHistoricalViewModelHelper : ViewModelHelper<AttributeValueHistorical, Rock.ViewModel.AttributeValueHistoricalViewModel>
+    public partial class AttributeValueHistoricalViewModelHelper : ViewModelHelper<AttributeValueHistorical, Rock.ViewModel.Entities.AttributeValueHistoricalBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.AttributeValueHistoricalViewModel CreateViewModel( AttributeValueHistorical model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.AttributeValueHistoricalBag CreateViewModel( AttributeValueHistorical model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.AttributeValueHistoricalViewModel
+            var viewModel = new Rock.ViewModel.Entities.AttributeValueHistoricalBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -188,7 +188,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.AttributeValueHistoricalViewModel ToViewModel( this AttributeValueHistorical model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.AttributeValueHistoricalBag ToViewModel( this AttributeValueHistorical model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new AttributeValueHistoricalViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

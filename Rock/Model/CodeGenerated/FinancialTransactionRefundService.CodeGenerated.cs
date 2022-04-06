@@ -62,7 +62,7 @@ namespace Rock.Model
     /// FinancialTransactionRefund View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FinancialTransactionRefund ) )]
-    public partial class FinancialTransactionRefundViewModelHelper : ViewModelHelper<FinancialTransactionRefund, Rock.ViewModel.FinancialTransactionRefundViewModel>
+    public partial class FinancialTransactionRefundViewModelHelper : ViewModelHelper<FinancialTransactionRefund, Rock.ViewModel.Entities.FinancialTransactionRefundBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FinancialTransactionRefundViewModel CreateViewModel( FinancialTransactionRefund model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FinancialTransactionRefundBag CreateViewModel( FinancialTransactionRefund model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FinancialTransactionRefundViewModel
+            var viewModel = new Rock.ViewModel.Entities.FinancialTransactionRefundBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +174,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FinancialTransactionRefundViewModel ToViewModel( this FinancialTransactionRefund model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FinancialTransactionRefundBag ToViewModel( this FinancialTransactionRefund model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FinancialTransactionRefundViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

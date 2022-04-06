@@ -62,7 +62,7 @@ namespace Rock.Model
     /// CampusTopic View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( CampusTopic ) )]
-    public partial class CampusTopicViewModelHelper : ViewModelHelper<CampusTopic, Rock.ViewModel.CampusTopicViewModel>
+    public partial class CampusTopicViewModelHelper : ViewModelHelper<CampusTopic, Rock.ViewModel.Entities.CampusTopicBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.CampusTopicViewModel CreateViewModel( CampusTopic model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.CampusTopicBag CreateViewModel( CampusTopic model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.CampusTopicViewModel
+            var viewModel = new Rock.ViewModel.Entities.CampusTopicBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -176,7 +176,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.CampusTopicViewModel ToViewModel( this CampusTopic model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.CampusTopicBag ToViewModel( this CampusTopic model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new CampusTopicViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

@@ -62,7 +62,7 @@ namespace Rock.Model
     /// GroupRequirementType View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( GroupRequirementType ) )]
-    public partial class GroupRequirementTypeViewModelHelper : ViewModelHelper<GroupRequirementType, Rock.ViewModel.GroupRequirementTypeViewModel>
+    public partial class GroupRequirementTypeViewModelHelper : ViewModelHelper<GroupRequirementType, Rock.ViewModel.Entities.GroupRequirementTypeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.GroupRequirementTypeViewModel CreateViewModel( GroupRequirementType model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.GroupRequirementTypeBag CreateViewModel( GroupRequirementType model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.GroupRequirementTypeViewModel
+            var viewModel = new Rock.ViewModel.Entities.GroupRequirementTypeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -194,7 +194,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.GroupRequirementTypeViewModel ToViewModel( this GroupRequirementType model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.GroupRequirementTypeBag ToViewModel( this GroupRequirementType model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new GroupRequirementTypeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

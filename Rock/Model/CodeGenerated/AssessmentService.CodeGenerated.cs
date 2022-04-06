@@ -62,7 +62,7 @@ namespace Rock.Model
     /// Assessment View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Assessment ) )]
-    public partial class AssessmentViewModelHelper : ViewModelHelper<Assessment, Rock.ViewModel.AssessmentViewModel>
+    public partial class AssessmentViewModelHelper : ViewModelHelper<Assessment, Rock.ViewModel.Entities.AssessmentBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.AssessmentViewModel CreateViewModel( Assessment model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.AssessmentBag CreateViewModel( Assessment model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.AssessmentViewModel
+            var viewModel = new Rock.ViewModel.Entities.AssessmentBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -186,7 +186,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.AssessmentViewModel ToViewModel( this Assessment model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.AssessmentBag ToViewModel( this Assessment model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new AssessmentViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

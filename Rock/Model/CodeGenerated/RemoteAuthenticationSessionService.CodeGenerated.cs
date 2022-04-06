@@ -62,7 +62,7 @@ namespace Rock.Model
     /// RemoteAuthenticationSession View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( RemoteAuthenticationSession ) )]
-    public partial class RemoteAuthenticationSessionViewModelHelper : ViewModelHelper<RemoteAuthenticationSession, Rock.ViewModel.RemoteAuthenticationSessionViewModel>
+    public partial class RemoteAuthenticationSessionViewModelHelper : ViewModelHelper<RemoteAuthenticationSession, Rock.ViewModel.Entities.RemoteAuthenticationSessionBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.RemoteAuthenticationSessionViewModel CreateViewModel( RemoteAuthenticationSession model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.RemoteAuthenticationSessionBag CreateViewModel( RemoteAuthenticationSession model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.RemoteAuthenticationSessionViewModel
+            var viewModel = new Rock.ViewModel.Entities.RemoteAuthenticationSessionBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -186,7 +186,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.RemoteAuthenticationSessionViewModel ToViewModel( this RemoteAuthenticationSession model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.RemoteAuthenticationSessionBag ToViewModel( this RemoteAuthenticationSession model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new RemoteAuthenticationSessionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

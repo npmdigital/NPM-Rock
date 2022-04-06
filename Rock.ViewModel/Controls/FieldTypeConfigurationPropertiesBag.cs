@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 
 namespace Rock.ViewModel.Controls
 {

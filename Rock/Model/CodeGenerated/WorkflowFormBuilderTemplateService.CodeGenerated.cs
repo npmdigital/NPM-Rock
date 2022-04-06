@@ -68,7 +68,7 @@ namespace Rock.Model
     /// WorkflowFormBuilderTemplate View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( WorkflowFormBuilderTemplate ) )]
-    public partial class WorkflowFormBuilderTemplateViewModelHelper : ViewModelHelper<WorkflowFormBuilderTemplate, Rock.ViewModel.WorkflowFormBuilderTemplateViewModel>
+    public partial class WorkflowFormBuilderTemplateViewModelHelper : ViewModelHelper<WorkflowFormBuilderTemplate, Rock.ViewModel.Entities.WorkflowFormBuilderTemplateBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -77,14 +77,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.WorkflowFormBuilderTemplateViewModel CreateViewModel( WorkflowFormBuilderTemplate model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.WorkflowFormBuilderTemplateBag CreateViewModel( WorkflowFormBuilderTemplate model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.WorkflowFormBuilderTemplateViewModel
+            var viewModel = new Rock.ViewModel.Entities.WorkflowFormBuilderTemplateBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -194,7 +194,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.WorkflowFormBuilderTemplateViewModel ToViewModel( this WorkflowFormBuilderTemplate model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.WorkflowFormBuilderTemplateBag ToViewModel( this WorkflowFormBuilderTemplate model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new WorkflowFormBuilderTemplateViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

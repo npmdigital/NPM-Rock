@@ -62,7 +62,7 @@ namespace Rock.Model
     /// FollowingEventNotification View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FollowingEventNotification ) )]
-    public partial class FollowingEventNotificationViewModelHelper : ViewModelHelper<FollowingEventNotification, Rock.ViewModel.FollowingEventNotificationViewModel>
+    public partial class FollowingEventNotificationViewModelHelper : ViewModelHelper<FollowingEventNotification, Rock.ViewModel.Entities.FollowingEventNotificationBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FollowingEventNotificationViewModel CreateViewModel( FollowingEventNotification model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FollowingEventNotificationBag CreateViewModel( FollowingEventNotification model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FollowingEventNotificationViewModel
+            var viewModel = new Rock.ViewModel.Entities.FollowingEventNotificationBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +174,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FollowingEventNotificationViewModel ToViewModel( this FollowingEventNotification model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FollowingEventNotificationBag ToViewModel( this FollowingEventNotification model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FollowingEventNotificationViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

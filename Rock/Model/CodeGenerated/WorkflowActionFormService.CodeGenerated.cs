@@ -68,7 +68,7 @@ namespace Rock.Model
     /// WorkflowActionForm View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( WorkflowActionForm ) )]
-    public partial class WorkflowActionFormViewModelHelper : ViewModelHelper<WorkflowActionForm, Rock.ViewModel.WorkflowActionFormViewModel>
+    public partial class WorkflowActionFormViewModelHelper : ViewModelHelper<WorkflowActionForm, Rock.ViewModel.Entities.WorkflowActionFormBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -77,14 +77,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.WorkflowActionFormViewModel CreateViewModel( WorkflowActionForm model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.WorkflowActionFormBag CreateViewModel( WorkflowActionForm model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.WorkflowActionFormViewModel
+            var viewModel = new Rock.ViewModel.Entities.WorkflowActionFormBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -243,7 +243,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.WorkflowActionFormViewModel ToViewModel( this WorkflowActionForm model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.WorkflowActionFormBag ToViewModel( this WorkflowActionForm model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new WorkflowActionFormViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

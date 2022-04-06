@@ -62,7 +62,7 @@ namespace Rock.Model
     /// PersonalLinkSectionOrder View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( PersonalLinkSectionOrder ) )]
-    public partial class PersonalLinkSectionOrderViewModelHelper : ViewModelHelper<PersonalLinkSectionOrder, Rock.ViewModel.PersonalLinkSectionOrderViewModel>
+    public partial class PersonalLinkSectionOrderViewModelHelper : ViewModelHelper<PersonalLinkSectionOrder, Rock.ViewModel.Entities.PersonalLinkSectionOrderBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.PersonalLinkSectionOrderViewModel CreateViewModel( PersonalLinkSectionOrder model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.PersonalLinkSectionOrderBag CreateViewModel( PersonalLinkSectionOrder model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.PersonalLinkSectionOrderViewModel
+            var viewModel = new Rock.ViewModel.Entities.PersonalLinkSectionOrderBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +174,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.PersonalLinkSectionOrderViewModel ToViewModel( this PersonalLinkSectionOrder model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.PersonalLinkSectionOrderBag ToViewModel( this PersonalLinkSectionOrder model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new PersonalLinkSectionOrderViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

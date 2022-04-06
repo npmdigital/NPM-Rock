@@ -22,7 +22,7 @@ using System.Web.UI.WebControls;
 
 using Rock.Model;
 using Rock.Reporting;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 using Rock.Web.UI.Controls;
 
 namespace Rock.Field.Types

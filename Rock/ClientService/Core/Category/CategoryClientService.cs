@@ -25,7 +25,7 @@ using Rock.Data;
 using Rock.Model;
 using Rock.Model.Core.Category.Options;
 using Rock.Security;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.ClientService.Core.Category

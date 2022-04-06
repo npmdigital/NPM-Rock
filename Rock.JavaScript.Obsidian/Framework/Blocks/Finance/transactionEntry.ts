@@ -27,12 +27,14 @@ import Alert from "../../Elements/alert";
 import { asFormattedString } from "../../Services/number";
 import { ConfigurationValues, InvokeBlockActionFunc, useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import Toggle from "../../Elements/toggle";
-import { FinancialAccount, ListItemBag, Person } from "../../ViewModels";
 import { useStore } from "../../Store/index";
 import TextBox from "../../Elements/textBox";
 import { asCommaAnd } from "../../Services/string";
 import GatewayControl, { GatewayControlModel, prepareSubmitPayment } from "../../Controls/gatewayControl";
 import RockValidation from "../../Controls/rockValidation";
+import { ListItemBag } from "@Obsidian/ViewModel/listItemBag";
+import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { FinancialAccount } from "@Obsidian/ViewModel/Entities/financialAccount";
 
 const store = useStore();
 

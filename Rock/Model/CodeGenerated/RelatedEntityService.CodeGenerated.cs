@@ -62,7 +62,7 @@ namespace Rock.Model
     /// RelatedEntity View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( RelatedEntity ) )]
-    public partial class RelatedEntityViewModelHelper : ViewModelHelper<RelatedEntity, Rock.ViewModel.RelatedEntityViewModel>
+    public partial class RelatedEntityViewModelHelper : ViewModelHelper<RelatedEntity, Rock.ViewModel.Entities.RelatedEntityBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.RelatedEntityViewModel CreateViewModel( RelatedEntity model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.RelatedEntityBag CreateViewModel( RelatedEntity model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.RelatedEntityViewModel
+            var viewModel = new Rock.ViewModel.Entities.RelatedEntityBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -190,7 +190,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.RelatedEntityViewModel ToViewModel( this RelatedEntity model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.RelatedEntityBag ToViewModel( this RelatedEntity model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new RelatedEntityViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

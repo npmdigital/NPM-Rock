@@ -62,7 +62,7 @@ namespace Rock.Model
     /// FinancialTransactionAlert View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FinancialTransactionAlert ) )]
-    public partial class FinancialTransactionAlertViewModelHelper : ViewModelHelper<FinancialTransactionAlert, Rock.ViewModel.FinancialTransactionAlertViewModel>
+    public partial class FinancialTransactionAlertViewModelHelper : ViewModelHelper<FinancialTransactionAlert, Rock.ViewModel.Entities.FinancialTransactionAlertBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FinancialTransactionAlertViewModel CreateViewModel( FinancialTransactionAlert model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FinancialTransactionAlertBag CreateViewModel( FinancialTransactionAlert model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FinancialTransactionAlertViewModel
+            var viewModel = new Rock.ViewModel.Entities.FinancialTransactionAlertBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -198,7 +198,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FinancialTransactionAlertViewModel ToViewModel( this FinancialTransactionAlert model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FinancialTransactionAlertBag ToViewModel( this FinancialTransactionAlert model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FinancialTransactionAlertViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

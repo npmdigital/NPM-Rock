@@ -62,7 +62,7 @@ namespace Rock.Model
     /// PhoneNumber View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( PhoneNumber ) )]
-    public partial class PhoneNumberViewModelHelper : ViewModelHelper<PhoneNumber, Rock.ViewModel.PhoneNumberViewModel>
+    public partial class PhoneNumberViewModelHelper : ViewModelHelper<PhoneNumber, Rock.ViewModel.Entities.PhoneNumberBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.PhoneNumberViewModel CreateViewModel( PhoneNumber model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.PhoneNumberBag CreateViewModel( PhoneNumber model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.PhoneNumberViewModel
+            var viewModel = new Rock.ViewModel.Entities.PhoneNumberBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -188,7 +188,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.PhoneNumberViewModel ToViewModel( this PhoneNumber model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.PhoneNumberBag ToViewModel( this PhoneNumber model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new PhoneNumberViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

@@ -22,11 +22,12 @@ import EmailBox from "../../../Elements/emailBox";
 import RadioButtonList from "../../../Elements/radioButtonList";
 import StaticFormControl from "../../../Elements/staticFormControl";
 import TextBox from "../../../Elements/textBox";
-import { ListItemBag, Person } from "../../../ViewModels";
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 import { useStore } from "../../../Store/index";
+import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { ListItemBag } from "@Obsidian/ViewModel/listItemBag";
 
 const store = useStore();
 

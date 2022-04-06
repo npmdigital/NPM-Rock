@@ -30,7 +30,6 @@ import { newGuid } from "../../Util/guid";
 import { List } from "../../Util/linq";
 import Page from "../../Util/page";
 import { RockDateTime } from "../../Util/rockDateTime";
-import { Person } from "../../ViewModels";
 import RegistrationEntryIntro from "./RegistrationEntry/intro";
 import { default as RegistrationEntryRegistrants } from "./RegistrationEntry/registrants";
 import RegistrationEntryRegistrationEnd from "./RegistrationEntry/registrationEnd";
@@ -41,6 +40,7 @@ import SessionRenewal from "./RegistrationEntry/sessionRenewal";
 import RegistrationEntrySuccess from "./RegistrationEntry/success";
 import RegistrationEntryPayment from "./RegistrationEntry/payment";
 import RegistrationEntrySummary from "./RegistrationEntry/summary";
+import { Person } from "@Obsidian/ViewModel/Entities/person";
 
 const store = useStore();
 

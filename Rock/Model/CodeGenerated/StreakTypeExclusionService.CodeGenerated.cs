@@ -62,7 +62,7 @@ namespace Rock.Model
     /// StreakTypeExclusion View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( StreakTypeExclusion ) )]
-    public partial class StreakTypeExclusionViewModelHelper : ViewModelHelper<StreakTypeExclusion, Rock.ViewModel.StreakTypeExclusionViewModel>
+    public partial class StreakTypeExclusionViewModelHelper : ViewModelHelper<StreakTypeExclusion, Rock.ViewModel.Entities.StreakTypeExclusionBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.StreakTypeExclusionViewModel CreateViewModel( StreakTypeExclusion model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.StreakTypeExclusionBag CreateViewModel( StreakTypeExclusion model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.StreakTypeExclusionViewModel
+            var viewModel = new Rock.ViewModel.Entities.StreakTypeExclusionBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +174,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.StreakTypeExclusionViewModel ToViewModel( this StreakTypeExclusion model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.StreakTypeExclusionBag ToViewModel( this StreakTypeExclusion model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new StreakTypeExclusionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

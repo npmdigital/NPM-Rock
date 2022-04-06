@@ -62,7 +62,7 @@ namespace Rock.Model
     /// CommunicationRecipient View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( CommunicationRecipient ) )]
-    public partial class CommunicationRecipientViewModelHelper : ViewModelHelper<CommunicationRecipient, Rock.ViewModel.CommunicationRecipientViewModel>
+    public partial class CommunicationRecipientViewModelHelper : ViewModelHelper<CommunicationRecipient, Rock.ViewModel.Entities.CommunicationRecipientBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.CommunicationRecipientViewModel CreateViewModel( CommunicationRecipient model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.CommunicationRecipientBag CreateViewModel( CommunicationRecipient model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.CommunicationRecipientViewModel
+            var viewModel = new Rock.ViewModel.Entities.CommunicationRecipientBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -196,7 +196,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.CommunicationRecipientViewModel ToViewModel( this CommunicationRecipient model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.CommunicationRecipientBag ToViewModel( this CommunicationRecipient model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new CommunicationRecipientViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

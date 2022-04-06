@@ -62,7 +62,7 @@ namespace Rock.Model
     /// ServiceLog View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( ServiceLog ) )]
-    public partial class ServiceLogViewModelHelper : ViewModelHelper<ServiceLog, Rock.ViewModel.ServiceLogViewModel>
+    public partial class ServiceLogViewModelHelper : ViewModelHelper<ServiceLog, Rock.ViewModel.Entities.ServiceLogBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.ServiceLogViewModel CreateViewModel( ServiceLog model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.ServiceLogBag CreateViewModel( ServiceLog model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.ServiceLogViewModel
+            var viewModel = new Rock.ViewModel.Entities.ServiceLogBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -180,7 +180,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.ServiceLogViewModel ToViewModel( this ServiceLog model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.ServiceLogBag ToViewModel( this ServiceLog model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new ServiceLogViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

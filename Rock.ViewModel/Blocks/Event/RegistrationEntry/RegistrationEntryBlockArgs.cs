@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 
+using Rock.ViewModel.Utility;
+
 namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
 {
     /// <summary>

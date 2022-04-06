@@ -116,7 +116,7 @@ namespace Rock.Model
     /// Location View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Location ) )]
-    public partial class LocationViewModelHelper : ViewModelHelper<Location, Rock.ViewModel.LocationViewModel>
+    public partial class LocationViewModelHelper : ViewModelHelper<Location, Rock.ViewModel.Entities.LocationBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -125,14 +125,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.LocationViewModel CreateViewModel( Location model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.LocationBag CreateViewModel( Location model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.LocationViewModel
+            var viewModel = new Rock.ViewModel.Entities.LocationBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -278,7 +278,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.LocationViewModel ToViewModel( this Location model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.LocationBag ToViewModel( this Location model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new LocationViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

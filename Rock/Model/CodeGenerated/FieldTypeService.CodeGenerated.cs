@@ -86,7 +86,7 @@ namespace Rock.Model
     /// FieldType View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( FieldType ) )]
-    public partial class FieldTypeViewModelHelper : ViewModelHelper<FieldType, Rock.ViewModel.FieldTypeViewModel>
+    public partial class FieldTypeViewModelHelper : ViewModelHelper<FieldType, Rock.ViewModel.Entities.FieldTypeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -95,14 +95,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.FieldTypeViewModel CreateViewModel( FieldType model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.FieldTypeBag CreateViewModel( FieldType model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.FieldTypeViewModel
+            var viewModel = new Rock.ViewModel.Entities.FieldTypeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -202,7 +202,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.FieldTypeViewModel ToViewModel( this FieldType model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.FieldTypeBag ToViewModel( this FieldType model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new FieldTypeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

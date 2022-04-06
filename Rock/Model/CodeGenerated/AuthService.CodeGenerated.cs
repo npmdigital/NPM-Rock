@@ -62,7 +62,7 @@ namespace Rock.Model
     /// Auth View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Auth ) )]
-    public partial class AuthViewModelHelper : ViewModelHelper<Auth, Rock.ViewModel.AuthViewModel>
+    public partial class AuthViewModelHelper : ViewModelHelper<Auth, Rock.ViewModel.Entities.AuthBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.AuthViewModel CreateViewModel( Auth model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.AuthBag CreateViewModel( Auth model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.AuthViewModel
+            var viewModel = new Rock.ViewModel.Entities.AuthBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -184,7 +184,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.AuthViewModel ToViewModel( this Auth model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.AuthBag ToViewModel( this Auth model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new AuthViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

@@ -18,14 +18,15 @@
 using System;
 using System.Collections.Generic;
 using Rock.ViewModel.Controls;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Finance;
+using Rock.ViewModel.Utility;
 
 namespace Rock.ViewModel.Blocks.Event.RegistrationEntry
 {
     /// <summary>
     /// RegistrationEntryBlockViewModel
     /// </summary>
-    /// <seealso cref="Rock.ViewModel.IViewModel" />
+    /// <seealso cref="Rock.ViewModel.Utility.IViewModel" />
     public sealed class RegistrationEntryBlockViewModel : IViewModel
     {
         /// <summary>

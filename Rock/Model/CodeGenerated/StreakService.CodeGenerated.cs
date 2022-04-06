@@ -62,7 +62,7 @@ namespace Rock.Model
     /// Streak View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Streak ) )]
-    public partial class StreakViewModelHelper : ViewModelHelper<Streak, Rock.ViewModel.StreakViewModel>
+    public partial class StreakViewModelHelper : ViewModelHelper<Streak, Rock.ViewModel.Entities.StreakBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.StreakViewModel CreateViewModel( Streak model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.StreakBag CreateViewModel( Streak model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.StreakViewModel
+            var viewModel = new Rock.ViewModel.Entities.StreakBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -194,7 +194,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.StreakViewModel ToViewModel( this Streak model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.StreakBag ToViewModel( this Streak model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new StreakViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

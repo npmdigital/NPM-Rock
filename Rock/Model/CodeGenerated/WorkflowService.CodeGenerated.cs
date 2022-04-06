@@ -68,7 +68,7 @@ namespace Rock.Model
     /// Workflow View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Workflow ) )]
-    public partial class WorkflowViewModelHelper : ViewModelHelper<Workflow, Rock.ViewModel.WorkflowViewModel>
+    public partial class WorkflowViewModelHelper : ViewModelHelper<Workflow, Rock.ViewModel.Entities.WorkflowBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -77,14 +77,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.WorkflowViewModel CreateViewModel( Workflow model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.WorkflowBag CreateViewModel( Workflow model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.WorkflowViewModel
+            var viewModel = new Rock.ViewModel.Entities.WorkflowBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -200,7 +200,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.WorkflowViewModel ToViewModel( this Workflow model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.WorkflowBag ToViewModel( this Workflow model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new WorkflowViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

@@ -68,7 +68,7 @@ namespace Rock.Model
     /// InteractionDeviceType View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( InteractionDeviceType ) )]
-    public partial class InteractionDeviceTypeViewModelHelper : ViewModelHelper<InteractionDeviceType, Rock.ViewModel.InteractionDeviceTypeViewModel>
+    public partial class InteractionDeviceTypeViewModelHelper : ViewModelHelper<InteractionDeviceType, Rock.ViewModel.Entities.InteractionDeviceTypeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -77,14 +77,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.InteractionDeviceTypeViewModel CreateViewModel( InteractionDeviceType model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.InteractionDeviceTypeBag CreateViewModel( InteractionDeviceType model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.InteractionDeviceTypeViewModel
+            var viewModel = new Rock.ViewModel.Entities.InteractionDeviceTypeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -184,7 +184,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.InteractionDeviceTypeViewModel ToViewModel( this InteractionDeviceType model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.InteractionDeviceTypeBag ToViewModel( this InteractionDeviceType model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new InteractionDeviceTypeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

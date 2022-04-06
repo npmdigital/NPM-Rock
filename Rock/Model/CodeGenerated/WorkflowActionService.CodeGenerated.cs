@@ -62,7 +62,7 @@ namespace Rock.Model
     /// WorkflowAction View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( WorkflowAction ) )]
-    public partial class WorkflowActionViewModelHelper : ViewModelHelper<WorkflowAction, Rock.ViewModel.WorkflowActionViewModel>
+    public partial class WorkflowActionViewModelHelper : ViewModelHelper<WorkflowAction, Rock.ViewModel.Entities.WorkflowActionBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.WorkflowActionViewModel CreateViewModel( WorkflowAction model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.WorkflowActionBag CreateViewModel( WorkflowAction model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.WorkflowActionViewModel
+            var viewModel = new Rock.ViewModel.Entities.WorkflowActionBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -178,7 +178,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.WorkflowActionViewModel ToViewModel( this WorkflowAction model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.WorkflowActionBag ToViewModel( this WorkflowAction model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new WorkflowActionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

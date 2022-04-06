@@ -74,7 +74,7 @@ namespace Rock.Model
     /// Attribute View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( Attribute ) )]
-    public partial class AttributeViewModelHelper : ViewModelHelper<Attribute, Rock.ViewModel.AttributeViewModel>
+    public partial class AttributeViewModelHelper : ViewModelHelper<Attribute, Rock.ViewModel.Entities.AttributeBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -83,14 +83,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.AttributeViewModel CreateViewModel( Attribute model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.AttributeBag CreateViewModel( Attribute model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.AttributeViewModel
+            var viewModel = new Rock.ViewModel.Entities.AttributeBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -232,7 +232,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.AttributeViewModel ToViewModel( this Attribute model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.AttributeBag ToViewModel( this Attribute model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new AttributeViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

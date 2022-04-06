@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Rock.Field;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Attribute

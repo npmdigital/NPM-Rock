@@ -62,7 +62,7 @@ namespace Rock.Model
     /// RegistrationTemplate View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( RegistrationTemplate ) )]
-    public partial class RegistrationTemplateViewModelHelper : ViewModelHelper<RegistrationTemplate, Rock.ViewModel.RegistrationTemplateViewModel>
+    public partial class RegistrationTemplateViewModelHelper : ViewModelHelper<RegistrationTemplate, Rock.ViewModel.Entities.RegistrationTemplateBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.RegistrationTemplateViewModel CreateViewModel( RegistrationTemplate model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.RegistrationTemplateBag CreateViewModel( RegistrationTemplate model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.RegistrationTemplateViewModel
+            var viewModel = new Rock.ViewModel.Entities.RegistrationTemplateBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -281,7 +281,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.RegistrationTemplateViewModel ToViewModel( this RegistrationTemplate model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.RegistrationTemplateBag ToViewModel( this RegistrationTemplate model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new RegistrationTemplateViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

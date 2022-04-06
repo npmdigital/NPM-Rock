@@ -19,7 +19,6 @@ import { Guid } from "@Obsidian/Types";
 import { defineComponent, inject, PropType } from "vue";
 import DropDownList from "../../../Elements/dropDownList";
 import RadioButtonList from "../../../Elements/radioButtonList";
-import { ListItemBag, Person } from "../../../ViewModels";
 import { getRegistrantBasicInfo, RegistrationEntryState } from "../registrationEntry";
 import StringFilter from "../../../Services/string";
 import RockButton from "../../../Elements/rockButton";
@@ -32,6 +31,8 @@ import RockForm from "../../../Controls/rockForm";
 import FeeField from "./feeField";
 import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from "../../../Elements/itemsWithPreAndPostHtml";
 import { useStore } from "../../../Store/index";
+import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { ListItemBag } from "@Obsidian/ViewModel/listItemBag";
 
 const store = useStore();
 

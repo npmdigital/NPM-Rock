@@ -74,7 +74,7 @@ namespace Rock.Model
     /// ConnectionStatus View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( ConnectionStatus ) )]
-    public partial class ConnectionStatusViewModelHelper : ViewModelHelper<ConnectionStatus, Rock.ViewModel.ConnectionStatusViewModel>
+    public partial class ConnectionStatusViewModelHelper : ViewModelHelper<ConnectionStatus, Rock.ViewModel.Entities.ConnectionStatusBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -83,14 +83,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.ConnectionStatusViewModel CreateViewModel( ConnectionStatus model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.ConnectionStatusBag CreateViewModel( ConnectionStatus model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.ConnectionStatusViewModel
+            var viewModel = new Rock.ViewModel.Entities.ConnectionStatusBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -198,7 +198,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.ConnectionStatusViewModel ToViewModel( this ConnectionStatus model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.ConnectionStatusBag ToViewModel( this ConnectionStatus model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new ConnectionStatusViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

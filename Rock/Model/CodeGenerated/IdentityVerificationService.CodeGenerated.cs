@@ -62,7 +62,7 @@ namespace Rock.Model
     /// IdentityVerification View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( IdentityVerification ) )]
-    public partial class IdentityVerificationViewModelHelper : ViewModelHelper<IdentityVerification, Rock.ViewModel.IdentityVerificationViewModel>
+    public partial class IdentityVerificationViewModelHelper : ViewModelHelper<IdentityVerification, Rock.ViewModel.Entities.IdentityVerificationBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +71,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.IdentityVerificationViewModel CreateViewModel( IdentityVerification model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.Entities.IdentityVerificationBag CreateViewModel( IdentityVerification model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.IdentityVerificationViewModel
+            var viewModel = new Rock.ViewModel.Entities.IdentityVerificationBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -178,7 +178,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.IdentityVerificationViewModel ToViewModel( this IdentityVerification model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.Entities.IdentityVerificationBag ToViewModel( this IdentityVerification model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new IdentityVerificationViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

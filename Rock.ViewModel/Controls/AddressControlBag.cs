@@ -15,6 +15,8 @@
 // </copyright>
 //
 
+using Rock.ViewModel.Utility;
+
 namespace Rock.ViewModel.Controls
 {
     /// <summary>
