@@ -26,6 +26,7 @@ import { Guid } from "@Obsidian/Types";
 
 export type WorkflowActionType = IEntity & {
     activityTypeId?: number;
+    attributeValues?: Record<string, unknown>;
     criteriaAttributeGuid?: Guid | null;
     criteriaComparisonType?: number;
     criteriaValue?: string | null;

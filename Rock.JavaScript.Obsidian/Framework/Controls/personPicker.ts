@@ -128,7 +128,7 @@ export default defineComponent({
         /**
          * Updates the search results. This is called as soon as the search text
          * value changes.
-         * 
+         *
          * @param text The text to be searched for.
          * @param cancellationToken The token that indicates if we should abort our search.
          */
@@ -171,7 +171,7 @@ export default defineComponent({
 
         /**
          * Gets the additional text to display next to the name.
-         * 
+         *
          * @param result The details of the person.
          */
         const getNameAdditionalText = (result: PersonSearchResult): string => {
@@ -191,7 +191,7 @@ export default defineComponent({
 
         /**
          * Gets the style attribute values for the person image tag.
-         * 
+         *
          * @param result The details of the person.
          */
         const getPersonImageStyle = (result: PersonSearchResult): Record<string, string> => {
@@ -212,7 +212,7 @@ export default defineComponent({
 
         /**
          * Gets the card container style attribute values.
-         * 
+         *
          * @param result The details of the person.
          */
         const getCardStyle = (result: PersonSearchResult): Record<string, string> => {
@@ -270,7 +270,7 @@ export default defineComponent({
         /**
          * Event handler for when the user presses a key anywhere inside the
          * popup body. If it is the escape key then close the popup.
-         * 
+         *
          * @param ev The event details about the key press.
          */
         const onPopupKeyDown = (ev: KeyboardEvent): void => {
@@ -284,7 +284,7 @@ export default defineComponent({
          * Event handler for when a card is clicked. If the card is not selected
          * them mark it selected. If it is already selected then close the
          * popup and emit the new selection.
-         * 
+         *
          * @param result The result object that contains the details about the person.
          */
         const onCardClick = (result: PersonSearchResult): void => {
@@ -305,7 +305,7 @@ export default defineComponent({
         /**
          * Event handler for when a card gains focus. This allows keyboard
          * navigation through the cards.
-         * 
+         *
          * @param result The result object that contains the details about the person.
          */
         const onCardFocus = (result: PersonSearchResult): void => {
@@ -319,7 +319,7 @@ export default defineComponent({
         /**
          * Event handler for when a card loses focus. This allows keyboard
          * navigation through the cards.
-         * 
+         *
          * @param result The result object that contains the details about the person.
          */
         const onCardBlur = (result: PersonSearchResult): void => {
@@ -336,7 +336,7 @@ export default defineComponent({
          * Event handler for when a key is pressed while a card has focus. If
          * it is the enter key and the card is selected then emit the new value
          * and close the popup.
-         * 
+         *
          * @param result The result object that contains the details about the person.
          */
         const onCardKeyPress = (result: PersonSearchResult, ev: KeyboardEvent): void => {
@@ -430,7 +430,7 @@ export default defineComponent({
                         </div>
 
                         <div style="display: flex;">
-                            <div v-for="result in searchResults" :key="result.primaryAliasGuid" class="well clickable" :style="getCardStyle(result)" tabindex="0" @click="onCardClick(result)" @focus="onCardFocus(result)" @blur="onCardBlur(result)" @keypress="onCardKeyPress(result, $event)">
+                            <div v-for="result in searchResults" :key="result.primaryAliasGuid" class="well cursor-pointer" :style="getCardStyle(result)" tabindex="0" @click="onCardClick(result)" @focus="onCardFocus(result)" @blur="onCardBlur(result)" @keypress="onCardKeyPress(result, $event)">
                                 <div style="display: flex; min-width: 250px;">
                                     <div class="person-image" :style="getPersonImageStyle(result)"></div>
                                     <div>

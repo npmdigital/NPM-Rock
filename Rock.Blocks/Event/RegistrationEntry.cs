@@ -1105,8 +1105,9 @@ namespace Rock.Blocks.Event
         /// <param name="childRoleId">The child role identifier.</param>
         /// <param name="multipleFamilyGroupIds">The multiple family group ids.</param>
         /// <param name="singleFamilyId">The single family identifier.</param>
-        /// <returns></returns>
-        private Person SavePerson( RockContext rockContext, RegistrationSettings settings, Person person, Guid familyGuid, int? campusId, Location location, int adultRoleId, int childRoleId, Dictionary<Guid, int> multipleFamilyGroupIds, ref int? singleFamilyId )
+        /// <param name="updateExistingCampus">if set to <c>true</c> updates the existing campus for the family group to the one provided in the campusId parameter.</param>
+        /// <returns>Person.</returns>
+        private Person SavePerson( RockContext rockContext, RegistrationSettings settings, Person person, Guid familyGuid, int? campusId, Location location, int adultRoleId, int childRoleId, Dictionary<Guid, int> multipleFamilyGroupIds, ref int? singleFamilyId, bool updateExistingCampus = false )
         {
             if ( !person.PrimaryCampusId.HasValue && campusId.HasValue )
             {
@@ -1173,7 +1174,7 @@ namespace Rock.Blocks.Event
             {
                 var familyGroup = new GroupService( rockContext ).Get( familyId.Value );
 
-                if ( !familyGroup.CampusId.HasValue && campusId.HasValue )
+                if ( campusId.HasValue && ( updateExistingCampus || !familyGroup.CampusId.HasValue ) )
                 {
                     familyGroup.CampusId = campusId;
                     rockContext.SaveChanges();
@@ -1414,6 +1415,7 @@ namespace Rock.Blocks.Event
 
             Location location = null;
             var campusId = PageParameter( PageParameterKey.CampusId ).AsIntegerOrNull();
+            var updateExistingCampus = false;
 
             // Set any of the template's person fields
             foreach ( var field in context.RegistrationSettings.Forms
@@ -1429,10 +1431,8 @@ namespace Rock.Blocks.Event
                     {
                         case RegistrationPersonFieldType.Campus:
                             var campusGuid = fieldValue.ToString().AsGuidOrNull();
-                            if ( campusGuid.HasValue )
-                            {
-                                campusId = CampusCache.Get( campusGuid.Value )?.Id ?? campusId;
-                            }
+                            updateExistingCampus = campusGuid.HasValue;
+                            campusId = campusGuid.HasValue ? CampusCache.Get( campusGuid.Value )?.Id ?? campusId : campusId;
                             break;
 
                         case RegistrationPersonFieldType.MiddleName:
@@ -1537,7 +1537,7 @@ namespace Rock.Blocks.Event
             }
 
             // Save the person ( and family if needed )
-            SavePerson( rockContext, context.RegistrationSettings, person, registrantInfo.FamilyGuid ?? Guid.NewGuid(), campusId, location, adultRoleId, childRoleId, multipleFamilyGroupIds, ref singleFamilyId );
+            SavePerson( rockContext, context.RegistrationSettings, person, registrantInfo.FamilyGuid ?? Guid.NewGuid(), campusId, location, adultRoleId, childRoleId, multipleFamilyGroupIds, ref singleFamilyId, updateExistingCampus );
 
             // Load the person's attributes
             person.LoadAttributes();
@@ -1810,7 +1810,10 @@ namespace Rock.Blocks.Event
 
             if ( context is null )
             {
-                return null;
+                return new RegistrationEntryBlockViewModel
+                {
+                    RegistrationInstanceNotFoundMessage = errorMessage
+                };
             }
 
             // If the registration is existing, then add the args that describe it to the view model

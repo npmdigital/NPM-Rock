@@ -159,7 +159,7 @@ export default defineComponent({
 
         /**
          * Determines the column size CSS class to use for the given field.
-         * 
+         *
          * @param field The field to be rendered.
          *
          * @returns The CSS classes to apply to the element.
@@ -168,7 +168,7 @@ export default defineComponent({
 
         /**
          * Checks if the field is active, that is currently being edited.
-         * 
+         *
          * @param field The field in question.
          *
          * @returns true if the field is active and should be highlighted.
@@ -179,7 +179,7 @@ export default defineComponent({
 
         /**
          * Event handler for when a field is requesting edit mode.
-         * 
+         *
          * @param field The field requesting to being edit mode.
          */
         const onConfigureField = (field: FormField): void => {
@@ -195,7 +195,7 @@ export default defineComponent({
 
         /**
          * Event handler for when the delete button of a field is clicked.
-         * 
+         *
          * @param field The field to be deleted.
          */
         const onDeleteField = (field: FormField): void => {
@@ -234,7 +234,7 @@ export default defineComponent({
 
     template: `
 <ConfigurableZone class="zone-section" :modelValue="isSectionActive">
-    <div class="zone-body d-flex flex-column" style="min-height: 100%;">
+    <div class="zone-body">
         <div class="d-flex flex-column" :class="sectionTypeClass" style="flex-grow: 1;">
             <div>
                 <h1 v-if="title">{{ title }}</h1>
@@ -243,28 +243,32 @@ export default defineComponent({
             </div>
 
             <div class="form-section" v-drag-source="reorderDragOptions" v-drag-target="reorderDragOptions.id" v-drag-target:2="dragTargetId" :data-section-id="sectionGuid">
-                <ConfigurableZone v-for="field in fields" :key="field.guid" :modelValue="isFieldActive(field)" :class="getFieldColumnSize(field)" :data-field-id="field.guid" @configure="onConfigureField(field)">
+                <ConfigurableZone v-for="field in fields"
+                    :key="field.guid"
+                    :modelValue="isFieldActive(field)"
+                    :class="getFieldColumnSize(field)"
+                    :data-field-id="field.guid"
+                    clickBodyToConfigure
+                    @configure="onConfigureField(field)">
                     <div class="zone-body">
                         <FieldWrapper :modelValue="field" />
                     </div>
 
                     <template #preActions>
-                        <i class="fa fa-bars fa-fw zone-action zone-action-move"></i>
-                        <span class="zone-action-pad"></span>
+                        <div class="zone-action zone-action-move"><i class="fa fa-bars fa-fw"></i></div>
                     </template>
                     <template #postActions>
-                        <i class="fa fa-times fa-fw zone-action" @click.stop="onDeleteField(field)"></i>
+                        <i class="fa fa-times fa-fw zone-action zone-action-delete" @click.stop="onDeleteField(field)"></i>
                     </template>
                 </ConfigurableZone>
             </div>
         </div>
     </div>
     <template #preActions>
-        <i class="fa fa-bars fa-fw zone-action zone-action-move"></i>
-        <span class="zone-action-pad"></span>
+        <div class="zone-action zone-action-move"><i class="fa fa-bars fa-fw "></i></div>
     </template>
     <template #postActions>
-        <i class="fa fa-times fa-fw zone-action" @click.stop="onDelete"></i>
+        <div class="zone-action zone-action-delete" @click.stop="onDelete"><i class="fa fa-times fa-fw"></i></div>
     </template>
 </ConfigurableZone>
 `

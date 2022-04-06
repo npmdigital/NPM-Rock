@@ -144,7 +144,7 @@ export default defineComponent({
 
         /**
          * Start editing an attribute on the given row.
-         * 
+         *
          * @param row The row that represents the attribute.
          */
         const onEditAttribute = async (row: GridRow): Promise<void> => {
@@ -213,7 +213,7 @@ export default defineComponent({
 
         /**
          * Event handler for when a delete button on a row is clicked.
-         * 
+         *
          * @param row The row on which the delete button was clicked.
          */
         const onDeleteAttribute = async (row: GridRow): Promise<void> => {
@@ -263,7 +263,7 @@ export default defineComponent({
 
         /**
          * Begins editing an attribute's value.
-         * 
+         *
          * @param row The row that initiated the action.
          */
         const onEditAttributeValue = async (row: GridRow): Promise<void> => {
@@ -319,7 +319,7 @@ export default defineComponent({
 
         /**
          * Gets the CSS classes to be applied to the delete button.
-         * 
+         *
          * @param row The row containing the delete button.
          *
          * @returns An array of class names.
@@ -420,7 +420,7 @@ export default defineComponent({
 
     <template v-slot:default>
         <div v-if="entityTypeSelectionIsValid" class="grid grid-panel">
-            <div class="grid-actions" style="border-bottom: 1px solid #dfe0e1;">
+            <div class="grid-actions border-bottom border-panel">
                 <RockButton class="btn-add btn-grid-action" btnType="default" btnSize="sm" @click="onAddAttribute"><i class="fa fa-plus-circle fa-fw"></i></RockButton>
             </div>
 
