@@ -16,7 +16,7 @@
 //
 
 import { computed, defineComponent, PropType, Ref, ref, watch } from "vue";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import RockFormField from "../Elements/rockFormField";
 import Panel from "./panel";
 import TextBox from "../Elements/textBox";

@@ -15,7 +15,7 @@
 //
 
 import { toNumber } from "../Services/number";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { ComparisonType, getComparisonName } from "./comparisonType";
 
 /**

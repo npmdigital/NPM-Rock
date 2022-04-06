@@ -20,7 +20,7 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import CheckBox from "../Elements/checkBox";
 import TextBox from "../Elements/textBox";
 import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
-import { PublicEditableAttributeBag } from "../ViewModels/publicEditableAttributeBag";
+import { PublicEditableAttributeBag } from "@Obsidian/ViewModel/Utility/publicEditableAttributeBag";
 import CategoriesPicker from "./categoriesPicker";
 import FieldTypeEditor from "./fieldTypeEditor";
 import StaticFormControl from "../Elements/staticFormControl";
@@ -139,7 +139,7 @@ export default defineComponent({
             fieldTypeValue],
             () => {
                 const newModelValue: PublicEditableAttributeBag = {
-                    ...(props.modelValue ?? {}),
+                    ...(props.modelValue ?? { isSystem: false }),
                     name: attributeName.value,
                     abbreviatedName: abbreviatedName.value,
                     key: attributeKey.value,

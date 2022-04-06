@@ -1151,7 +1151,7 @@ namespace Rock.ViewModel.Entities
 
             sb.AppendLine( "};" );
 
-            var file = new FileInfo( Path.Combine( rootFolder, "Entities", "generated-index.d.ts" ) );
+            var file = new FileInfo( Path.Combine( rootFolder, "Entities", "index.d.ts" ) );
             WriteFile( file, sb );
         }
 

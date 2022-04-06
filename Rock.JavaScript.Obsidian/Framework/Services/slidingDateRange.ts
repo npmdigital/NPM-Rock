@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { ListItemBag } from "../ViewModels/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { toNumber, toNumberOrNull } from "./number";
 
 // This file contains helper functions and tooling required to work with sliding
@@ -161,7 +161,7 @@ export const timeUnitOptions: ListItemBag[] = [
 function getTextForValue(value: string, options: ListItemBag[]): string {
     const matches = options.filter(v => v.value === value);
 
-    return matches.length > 0 ? matches[0].text : "";
+    return matches.length > 0 ? matches[0].text ?? "" : "";
 }
 
 /**
@@ -174,7 +174,7 @@ function getTextForValue(value: string, options: ListItemBag[]): string {
 export function getRangeTypeText(rangeType: RangeType): string {
     const rangeTypes = rangeTypeOptions.filter(o => o.value === rangeType.toString());
 
-    return rangeTypes.length > 0 ? rangeTypes[0].text : "";
+    return rangeTypes.length > 0 ? rangeTypes[0].text ?? "" : "";
 }
 
 /**
@@ -187,7 +187,7 @@ export function getRangeTypeText(rangeType: RangeType): string {
 export function getTimeUnitText(timeUnit: TimeUnit): string {
     const timeUnits = timeUnitOptions.filter(o => o.value === timeUnit.toString());
 
-    return timeUnits.length > 0 ? timeUnits[0].text : "";
+    return timeUnits.length > 0 ? timeUnits[0].text ?? "" : "";
 }
 
 /**
@@ -207,8 +207,8 @@ export function parseSlidingDateRangeString(value: string): SlidingDateRange | n
 
     // Find the matching range types and time units (should be 0 or 1) that
     // match the values in the string.
-    const rangeTypes = rangeTypeOptions.filter(o => o.text.replace(" ", "").toLowerCase() === segments[0].toLowerCase());
-    const timeUnits = timeUnitOptions.filter(o => o.text.toLowerCase() === segments[2].toLowerCase());
+    const rangeTypes = rangeTypeOptions.filter(o => (o.text ?? "").replace(" ", "").toLowerCase() === segments[0].toLowerCase());
+    const timeUnits = timeUnitOptions.filter(o => (o.text ?? "").toLowerCase() === segments[2].toLowerCase());
 
     if (rangeTypes.length === 0) {
         return null;

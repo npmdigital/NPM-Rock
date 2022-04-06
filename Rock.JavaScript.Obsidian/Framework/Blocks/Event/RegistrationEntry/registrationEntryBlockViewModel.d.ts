@@ -17,7 +17,9 @@
 
 import { Guid } from "@Obsidian/Types";
 import { GatewayControlModel } from "../../../Controls/gatewayControl";
-import { PublicAttributeBag, ListItemBag, SavedFinancialAccountListItemBag } from "../../../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { SavedFinancialAccountListItemBag } from "@Obsidian/ViewModel/Finance/savedFinancialAccountListItemBag";
 import { ComparisonType } from "../../../Reporting/comparisonType";
 import { FilterExpressionType } from "../../../Reporting/filterExpressionType";
 import { RegistrationEntryBlockSession } from "./registrationEntryBlockArgs";

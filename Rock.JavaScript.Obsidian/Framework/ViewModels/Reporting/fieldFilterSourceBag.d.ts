@@ -16,22 +16,24 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { FieldFilterSourceType } from "../../Reporting/fieldFilterSourceType";
-import { PublicAttributeBag } from "../publicAttributeBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 
 /**
- * Describes a single source item an individual can pick from when building a
- * custom filter. This contains the information required to determine the
+ * Describes a single source item an individual can pick from when building
+ * a custom filter. This contains the information required to determine the
  * name to display, how to identify the source value and any other information
  * required to build the filter UI.
  */
 export type FieldFilterSourceBag = {
-    /** The unique identifier of this source item. */
-    guid: Guid;
+    /** Gets or sets the unique identifier of this source item. */
+    guid?: Guid | null;
 
-    /** The source type this item represents. */
-    type: FieldFilterSourceType;
+    /**
+     * Gets or sets the type of this source item. This indicates which
+     * other properties are valid for inspection.
+     */
+    type: number;
 
-    /** The information about the attribute when the type is Attribute. */
+    /** Gets or sets the attribute if the source type is Attribute. */
     attribute?: PublicAttributeBag | null;
 };

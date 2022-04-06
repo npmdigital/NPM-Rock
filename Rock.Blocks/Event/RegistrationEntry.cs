@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Rock.Attribute;
 using Rock.ClientService.Core.Campus;
 using Rock.ClientService.Finance.FinancialPersonSavedAccount;
@@ -29,10 +30,10 @@ using Rock.Data;
 using Rock.Financial;
 using Rock.Model;
 using Rock.Tasks;
-using Rock.ViewModel;
 using Rock.ViewModel.Blocks.Event.RegistrationEntry;
 using Rock.ViewModel.Controls;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Finance;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Blocks.Event

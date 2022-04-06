@@ -17,14 +17,14 @@
 
 using System;
 
-namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
+namespace Rock.ViewModel.Reporting
 {
     /// <summary>
     /// A single rule for a field filter. this defines the source to obtain the
     /// left-hand value from, the right hand value, and the operator to use when
     /// comparing them.
     /// </summary>
-    public class FieldFilterRuleViewModel
+    public class FieldFilterRuleBag
     {
         /// <summary>
         /// The unique identifier of this rule.

@@ -16,7 +16,7 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { ComparisonType } from "../Reporting/comparisonType";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { FieldTypeBase } from "./fieldType";
 
 /**

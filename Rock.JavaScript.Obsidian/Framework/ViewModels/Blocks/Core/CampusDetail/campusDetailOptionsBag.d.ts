@@ -15,16 +15,10 @@
 // </copyright>
 //
 
-/**
- * An item to be displayed in a list.
- */
-export declare type ListItemBag = {
-    /** The raw value to associated with this item. */
-    value: string;
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 
-    /** The value to display to the person. */
-    text: string;
+export type CampusDetailOptionsBag = {
+    isMultiTimeZoneSupported: boolean;
 
-    /** The name of the category this item belongs to. */
-    category?: string | null;
+    timeZoneOptions?: ListItemBag[] | null;
 };

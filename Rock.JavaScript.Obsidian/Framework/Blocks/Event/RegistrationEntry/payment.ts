@@ -23,7 +23,7 @@ import Alert from "../../../Elements/alert";
 import RockButton from "../../../Elements/rockButton";
 import { useInvokeBlockAction } from "../../../Util/block";
 import { newGuid, toGuidOrNull } from "../../../Util/guid";
-import { SavedFinancialAccountListItemBag } from "../../../ViewModels";
+import { SavedFinancialAccountListItemBag } from "@Obsidian/ViewModel/Finance/savedFinancialAccountListItemBag";
 import { RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 import { RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
@@ -222,7 +222,7 @@ export default defineComponent({
          * @returns A string that contains the unique control identifier.
          */
         getOptionUniqueId(option: SavedFinancialAccountListItemBag): string {
-            const key = option.value.replace(" ", "-");
+            const key = option.value?.replace(" ", "-") ?? "";
 
             return `${this.uniqueId}-${key}`;
         },
@@ -246,7 +246,7 @@ export default defineComponent({
          * @returns A string with the user friendly name of the saved account.
          */
         getAccountName(option: SavedFinancialAccountListItemBag): string {
-            return option.text;
+            return option.text ?? "";
         },
 
         /**

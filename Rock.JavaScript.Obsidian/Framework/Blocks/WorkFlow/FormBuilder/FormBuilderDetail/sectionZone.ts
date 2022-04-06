@@ -20,7 +20,8 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockField from "../../../../Controls/rockField";
 import { DragSource, DragTarget, IDragSourceOptions } from "../../../../Directives/dragDrop";
 import { areEqual, newGuid } from "../../../../Util/guid";
-import { ListItemBag, PublicAttributeBag } from "../../../../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 import ConfigurableZone from "./configurableZone";
 import { FormField, FormSection } from "../Shared/types";
 

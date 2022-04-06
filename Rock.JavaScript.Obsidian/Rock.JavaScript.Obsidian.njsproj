@@ -80,8 +80,14 @@
     <Folder Include="Framework\SystemGuids\CodeGenerated\" />
     <Folder Include="Framework\Templates\" />
     <Folder Include="Build\" />
+    <Folder Include="Framework\ViewModels\Blocks\" />
+    <Folder Include="Framework\ViewModels\Blocks\Core\" />
+    <Folder Include="Framework\ViewModels\Blocks\Core\CampusDetail\" />
+    <Folder Include="Framework\ViewModels\Connection\" />
     <Folder Include="Framework\ViewModels\Controls\" />
     <Folder Include="Framework\ViewModels\Entities\" />
+    <Folder Include="Framework\ViewModels\Finance\" />
+    <Folder Include="Framework\ViewModels\Utility\" />
     <Folder Include="Framework\ViewModels\Reporting\" />
     <Folder Include="Tests\" />
     <Folder Include="Tests\Elements\" />
@@ -371,7 +377,16 @@
     <TypeScriptCompile Include="Framework\Util\dialogs.ts" />
     <TypeScriptCompile Include="Framework\Util\form.ts" />
     <TypeScriptCompile Include="Framework\Util\util.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\auditDetailBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Blocks\Core\CampusDetail\campusBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Blocks\Core\CampusDetail\campusDetailOptionsBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Blocks\Core\CampusDetail\campusScheduleBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Blocks\detailBlockBox.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Connection\connectionRequestCountsBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Controls\addressControlBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Controls\birthdayPickerBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Controls\gatewayControlBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Finance\savedFinancialAccountListItemBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\auditDetailBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeConfigurationBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\achievementAttempt.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\achievementType.d.ts" />
@@ -474,7 +489,7 @@
     <TypeScriptCompile Include="Framework\ViewModels\Entities\followingEventType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\followingSuggested.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\followingSuggestionType.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\Entities\generated-index.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Entities\index.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\group.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\groupDemographicType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entities\groupDemographicValue.d.ts" />
@@ -600,11 +615,12 @@
     <TypeScriptCompile Include="Framework\ViewModels\Controls\fieldTypeConfigurationPropertiesBag.d.ts" />
     <TypeScriptCompile Include="Framework\Reporting\comparisonType.ts" />
     <TypeScriptCompile Include="Framework\Reporting\filterExpressionType.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicEditableAttributeBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\publicComparisonValueBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\publicEditableAttributeBag.d.ts" />
     <TypeScriptCompile Include="Framework\Reporting\fieldFilterSourceType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterGroupBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterRuleBag.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\treeItemBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\treeItemBag.d.ts" />
     <TypeScriptCompile Include="Tests\Elements\rockFormFieldHelper.ts" />
     <TypeScriptCompile Include="Tests\Elements\textBox.spec.ts" />
     <TypeScriptCompile Include="Tests\Rules\defineRule.spec.ts" />
@@ -636,14 +652,11 @@
     <TypeScriptCompile Include="Framework\Util\linq.ts" />
     <TypeScriptCompile Include="Framework\Util\page.ts" />
     <TypeScriptCompile Include="Framework\Util\rockDateTime.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\publicAttributeBag.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\debugTiming.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\publicAttributeBag.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\debugTiming.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\entity.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\index.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\listItemBag.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\savedFinancialAccountListItemBag.d.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="Framework\ViewModels\Utility\listItemBag.d.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <Target Name="InstallNodePackages" AfterTargets="BeforeCompile;BeforeClean" Inputs="package.json" Outputs="node_modules/.install-stamp">

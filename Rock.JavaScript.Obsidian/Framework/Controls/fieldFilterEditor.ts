@@ -20,7 +20,7 @@ import DropDownList from "../Elements/dropDownList";
 import { FilterExpressionType } from "../Reporting/filterExpressionType";
 import { areEqual, newGuid } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { FieldFilterGroupBag } from "../ViewModels/Reporting/fieldFilterGroupBag";
 import { FieldFilterRuleBag } from "../ViewModels/Reporting/fieldFilterRuleBag";
 import { FieldFilterSourceBag } from "../ViewModels/Reporting/fieldFilterSourceBag";

@@ -20,7 +20,7 @@ import DropDownList from "../Elements/dropDownList";
 import RockFormField from "../Elements/rockFormField";
 import TextBox from "../Elements/textBox";
 import { asBoolean, asBooleanOrNull, asTrueFalseOrNull } from "../Services/boolean";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { ClientValue, ConfigurationPropertyKey, ConfigurationValueKey, ValueItem } from "./keyValueListField";
 import { getFieldConfigurationProps, getFieldEditorProps } from "./utils";
 

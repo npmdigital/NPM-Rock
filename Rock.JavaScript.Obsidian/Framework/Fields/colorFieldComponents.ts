@@ -19,7 +19,7 @@ import DropDownList from "../Elements/dropDownList";
 import ColorPicker from "../Elements/colorPicker";
 import { getFieldConfigurationProps, getFieldEditorProps } from "./utils";
 import { useVModelPassthrough } from "../Util/component";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 
 enum ConfigurationValueKey {
     ColorControlType = "selectiontype",

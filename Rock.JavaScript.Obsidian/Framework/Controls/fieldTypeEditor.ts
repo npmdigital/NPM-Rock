@@ -23,7 +23,8 @@ import StaticFormControl from "../Elements/staticFormControl";
 import { getFieldType } from "../Fields/index";
 import { get, post } from "../Util/http";
 import { areEqual, newGuid } from "../Util/guid";
-import { PublicAttributeBag, ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
 import { FieldTypeConfigurationPropertiesBag } from "../ViewModels/Controls/fieldTypeConfigurationPropertiesBag";
 import { deepEqual, updateRefValue } from "../Util/util";
@@ -119,7 +120,7 @@ export default defineComponent({
         const fieldTypeName = computed((): string => {
             const matches = fieldTypeOptions.value.filter(v => areEqual(v.value, fieldTypeValue.value));
 
-            return matches.length >= 1 ? matches[0].text : "";
+            return matches.length >= 1 ? matches[0].text ?? "" : "";
         });
 
         const defaultValueAttribute = computed((): PublicAttributeBag => {

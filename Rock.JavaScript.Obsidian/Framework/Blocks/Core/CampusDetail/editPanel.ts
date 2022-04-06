@@ -28,7 +28,7 @@ import TextBox from "../../../Elements/textBox";
 import UrlLinkBox from "../../../Elements/urlLinkBox";
 import { DefinedType } from "../../../SystemGuids";
 import { updateRefValue } from "../../../Util/util";
-import { ListItemBag } from "../../../ViewModels/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { CampusDetailOptionsBag, CampusBag } from "./types";
 
 export default defineComponent({

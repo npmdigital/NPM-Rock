@@ -16,7 +16,7 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { PublicAttributeBag } from "./publicAttributeBag";
+import { PublicAttributeBag } from "./Utility/publicAttributeBag";
 
 export interface IEntity {
     id: number;

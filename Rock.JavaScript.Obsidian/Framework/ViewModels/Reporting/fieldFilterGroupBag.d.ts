@@ -16,20 +16,17 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { FilterExpressionType } from "../../Reporting/filterExpressionType";
-import { FieldFilterRuleBag } from "./fieldFilterRuleBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModel/Reporting/fieldFilterRuleBag";
 
-/**
- * A group of filter rules/expressions that make up a logical comparison group.
- */
+/** A group of filter rules/expressions that make up a logical comparison group. */
 export type FieldFilterGroupBag = {
     /** The unique identifier of this filter group. */
-    guid: Guid;
+    guid?: Guid | null;
 
     /** The logic operator to use when joining all rules and child-groups in this group. */
-    expressionType: FilterExpressionType;
+    expressionType: number;
 
-    /** The collection of rules/expressions that make up this group. */
+    /** The collection of rules/expression that make up this group. */
     rules?: FieldFilterRuleBag[] | null;
 
     /** The collection of child groups that make up any nested expressions in this group. */

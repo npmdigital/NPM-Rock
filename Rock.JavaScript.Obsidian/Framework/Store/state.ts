@@ -17,7 +17,7 @@
 
 import { Guid } from "@Obsidian/Types";
 import { IEntity } from "@Obsidian/ViewModel/entity";
-import { DebugTiming } from "@Obsidian/ViewModel/debugTiming";
+import { DebugTiming } from "@Obsidian/ViewModel/Utility/debugTiming";
 import { Person } from "@Obsidian/ViewModel/Entities/person";
 
 export type State = {

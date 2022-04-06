@@ -23,7 +23,7 @@ import RadioButtonList from "../Elements/radioButtonList";
 import TextBox from "../Elements/textBox";
 import { toNumberOrNull } from "../Services/number";
 import { ConfigurationValueKey } from "./singleSelectField";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { updateRefValue } from "../Util/util";
 
 export const EditComponent = defineComponent({

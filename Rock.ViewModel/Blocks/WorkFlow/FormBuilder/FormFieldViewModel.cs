@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 
+using Rock.ViewModel.Reporting;
+
 namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
 {
     /// <summary>
@@ -83,7 +85,7 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
         /// <summary>
         /// The rule that controls when this field is visible.
         /// </summary>
-        public FieldFilterGroupViewModel VisibilityRule { get; set; }
+        public FieldFilterGroupBag VisibilityRule { get; set; }
 
         /// <summary>
         /// The default value that will be used when the field is initially

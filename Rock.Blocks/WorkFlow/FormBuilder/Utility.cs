@@ -22,7 +22,7 @@ using System.Linq;
 using Rock.Data;
 using Rock.Model;
 using Rock.Net;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Blocks.WorkFlow.FormBuilder

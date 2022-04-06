@@ -92,7 +92,7 @@ export function getFilterRuleDescription(rule: FieldFilterRuleBag, sources: Fiel
         if (fieldType) {
             const descr = fieldType.getFilterValueDescription({
                 comparisonType: rule.comparisonType,
-                value: rule.value
+                value: rule.value ?? ""
             }, ruleSource[0].attribute.configurationValues ?? {});
 
             return `${ruleSource[0].attribute.name} ${descr}`;

@@ -24,17 +24,17 @@ export type FieldTypeConfigurationPropertiesBag = {
      * Gets or sets the configuration properties that contain information
      * describing a field type edit operation.
      */
-    configurationProperties: Record<string, string>;
+    configurationProperties?: Record<string, string> | null;
 
     /**
-     * Gets or sets the configuration values that describe the current
+     * Gets or sets the configuration options that describe the current
      * selections when editing a field type.
      */
-    configurationValues: Record<string, string>;
+    configurationValues?: Record<string, string> | null;
 
     /**
      * Gets or sets the default attribute value view model that corresponds
-     * to the current configurationValues.
+     * to the current .
      */
-    defaultValue: string;
+    defaultValue?: string | null;
 };

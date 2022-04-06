@@ -20,7 +20,7 @@ import { computed, defineComponent, PropType, ref } from "vue";
 import BasePicker from "./basePicker";
 import RockFormField from "../Elements/rockFormField";
 import { useVModelPassthrough } from "../Util/component";
-import { ListItemBag } from "../ViewModels/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { get } from "../Util/http";
 
 export default defineComponent({

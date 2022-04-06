@@ -22,9 +22,9 @@ import NumberBox from "../Elements/numberBox";
 import { asBoolean, asTrueFalseOrNull } from "../Services/boolean";
 import { toNumber, toNumberOrNull } from "../Services/number";
 import { useVModelPassthrough } from "../Util/component";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { ClientValue, ConfigurationPropertyKey, ConfigurationValueKey, ValueItem } from "./definedValueField";
-import { ConfigurationValues, getFieldEditorProps } from "./utils";
+import { getFieldEditorProps } from "./utils";
 
 function parseModelValue(modelValue: string | undefined): string {
     try {

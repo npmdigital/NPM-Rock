@@ -18,7 +18,7 @@ import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./utils";
 import { DayOfWeek } from "./dayOfWeekField";
 import DropDownList from "../Elements/dropDownList";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { useVModelPassthrough } from "../Util/component";
 
 export const EditComponent = defineComponent({

@@ -17,7 +17,7 @@ namespace BlockGenerator.FileGenerators
 
         public TypeScriptViewModelGenerator()
         {
-            var assemblyFileName = new FileInfo( new Uri( typeof( Rock.ViewModel.IViewModel ).Assembly.CodeBase ).LocalPath ).FullName;
+            var assemblyFileName = new FileInfo( new Uri( typeof( Rock.ViewModel.Utility.IViewModel ).Assembly.CodeBase ).LocalPath ).FullName;
 
             try
             {

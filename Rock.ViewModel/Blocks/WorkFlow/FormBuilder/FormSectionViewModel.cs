@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 
+using Rock.ViewModel.Reporting;
+
 namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
 {
     /// <summary>
@@ -56,7 +58,7 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
         /// <summary>
         /// The rule that controls when this section is visible.
         /// </summary>
-        public FieldFilterGroupViewModel VisibilityRule { get; set; }
+        public FieldFilterGroupBag VisibilityRule { get; set; }
 
         /// <summary>
         /// The list of fields that are contained within this section.

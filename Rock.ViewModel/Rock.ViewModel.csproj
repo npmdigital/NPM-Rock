@@ -54,8 +54,8 @@
     <Compile Include="Blocks\Event\RegistrationEntry\RegistrationEntryBlockViewModel.cs" />
     <Compile Include="Blocks\IValidPropertiesBox.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\CampusSetFrom.cs" />
-    <Compile Include="Blocks\WorkFlow\FormBuilder\FieldFilterGroupViewModel.cs" />
-    <Compile Include="Blocks\WorkFlow\FormBuilder\FieldFilterRuleViewModel.cs" />
+    <Compile Include="Reporting\FieldFilterGroupBag.cs" />
+    <Compile Include="Reporting\FieldFilterRuleBag.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\FormBuilderDetailViewModel.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\FormCompletionActionType.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\FormCompletionActionViewModel.cs" />
@@ -303,6 +303,7 @@
     <Compile Include="Entities\WorkflowBag.cs" />
     <Compile Include="Entities\WorkflowFormBuilderTemplateBag.cs" />
     <Compile Include="Entities\WorkflowTypeBag.cs" />
+    <Compile Include="Reporting\FieldFilterSourceBag.cs" />
     <Compile Include="Utility\AuditDetailBag.cs" />
     <Compile Include="Utility\PublicComparisonValueBag.cs" />
     <Compile Include="Utility\PublicAttributeBag.cs" />

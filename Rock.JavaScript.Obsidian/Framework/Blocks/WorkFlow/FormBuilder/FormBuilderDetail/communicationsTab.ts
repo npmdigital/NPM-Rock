@@ -20,7 +20,7 @@ import { defineComponent, PropType, ref, watch } from "vue";
 import RockForm from "../../../../Controls/rockForm";
 import Alert from "../../../../Elements/alert";
 import { FormError } from "../../../../Util/form";
-import { ListItemBag } from "../../../../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import ConfirmationEmail from "../Shared/confirmationEmail";
 import NotificationEmail from "./notificationEmail";
 import { FormCommunication, FormTemplateListItem } from "./types";

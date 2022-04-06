@@ -84,7 +84,6 @@ namespace BlockGenerator.FileGenerators
             sb.Append( GenerateTypeScriptImports( imports ) );
 
             sb.AppendLine( body.Trim( '\r', '\n' ) );
-            sb.AppendLine( "" );
 
             return sb.ToString();
         }

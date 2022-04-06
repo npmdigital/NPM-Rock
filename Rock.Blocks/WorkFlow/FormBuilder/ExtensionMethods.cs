@@ -23,7 +23,8 @@ using System.Linq;
 using Rock.Data;
 using Rock.Model;
 using Rock.ViewModel.Blocks.WorkFlow.FormBuilder;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Reporting;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Blocks.WorkFlow.FormBuilder
@@ -449,9 +450,9 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
         /// </summary>
         /// <param name="rules">The object to be represented as a view model.</param>
         /// <returns>The view model representation.</returns>
-        internal static FieldFilterGroupViewModel ToViewModel( this Rock.Field.FieldVisibilityRules rules )
+        internal static FieldFilterGroupBag ToViewModel( this Rock.Field.FieldVisibilityRules rules )
         {
-            return new FieldFilterGroupViewModel
+            return new FieldFilterGroupBag
             {
                 Guid = Guid.NewGuid(),
                 ExpressionType = ( int ) rules.FilterExpressionType,
@@ -465,7 +466,7 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
         /// </summary>
         /// <param name="viewModel">The view model that represents the object.</param>
         /// <returns>The object created from the view model.</returns>
-        internal static Rock.Field.FieldVisibilityRules FromViewModel( this FieldFilterGroupViewModel viewModel, List<FormFieldViewModel> formFields )
+        internal static Rock.Field.FieldVisibilityRules FromViewModel( this FieldFilterGroupBag viewModel, List<FormFieldViewModel> formFields )
         {
             return new Rock.Field.FieldVisibilityRules
             {
@@ -479,9 +480,9 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
         /// </summary>
         /// <param name="rule">The object to be represented as a view model.</param>
         /// <returns>The view model representation.</returns>
-        internal static FieldFilterRuleViewModel ToViewModel( this Rock.Field.FieldVisibilityRule rule )
+        internal static FieldFilterRuleBag ToViewModel( this Rock.Field.FieldVisibilityRule rule )
         {
-            var viewModel = new FieldFilterRuleViewModel
+            var viewModel = new FieldFilterRuleBag
             {
                 Guid = rule.Guid,
                 ComparisonType = ( int ) rule.ComparisonType,
@@ -511,7 +512,7 @@ namespace Rock.Blocks.WorkFlow.FormBuilder
         /// </summary>
         /// <param name="viewModel">The view model that represents the object.</param>
         /// <returns>The object created from the view model.</returns>
-        internal static Rock.Field.FieldVisibilityRule FromViewModel( this FieldFilterRuleViewModel viewModel, List<FormFieldViewModel> formFields )
+        internal static Rock.Field.FieldVisibilityRule FromViewModel( this FieldFilterRuleBag viewModel, List<FormFieldViewModel> formFields )
         {
             var rule = new Rock.Field.FieldVisibilityRule
             {

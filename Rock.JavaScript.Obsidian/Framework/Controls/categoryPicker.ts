@@ -19,7 +19,7 @@ import { Guid } from "@Obsidian/Types";
 import { defineComponent, PropType, ref, watch } from "vue";
 import { CategoryTreeItemProvider } from "../Util/treeItemProviders";
 import { updateRefValue } from "../Util/util";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import TreeItemPicker from "./treeItemPicker";
 
 export default defineComponent({

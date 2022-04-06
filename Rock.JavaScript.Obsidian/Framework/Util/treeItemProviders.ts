@@ -18,7 +18,7 @@
 import { Guid } from "@Obsidian/Types";
 import { emptyGuid } from "../Util/guid";
 import { get, post } from "../Util/http";
-import { TreeItemBag } from "../ViewModels/treeItemBag";
+import { TreeItemBag } from "@Obsidian/ViewModel/Utility/treeItemBag";
 
 /**
  * The methods that must be implemented by tree item providers. These methods

@@ -16,26 +16,31 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { ComparisonType } from "../../Reporting/comparisonType";
-import { FieldFilterSourceType } from "../../Reporting/fieldFilterSourceType";
 
 /**
- * Identifies a single filter rule/expression that will be used when determining
- * if some object matches the filter.
+ * A single rule for a field filter. this defines the source to obtain the
+ * left-hand value from, the right hand value, and the operator to use when
+ * comparing them.
  */
 export type FieldFilterRuleBag = {
-    /** The unique identifier of this rule in the system. */
-    guid: Guid;
+    /** The unique identifier of this rule. */
+    guid?: Guid | null;
 
-    /** The type of comparison to perform. */
-    comparisonType: ComparisonType;
+    /**
+     * The type of comparison to use when comparing the source value (left-hand
+     * side) and  (right-hand side).
+     */
+    comparisonType: number;
 
-    /** The right-side value of the comparison. */
-    value: string;
+    /** The right-hand side of the comparison to use when executing the rule. */
+    value?: string | null;
 
-    /** The source of the left-side value of the comparison. */
-    sourceType: FieldFilterSourceType;
+    /** The source location for where to get the left-hand side value. */
+    sourceType: number;
 
-    /** The unique identifier of the attribute to be used for the right-side value. */
+    /**
+     * The attribute unique identifier to use as the left-hand side value
+     * if  specifies an Attribute.
+     */
     attributeGuid?: Guid | null;
 };

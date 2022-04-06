@@ -17,7 +17,7 @@
 import { getFieldType } from "../Fields/index";
 import { computed, defineComponent, PropType, provide } from "vue";
 import { TextFieldType } from "../Fields/textField";
-import { PublicAttributeBag } from "../ViewModels";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 
 const textField = new TextFieldType();
 
@@ -51,7 +51,7 @@ export default defineComponent({
     },
     setup(props, { emit }) {
         const field = computed(() => {
-            const fieldType = getFieldType(props.attribute.fieldTypeGuid);
+            const fieldType = getFieldType(props.attribute.fieldTypeGuid ?? "");
 
             return fieldType ?? textField;
         });

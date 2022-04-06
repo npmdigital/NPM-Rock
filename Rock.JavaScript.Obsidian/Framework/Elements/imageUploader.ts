@@ -20,7 +20,7 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import Alert from "../Elements/alert";
 import { BinaryFiletype } from "../SystemGuids";
 import { uploadBinaryFile } from "../Util/http";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import RockFormField from "./rockFormField";
 
 export default defineComponent({
@@ -121,8 +121,8 @@ export default defineComponent({
                     }
                 });
 
-                fileGuid.value = result.value;
-                fileName.value = result.text;
+                fileGuid.value = result.value ?? "";
+                fileName.value = result.text ?? "";
             }
             catch (e) {
                 // Show any error message we got.

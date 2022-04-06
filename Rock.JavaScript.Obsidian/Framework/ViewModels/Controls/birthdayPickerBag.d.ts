@@ -15,16 +15,14 @@
 // </copyright>
 //
 
-import { ListItemBag } from "./listItemBag"
+/** Address Control View Model */
+export type BirthdayPickerBag = {
+    /** Gets or sets the year. */
+    year: number;
 
-/**
- * A list item that describes an payment account the individual has previously
- * setup that can be used again.
- */
-export type SavedFinancialAccountListItemBag = ListItemBag & {
-    /** The description of the card to help identify it to the individual. */
-    description?: string | null;
+    /** Gets or sets the month. */
+    month: number;
 
-    /** The image to be displayed to help identify the card. */
-    image?: string | null;
+    /** Gets or sets the day. */
+    day: number;
 };

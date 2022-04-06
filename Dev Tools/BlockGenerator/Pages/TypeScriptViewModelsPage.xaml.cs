@@ -92,9 +92,10 @@ namespace BlockGenerator.Pages
 
         private List<Type> GetViewModelTypes()
         {
-            return typeof( Rock.ViewModel.IViewModel ).Assembly
+            return typeof( Rock.ViewModel.Utility.IViewModel ).Assembly
                 .GetExportedTypes()
                 .Where( t => t.Name.Split( '`' )[0].EndsWith( "Bag" ) || t.Name.Split( '`' )[0].EndsWith( "Box" ) )
+                .Where( t => t.Namespace != "Rock.ViewModel.Entities" )
                 .Where( t => !t.IsAbstract && !t.IsInterface )
                 .ToList();
         }
@@ -108,7 +109,7 @@ namespace BlockGenerator.Pages
 
         private string GetFileNameForType( Type type )
         {
-            return $"{type.Name.Split( '`' )[0].CamelCase()}.ts";
+            return $"{type.Name.Split( '`' )[0].CamelCase()}.d.ts";
         }
 
         private IList<Type> GetSelectedTypes()

@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { computed, defineComponent, PropType, ref, watch } from "vue";
-import { PublicAttributeBag } from "../ViewModels";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 import RockField from "./rockField";
 import LoadingIndicator from "../Elements/loadingIndicator";
 import { List } from "../Util/linq";

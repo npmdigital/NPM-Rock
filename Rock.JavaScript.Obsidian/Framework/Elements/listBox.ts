@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { defineComponent, PropType } from "vue";
 import { newGuid } from "../Util/guid";
 import RockFormField from "./rockFormField";

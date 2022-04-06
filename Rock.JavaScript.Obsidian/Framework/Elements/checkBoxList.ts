@@ -18,7 +18,7 @@
 import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import { updateRefValue } from "../Util/util";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import RockFormField from "./rockFormField";
 
 export default defineComponent({
@@ -56,10 +56,10 @@ export default defineComponent({
         watch(() => props.modelValue, () => updateRefValue(internalValue, props.modelValue));
         watch(internalValue, () => emit("update:modelValue", internalValue.value));
 
-        const valueForOption = (option: ListItemBag): string => option.value;
-        const textForOption = (option: ListItemBag): string => option.text;
+        const valueForOption = (option: ListItemBag): string => option.value ?? "";
+        const textForOption = (option: ListItemBag): string => option.text ?? "";
 
-        const uniqueIdForOption = (uniqueId: Guid, option: ListItemBag): string => `${uniqueId}-${option.value.replace(" ", "-")}`;
+        const uniqueIdForOption = (uniqueId: Guid, option: ListItemBag): string => `${uniqueId}-${(option.value ?? "").replace(" ", "-")}`;
 
         const containerClasses = computed(() => {
             const classes: string[] = [];

@@ -17,31 +17,29 @@
 
 import { Guid } from "@Obsidian/Types";
 
-/**
- * Contains the information required to show the audit panel details for a model.
- */
+/** Contains the information required to show the audit panel details for a model. */
 export type AuditDetailBag = {
-    /** The identifier of the model. */
+    /** Gets or sets the identifier of the model. */
     id?: number | null;
 
-    /** The unique identifier of the model. */
+    /** Gets or sets the unique identifier of the model. */
     guid?: Guid | null;
 
-    /** The identifier of the person that created the model. */
-    createdByPersonId?: number;
+    /** Gets or sets the identifier of the person that created the model. */
+    createdByPersonId?: number | null;
 
-    /** The name of the person that created the model. */
+    /** Gets or sets the name of the person that created the model. */
     createdByName?: string | null;
 
-    /** The time the model was created relative to now. */
+    /** Gets or sets the time the model was created relative to now. */
     createdRelativeTime?: string | null;
 
-    /** The identifier of the person that modified the model. */
-    modifiedByPersonId?: number;
+    /** Gets or sets the identifier of the person that modified the model. */
+    modifiedByPersonId?: number | null;
 
-    /** The name of the person that modified the model. */
+    /** Gets or sets the name of the person that modified the model. */
     modifiedByName?: string | null;
 
-    /** The time the model was modified relative to now. */
+    /** Gets or sets the time the model was modified relative to now. */
     modifiedRelativeTime?: string | null;
 };

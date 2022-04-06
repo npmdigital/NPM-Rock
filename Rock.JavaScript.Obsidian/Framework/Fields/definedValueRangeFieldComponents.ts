@@ -18,7 +18,7 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import { getFieldEditorProps } from "./utils";
 import RockFormField from "../Elements/rockFormField";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueRangeField";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { asBoolean } from "../Services/boolean";
 import { List } from "../Util/linq";
 
@@ -118,10 +118,10 @@ export const EditComponent = defineComponent({
             isRequired: inject("isRequired") as boolean,
             options,
             getKeyForOption(option: ListItemBag): string {
-                return option.value;
+                return option.value ?? "";
             },
             getTextForOption(option: ListItemBag): string {
-                return option.text;
+                return option.text ?? "";
             }
         };
     },

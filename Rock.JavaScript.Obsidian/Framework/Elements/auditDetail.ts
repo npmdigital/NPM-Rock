@@ -16,7 +16,7 @@
 //
 
 import { computed, defineComponent, PropType, ref } from "vue";
-import { AuditDetailBag } from "../ViewModels/auditDetailBag";
+import { AuditDetailBag } from "@Obsidian/ViewModel/Utility/auditDetailBag";
 
 export default defineComponent({
     name: "AuditDetail",

@@ -18,12 +18,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
+namespace Rock.ViewModel.Reporting
 {
     /// <summary>
     /// A group of filter rules/expressions that make up a logical comparison group.
     /// </summary>
-    public class FieldFilterGroupViewModel
+    public class FieldFilterGroupBag
     {
         /// <summary>
         /// The unique identifier of this filter group.
@@ -38,11 +38,11 @@ namespace Rock.ViewModel.Blocks.WorkFlow.FormBuilder
         /// <summary>
         /// The collection of rules/expression that make up this group.
         /// </summary>
-        public List<FieldFilterRuleViewModel> Rules { get; set; }
+        public List<FieldFilterRuleBag> Rules { get; set; }
 
         /// <summary>
         /// The collection of child groups that make up any nested expressions in this group.
         /// </summary>
-        public List<FieldFilterGroupViewModel> Groups { get; set; }
+        public List<FieldFilterGroupBag> Groups { get; set; }
     }
 }

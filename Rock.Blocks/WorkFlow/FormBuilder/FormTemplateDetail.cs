@@ -27,7 +27,7 @@ using Rock.Data;
 using Rock.Model;
 using Rock.Security;
 using Rock.ViewModel.Blocks.WorkFlow.FormBuilder.FormTemplateDetail;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 
 namespace Rock.Blocks.Workflow.FormBuilder
 {

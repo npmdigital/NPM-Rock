@@ -27,7 +27,7 @@ using Rock.Data;
 using Rock.Model;
 using Rock.ViewModel.Blocks;
 using Rock.ViewModel.Blocks.Core.CampusDetail;
-using Rock.ViewModel.NonEntities;
+using Rock.ViewModel.Utility;
 using Rock.Web.Cache;
 
 /*

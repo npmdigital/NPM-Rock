@@ -64,7 +64,7 @@ export default defineComponent({
                 return values;
             }
 
-            if (props.modelValue.campusStatusValue) {
+            if (props.modelValue.campusStatusValue?.text) {
                 values.addTextValue("Status", props.modelValue.campusStatusValue.text);
             }
 
@@ -77,16 +77,16 @@ export default defineComponent({
                     .where(tz => tz.value === props.modelValue?.timeZoneId)
                     .firstOrUndefined();
 
-                values.addTextValue("Time Zone", tz ? tz.text : props.modelValue.timeZoneId);
+                values.addTextValue("Time Zone", tz ? tz.text ?? "" : props.modelValue.timeZoneId);
             }
 
-            if (props.modelValue.leaderPersonAlias) {
+            if (props.modelValue.leaderPersonAlias?.text) {
                 values.addTextValue("Campus Leader", props.modelValue.leaderPersonAlias.text);
             }
 
             if (props.modelValue.serviceTimes && props.modelValue.serviceTimes.length > 0) {
                 const htmlValue = props.modelValue.serviceTimes
-                    .map(s => `${escapeHtml(s.value)} ${escapeHtml(s.text)}`)
+                    .map(s => `${escapeHtml(s.value ?? "")} ${escapeHtml(s.text ?? "")}`)
                     .join("<br>");
 
                 values.addHtmlValue("Service Times", htmlValue);
@@ -106,7 +106,7 @@ export default defineComponent({
                 return values;
             }
 
-            if (props.modelValue.campusTypeValue) {
+            if (props.modelValue.campusTypeValue?.text) {
                 values.addTextValue("Type", props.modelValue.campusTypeValue.text);
             }
 
@@ -118,7 +118,7 @@ export default defineComponent({
                 values.addTextValue("Phone Number", props.modelValue.phoneNumber);
             }
 
-            if (props.modelValue.location) {
+            if (props.modelValue.location?.text) {
                 values.addTextValue("Location", props.modelValue.location.text);
             }
 

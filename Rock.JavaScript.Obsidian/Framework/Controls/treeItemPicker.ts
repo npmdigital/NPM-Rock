@@ -18,9 +18,9 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockButton from "../Elements/rockButton";
 import RockFormField from "../Elements/rockFormField";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { ITreeItemProvider } from "../Util/treeItemProviders";
-import { TreeItemBag } from "../ViewModels/treeItemBag";
+import { TreeItemBag } from "@Obsidian/ViewModel/Utility/treeItemBag";
 import TreeList from "../Elements/treeList";
 
 /**
@@ -87,7 +87,7 @@ export default defineComponent({
          * because we don't actually emit the new values until the user clicks
          * the select button.
          */
-        const internalValues = ref<string[]>(props.modelValue.map(v => v.value));
+        const internalValues = ref<string[]>(props.modelValue.map(v => v.value ?? ""));
 
         /**
          * A flat array of items from the tree. This is used to quickly filter
@@ -155,7 +155,7 @@ export default defineComponent({
         const onSelect = (): void => {
             // Create a new set of selected items to emit.
             const newModelValue = props.modelValue
-                .filter(v => internalValues.value.includes(v.value));
+                .filter(v => internalValues.value.includes(v.value ?? ""));
 
             // Helpful list of the values already in the new model value.
             const knownValues = newModelValue.map(v => v.value);
@@ -184,7 +184,7 @@ export default defineComponent({
 
         // Watch for changes to the selected values from the parent control and
         // update our internal values to match.
-        watch(() => props.modelValue, () => internalValues.value = props.modelValue.map(v => v.value));
+        watch(() => props.modelValue, () => internalValues.value = props.modelValue.map(v => v.value ?? ""));
 
         return {
             internalValues,

@@ -21,8 +21,8 @@ import TextBox from "../Elements/textBox";
 import { ComparisonValue } from "../Reporting/comparisonValue";
 import { areEqual } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
-import { ListItemBag } from "../ViewModels";
-import { PublicAttributeBag } from "../ViewModels/publicAttributeBag";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 import { FieldFilterRuleBag } from "../ViewModels/Reporting/fieldFilterRuleBag";
 import { FieldFilterSourceBag } from "../ViewModels/Reporting/fieldFilterSourceBag";
 import RockAttributeFilter from "./rockAttributeFilter";
@@ -58,7 +58,7 @@ export const FieldFilterRuleRow = defineComponent({
         const attributeGuid = ref(props.modelValue.attributeGuid);
         const comparisonValue = ref<ComparisonValue>({
             comparisonType: props.modelValue.comparisonType,
-            value: props.modelValue.value
+            value: props.modelValue.value ?? ""
         });
 
         // Current Selected Attribute/Property
@@ -92,7 +92,7 @@ export const FieldFilterRuleRow = defineComponent({
             updateRefValue(attributeGuid, props.modelValue.attributeGuid);
             updateRefValue(comparisonValue, {
                 comparisonType: props.modelValue.comparisonType,
-                value: props.modelValue.value
+                value: props.modelValue.value ?? ""
             });
 
             internalUpdate = false;

@@ -32,7 +32,7 @@ import FeeField from "./feeField";
 import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from "../../../Elements/itemsWithPreAndPostHtml";
 import { useStore } from "../../../Store/index";
 import { Person } from "@Obsidian/ViewModel/Entities/person";
-import { ListItemBag } from "@Obsidian/ViewModel/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 
 const store = useStore();
 

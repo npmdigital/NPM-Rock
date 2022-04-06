@@ -19,7 +19,7 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
 import RockForm from "../../../Controls/rockForm";
 import RockButton from "../../../Elements/rockButton";
-import { PublicAttributeBag } from "../../../ViewModels";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent({
@@ -35,7 +35,7 @@ export default defineComponent({
         const attributeValues = ref<Record<string, string>>({});
 
         for (const a of registrationEntryState.viewModel.registrationAttributesStart) {
-            attributeValues.value[a.key] = (registrationEntryState.registrationFieldValues[a.attributeGuid] as string) || "";
+            attributeValues.value[a.key ?? ""] = (registrationEntryState.registrationFieldValues[a.attributeGuid ?? ""] as string) || "";
         }
 
         const showPrevious = computed((): boolean => {
@@ -46,7 +46,7 @@ export default defineComponent({
             const attrs: Record<string, PublicAttributeBag> = {};
 
             for (const a of registrationEntryState.viewModel.registrationAttributesStart) {
-                attrs[a.key] = a;
+                attrs[a.key ?? ""] = a;
             }
 
             return attrs;
@@ -62,7 +62,7 @@ export default defineComponent({
 
         watch(attributeValues, () => {
             for (const a of registrationEntryState.viewModel.registrationAttributesStart) {
-                registrationEntryState.registrationFieldValues[a.attributeGuid] = attributeValues.value[a.key];
+                registrationEntryState.registrationFieldValues[a.attributeGuid ?? ""] = attributeValues.value[a.key ?? ""];
             }
         });
 

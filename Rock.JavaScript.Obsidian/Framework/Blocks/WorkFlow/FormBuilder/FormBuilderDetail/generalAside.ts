@@ -23,7 +23,7 @@ import DropDownList from "../../../../Elements/dropDownList";
 import RockLabel from "../../../../Elements/rockLabel";
 import Switch from "../../../../Elements/switch";
 import { toNumberOrNull } from "../../../../Services/number";
-import { ListItemBag } from "../../../../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import TransitionVerticalCollapse from "../../../../Elements/transitionVerticalCollapse";
 import { CampusSetFrom, FormFieldType } from "../Shared/types";
 import ConfigurableZone from "./configurableZone";

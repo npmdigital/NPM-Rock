@@ -18,7 +18,7 @@ import { defineComponent, ref, watch } from "vue";
 import { getFieldEditorProps, getFieldConfigurationProps } from "./utils";
 import DropDownList from "../Elements/dropDownList";
 import CheckBox from "../Elements/checkBox";
-import { ListItemBag } from "../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import { asBoolean, asTrueFalseOrNull } from "../Services/boolean";
 
 const enum ConfigurationValueKey {

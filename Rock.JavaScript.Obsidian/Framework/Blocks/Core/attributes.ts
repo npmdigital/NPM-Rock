@@ -30,8 +30,9 @@ import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { alert, confirmDelete } from "../../Util/dialogs";
 import { normalize as normalizeGuid } from "../../Util/guid";
-import { ListItemBag, PublicAttributeBag } from "../../ViewModels";
-import { PublicEditableAttributeBag } from "../../ViewModels/publicEditableAttributeBag";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { PublicEditableAttributeBag } from "@Obsidian/ViewModel/Utility/publicEditableAttributeBag";
 
 type BlockConfiguration = {
     attributeEntityTypeId: number;
@@ -204,7 +205,17 @@ export default defineComponent({
         const onAddAttribute = (): void => {
             editableAttribute.value = {
                 isActive: true,
-                fieldTypeGuid: normalizeGuid(FieldType.Text)
+                fieldTypeGuid: normalizeGuid(FieldType.Text),
+                isPublic: false,
+                isSystem: false,
+                isRequired: false,
+                isShowInGrid: false,
+                isShowOnBulk: false,
+                isAnalytic: false,
+                isAllowSearch: false,
+                isAnalyticHistory: false,
+                isEnableHistory: false,
+                isIndexEnabled: false
             };
             showEditAttributeModal.value = true;
             entityTypeQualifierColumn.value = "";

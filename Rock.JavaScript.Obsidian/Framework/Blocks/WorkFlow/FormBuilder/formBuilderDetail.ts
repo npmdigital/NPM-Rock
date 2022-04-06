@@ -24,7 +24,7 @@ import { FieldType } from "../../../SystemGuids";
 import { useConfigurationValues, useInvokeBlockAction } from "../../../Util/block";
 import { FormError } from "../../../Util/form";
 import { areEqual } from "../../../Util/guid";
-import { ListItemBag } from "../../../ViewModels";
+import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
 import CommunicationsTab from "./FormBuilderDetail/communicationsTab";
 import FormBuilderTab from "./FormBuilderDetail/formBuilderTab";
 import SettingsTab from "./FormBuilderDetail/settingsTab";
@@ -206,10 +206,10 @@ export default defineComponent({
 
             // Sort everything to be alphabetical.
             options.sort((a, b) => {
-                if (a.text < b.text) {
+                if ((a.text ?? "") < (b.text ?? "")) {
                     return -1;
                 }
-                else if (a.text > b.text) {
+                else if ((a.text ?? "") > (b.text ?? "")) {
                     return 1;
                 }
                 else {
