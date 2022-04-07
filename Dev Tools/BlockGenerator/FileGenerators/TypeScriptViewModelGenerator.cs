@@ -19,7 +19,7 @@ namespace BlockGenerator.FileGenerators
             return GenerateTypeViewModel( GetClassNameForType( type ), typeComment, type.GetProperties().ToList() );
         }
 
-        public string GenerateTypeViewModel( string typeName, string typeComment, IList<PropertyInfo> properties )
+        public string GenerateTypeViewModel( string typeName, string typeComment, IList<PropertyInfo> properties, bool isAutoGen = true )
         {
             var imports = new List<TypeScriptImport>();
 
@@ -60,7 +60,7 @@ namespace BlockGenerator.FileGenerators
             // Remove recursive references to self.
             imports = imports.Where( i => i.DefaultImport != typeName && i.NamedImport != typeName ).ToList();
 
-            return GenerateTypeScriptFile( imports, sb.ToString() );
+            return GenerateTypeScriptFile( imports, sb.ToString(), isAutoGen );
         }
 
         public string GenerateViewModelForEnum( Type type )
@@ -246,7 +246,7 @@ namespace BlockGenerator.FileGenerators
                 tsType = type.Name;
                 imports.Add( new TypeScriptImport
                 {
-                    SourcePath = $"@Obsidian/ViewModel/{path}",
+                    SourcePath = $"@Obsidian/ViewModels/{path}",
                     NamedImport = type.Name
                 } );
                 isNullable = isNullable || !isRequired;

@@ -14,7 +14,7 @@ namespace BlockGenerator.FileGenerators
             sb.AppendLine( "    {" );
             sb.AppendLine( "    }" );
 
-            return GenerateCSharpFile( new string[0], bagNamespace, sb.ToString() );
+            return GenerateCSharpFile( new string[0], bagNamespace, sb.ToString(), false );
         }
 
         public string GenerateEntityBag( string entityName, string bagNamespace, List<EntityProperty> properties )
@@ -47,7 +47,7 @@ namespace BlockGenerator.FileGenerators
 
             sb.AppendLine( "    }" );
 
-            return GenerateCSharpFile( usings, bagNamespace, sb.ToString() );
+            return GenerateCSharpFile( usings, bagNamespace, sb.ToString(), false );
         }
 
         private static PropertyDeclaration GetCSharpPropertyTypeDeclaration( Type type )
