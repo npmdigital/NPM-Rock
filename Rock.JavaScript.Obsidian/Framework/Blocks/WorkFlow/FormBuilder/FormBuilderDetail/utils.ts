@@ -19,9 +19,9 @@ import { inject, provide } from "vue";
 import { getFieldType } from "../../../../Fields/utils";
 import { FilterExpressionType } from "../../../../Reporting/filterExpressionType";
 import { areEqual } from "../../../../Util/guid";
-import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
-import { FieldFilterRuleBag } from "../../../../ViewModels/Reporting/fieldFilterRuleBag";
-import { FieldFilterSourceBag } from "../../../../ViewModels/Reporting/fieldFilterSourceBag";
+import { FieldFilterGroupBag } from "@Obsidian/ViewModels/Reporting/fieldFilterGroupBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModels/Reporting/fieldFilterRuleBag";
+import { FieldFilterSourceBag } from "@Obsidian/ViewModels/Reporting/fieldFilterSourceBag";
 import { FormField } from "../Shared/types";
 import { FormValueSources } from "./types";
 

@@ -20,7 +20,7 @@ import AttributeValuesContainer from "../../../Controls/attributeValuesContainer
 import CheckBox from "../../../Elements/checkBox";{% endif %}{% if UseDescription == true or UseName == true %}
 import TextBox from "../../../Elements/textBox";{% endif %}
 import { updateRefValue } from "../../../Util/util";
-import { {{ EntityName }}Bag, {{ EntityName }}DetailOptionsBag } from "../../../ViewModels/Blocks/Core/{{ EntityName }}Detail";
+import { {{ EntityName }}Bag, {{ EntityName }}DetailOptionsBag } from "@Obsidian/ViewModels/Blocks/Core/{{ EntityName }}Detail";
 
 export default defineComponent({
     name: "Core.{{ EntityName }}Detail.EditPanel",

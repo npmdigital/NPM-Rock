@@ -23,8 +23,8 @@ import { areEqual } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
 import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
-import { FieldFilterRuleBag } from "../ViewModels/Reporting/fieldFilterRuleBag";
-import { FieldFilterSourceBag } from "../ViewModels/Reporting/fieldFilterSourceBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModels/Reporting/fieldFilterRuleBag";
+import { FieldFilterSourceBag } from "@Obsidian/ViewModels/Reporting/fieldFilterSourceBag";
 import RockAttributeFilter from "./rockAttributeFilter";
 
 export const FieldFilterRuleRow = defineComponent({

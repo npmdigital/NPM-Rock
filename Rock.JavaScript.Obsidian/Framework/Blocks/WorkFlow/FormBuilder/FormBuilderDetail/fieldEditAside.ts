@@ -33,10 +33,10 @@ import { useInvokeBlockAction } from "../../../../Util/block";
 import { FormError } from "../../../../Util/form";
 import { areEqual } from "../../../../Util/guid";
 import { List } from "../../../../Util/linq";
-import { FieldTypeConfigurationBag } from "../../../../ViewModels/Controls/fieldTypeConfigurationBag";
-import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
-import { FieldFilterRuleBag } from "../../../../ViewModels/Reporting/fieldFilterRuleBag";
-import { FieldFilterSourceBag } from "../../../../ViewModels/Reporting/fieldFilterSourceBag";
+import { FieldTypeConfigurationBag } from "@Obsidian/ViewModels/Controls/fieldTypeConfigurationBag";
+import { FieldFilterGroupBag } from "@Obsidian/ViewModels/Reporting/fieldFilterGroupBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModels/Reporting/fieldFilterRuleBag";
+import { FieldFilterSourceBag } from "@Obsidian/ViewModels/Reporting/fieldFilterSourceBag";
 import { FormField, FormFieldType } from "../Shared/types";
 import { getFilterGroupTitle, getFilterRuleDescription, timeoutAsync, useFormSources } from "./utils";
 

@@ -19,7 +19,7 @@ import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import CheckBox from "../Elements/checkBox";
 import TextBox from "../Elements/textBox";
-import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
+import { FieldTypeConfigurationBag } from "@Obsidian/ViewModels/Controls/fieldTypeConfigurationBag";
 import { PublicEditableAttributeBag } from "@Obsidian/ViewModels/Utility/publicEditableAttributeBag";
 import CategoriesPicker from "./categoriesPicker";
 import FieldTypeEditor from "./fieldTypeEditor";

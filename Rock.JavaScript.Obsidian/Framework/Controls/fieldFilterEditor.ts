@@ -21,9 +21,9 @@ import { FilterExpressionType } from "../Reporting/filterExpressionType";
 import { areEqual, newGuid } from "../Util/guid";
 import { updateRefValue } from "../Util/util";
 import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
-import { FieldFilterGroupBag } from "../ViewModels/Reporting/fieldFilterGroupBag";
-import { FieldFilterRuleBag } from "../ViewModels/Reporting/fieldFilterRuleBag";
-import { FieldFilterSourceBag } from "../ViewModels/Reporting/fieldFilterSourceBag";
+import { FieldFilterGroupBag } from "@Obsidian/ViewModels/Reporting/fieldFilterGroupBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModels/Reporting/fieldFilterRuleBag";
+import { FieldFilterSourceBag } from "@Obsidian/ViewModels/Reporting/fieldFilterSourceBag";
 import { FieldFilterRuleRow } from "./fieldFilterRuleRow";
 
 type ShowHide = "Show" | "Hide";

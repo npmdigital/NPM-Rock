@@ -66,7 +66,7 @@ import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 import "../../Fields/index";
 import { newGuid } from "../../Util/guid";
-import { FieldFilterGroupBag } from "../../ViewModels/Reporting/fieldFilterGroupBag";
+import { FieldFilterGroupBag } from "@Obsidian/ViewModels/Reporting/fieldFilterGroupBag";
 import { BinaryFiletype, FieldType } from "../../SystemGuids";
 import { SlidingDateRange, slidingDateRangeToString } from "../../Services/slidingDateRange";
 

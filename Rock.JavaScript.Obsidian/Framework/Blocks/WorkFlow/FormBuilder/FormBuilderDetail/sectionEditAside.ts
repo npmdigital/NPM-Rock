@@ -30,10 +30,9 @@ import TextBox from "../../../../Elements/textBox";
 import { SectionAsideSettings } from "./types";
 import { useFormSources, getFilterGroupTitle, getFilterRuleDescription, timeoutAsync } from "./utils";
 import { FormError } from "../../../../Util/form";
-import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
-import { FieldFilterSourceBag } from "../../../../ViewModels/Reporting/fieldFilterSourceBag";
-import { FieldFilterRuleBag } from "../../../../ViewModels/Reporting/fieldFilterRuleBag";
-import { areEqual } from "../../../../Util/guid";
+import { FieldFilterGroupBag } from "@Obsidian/ViewModels/Reporting/fieldFilterGroupBag";
+import { FieldFilterSourceBag } from "@Obsidian/ViewModels/Reporting/fieldFilterSourceBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModels/Reporting/fieldFilterRuleBag";
 import { useInvokeBlockAction } from "../../../../Util/block";
 import { FormField } from "../Shared/types";
 

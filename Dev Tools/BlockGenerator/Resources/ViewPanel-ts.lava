@@ -19,7 +19,7 @@ import { computed, defineComponent, PropType, ref } from "vue";{% if UseAttribut
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";{% endif %}{% if UseIsSystem %}
 import Alert from "../../../Elements/alert";{% endif %}
 import ValueDetailList, { ValueDetailListItems } from "./valueDetailList";
-import { {{ EntityName }}Bag, {{ EntityName }}DetailOptionsBag } from "../../../ViewModels/Blocks/Core/{{ EntityName }}Detail";
+import { {{ EntityName }}Bag, {{ EntityName }}DetailOptionsBag } from "@Obsidian/ViewModels/Blocks/Core/{{ EntityName }}Detail";
 
 export default defineComponent({
     name: "Core.{{ EntityName }}Detail.ViewPanel",

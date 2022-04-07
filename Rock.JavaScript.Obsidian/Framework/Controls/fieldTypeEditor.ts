@@ -25,8 +25,8 @@ import { get, post } from "../Util/http";
 import { areEqual, newGuid } from "../Util/guid";
 import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
-import { FieldTypeConfigurationBag } from "../ViewModels/Controls/fieldTypeConfigurationBag";
-import { FieldTypeConfigurationPropertiesBag } from "../ViewModels/Controls/fieldTypeConfigurationPropertiesBag";
+import { FieldTypeConfigurationBag } from "@Obsidian/ViewModels/Controls/fieldTypeConfigurationBag";
+import { FieldTypeConfigurationPropertiesBag } from "@Obsidian/ViewModels/Controls/fieldTypeConfigurationPropertiesBag";
 import { deepEqual, updateRefValue } from "../Util/util";
 
 export default defineComponent({

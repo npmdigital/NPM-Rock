@@ -17,7 +17,7 @@
 
 import { Guid } from "@Obsidian/Types";
 import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
-import { FieldFilterGroupBag } from "../../../../ViewModels/Reporting/fieldFilterGroupBag";
+import { FieldFilterGroupBag } from "@Obsidian/ViewModels/Reporting/fieldFilterGroupBag";
 
 // #region Enums
 
