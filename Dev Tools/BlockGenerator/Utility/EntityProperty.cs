@@ -5,7 +5,7 @@ using System.Reflection;
 
 using BlockGenerator.Lava;
 
-namespace BlockGenerator
+namespace BlockGenerator.Utility
 {
     public class EntityProperty : LavaDynamic
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace BlockGenerator
+namespace BlockGenerator.Utility
 {
     public interface INavigation
     {

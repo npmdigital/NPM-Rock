@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace BlockGenerator
+namespace BlockGenerator.Utility
 {
     [ValueConversion( typeof( bool ), typeof( bool ) )]
     public class InverseBooleanConverter : IValueConverter

@@ -4,12 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-      xmlns:local="clr-namespace:BlockGenerator" xmlns:controls="clr-namespace:BlockGenerator.Controls"
+      xmlns:utility="clr-namespace:BlockGenerator.Utility"
+      xmlns:controls="clr-namespace:BlockGenerator.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Obsidian View Models">
     <Page.Resources>
-        <local:InverseBooleanConverter x:Key="InverseBool" />
+        <utility:InverseBooleanConverter x:Key="InverseBool" />
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Page.Resources>
 

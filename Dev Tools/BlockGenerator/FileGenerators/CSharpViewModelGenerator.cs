@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using BlockGenerator.Utility;
+
 namespace BlockGenerator.FileGenerators
 {
     public class CSharpViewModelGenerator : Generator

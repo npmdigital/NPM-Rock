@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 using BlockGenerator.FileGenerators;
+using BlockGenerator.Utility;
 
 namespace BlockGenerator.Pages
 {
@@ -21,7 +22,7 @@ namespace BlockGenerator.Pages
         {
             InitializeComponent();
 
-            RockEnumsOutOfDateAlert.Visibility = Utility.IsSourceNewer( Path.Combine( "Rock.Enums", "bin", "Debug", "Rock.Enums.dll" ), "Rock.Enums" )
+            RockEnumsOutOfDateAlert.Visibility = SupportTools.IsSourceNewer( Path.Combine( "Rock.Enums", "bin", "Debug", "Rock.Enums.dll" ), "Rock.Enums" )
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 

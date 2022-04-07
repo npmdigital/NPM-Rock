@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Text;
 
+using BlockGenerator.Utility;
+
 using Rock;
 
 namespace BlockGenerator.FileGenerators

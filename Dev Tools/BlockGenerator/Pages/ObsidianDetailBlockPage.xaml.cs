@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using BlockGenerator.Dialogs;
 using BlockGenerator.FileGenerators;
 using BlockGenerator.Lava;
+using BlockGenerator.Utility;
 
 using Rock;
 
@@ -52,7 +53,7 @@ namespace BlockGenerator.Pages
         {
             InitializeComponent();
 
-            RockOutOfDateAlert.Visibility = Utility.IsSourceNewer( Path.Combine( "Rock", "bin", "Debug", "Rock.dll" ), "Rock" )
+            RockOutOfDateAlert.Visibility = SupportTools.IsSourceNewer( Path.Combine( "Rock", "bin", "Debug", "Rock.dll" ), "Rock" )
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

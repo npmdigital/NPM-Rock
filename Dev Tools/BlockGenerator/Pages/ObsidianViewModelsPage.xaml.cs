@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 using BlockGenerator.FileGenerators;
+using BlockGenerator.Utility;
 
 namespace BlockGenerator.Pages
 {
@@ -21,7 +22,7 @@ namespace BlockGenerator.Pages
         {
             InitializeComponent();
 
-            RockViewModelsOutOfDateAlert.Visibility = Utility.IsSourceNewer( Path.Combine( "Rock.ViewModels", "bin", "Debug", "Rock.ViewModels.dll" ), "Rock.ViewModels" )
+            RockViewModelsOutOfDateAlert.Visibility = SupportTools.IsSourceNewer( Path.Combine( "Rock.ViewModels", "bin", "Debug", "Rock.ViewModels.dll" ), "Rock.ViewModels" )
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using BlockGenerator.Utility;
+
 namespace BlockGenerator
 {
     public static class TypeExtensions

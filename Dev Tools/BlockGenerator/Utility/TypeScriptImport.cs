@@ -1,4 +1,4 @@
-﻿namespace BlockGenerator
+﻿namespace BlockGenerator.Utility
 {
     public class TypeScriptImport
     {

@@ -1,11 +1,11 @@
 ﻿using System.IO;
 
-namespace BlockGenerator
+namespace BlockGenerator.Utility
 {
     /// <summary>
     /// Helpful utilities for the code generator.
     /// </summary>
-    public static class Utility
+    public static class SupportTools
     {
         /// <summary>
         /// Determines whether the source files are newer than the binary file for

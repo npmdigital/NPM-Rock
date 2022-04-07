@@ -87,16 +87,16 @@
     <Compile Include="Controls\Alert.xaml.cs">
       <DependentUpon>Alert.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AlertType.cs" />
+    <Compile Include="Utility\AlertType.cs" />
     <Compile Include="ViewModels\AlertViewModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FileGenerators\Generator.cs" />
     <Compile Include="FileGenerators\TypeScriptViewModelGenerator.cs" />
-    <Compile Include="InverseBooleanConverter.cs" />
+    <Compile Include="Utility\InverseBooleanConverter.cs" />
     <Compile Include="Lava\CustomLavaFilters.cs" />
     <Compile Include="Lava\LavaDynamic.cs" />
     <Compile Include="Lava\LavaHelper.cs" />
-    <Compile Include="MultiDocReader.cs" />
+    <Compile Include="Utility\MultiDocReader.cs" />
     <Compile Include="Pages\GeneratedFilePreviewPage.xaml.cs">
       <DependentUpon>GeneratedFilePreviewPage.xaml</DependentUpon>
     </Compile>
@@ -106,9 +106,9 @@
     <Compile Include="Pages\ObsidianViewModelsPage.xaml.cs">
       <DependentUpon>ObsidianViewModelsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PropertyDeclaration.cs" />
-    <Compile Include="TypeScriptImport.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="Utility\PropertyDeclaration.cs" />
+    <Compile Include="Utility\TypeScriptImport.cs" />
+    <Compile Include="Utility\SupportTools.cs" />
     <Page Include="Controls\Alert.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -139,11 +139,11 @@
     <Compile Include="Dialogs\SelectEntityDialog.xaml.cs">
       <DependentUpon>SelectEntityDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EntityProperty.cs" />
+    <Compile Include="Utility\EntityProperty.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="FileGenerators\CSharpViewModelGenerator.cs" />
-    <Compile Include="GeneratedFile.cs" />
-    <Compile Include="INavigation.cs" />
+    <Compile Include="Utility\GeneratedFile.cs" />
+    <Compile Include="Utility\INavigation.cs" />
     <Compile Include="Pages\ObsidianDetailBlockPage.xaml.cs">
       <DependentUpon>ObsidianDetailBlockPage.xaml</DependentUpon>
     </Compile>

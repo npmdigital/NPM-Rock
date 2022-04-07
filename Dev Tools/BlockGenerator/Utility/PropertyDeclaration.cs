@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlockGenerator
+namespace BlockGenerator.Utility
 {
     public class PropertyDeclaration
     {
