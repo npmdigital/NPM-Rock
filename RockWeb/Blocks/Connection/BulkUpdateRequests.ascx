@@ -92,8 +92,8 @@
                     </div>
 
                     <div class="actions text-right">
-                        <asp:LinkButton ID="btnBulkRequestsUpdateSave" runat="server" AccessKey="s" ToolTip="Alt+s" Text="Update" CssClass="btn btn-primary" OnClick="btnBulkRequestUpdateCancel_Click"></asp:LinkButton>
-                        <asp:LinkButton ID="btnBulkRequestUpdateCancel" runat="server" AccessKey="c" ToolTip="Alt+c" Text="Cancel" CssClass="btn btn-link" CausesValidation="false"></asp:LinkButton>
+                        <asp:LinkButton ID="btnBulkRequestsUpdateSave" runat="server" AccessKey="s" ToolTip="Alt+s" Text="Update" CssClass="btn btn-primary" OnClick="btnBulkRequestUpdateSave_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="btnBulkRequestUpdateCancel" runat="server" AccessKey="c" ToolTip="Alt+c" Text="Cancel" CssClass="btn btn-link" CausesValidation="false" OnClick="btnBulkRequestUpdateCancel_Click"></asp:LinkButton>
                     </div>
 
                 </asp:Panel>
@@ -106,6 +106,12 @@
                         <asp:LinkButton ID="btnBack" runat="server" Text="Back" CssClass="btn btn-link" OnClick="btnBack_Click" />
                         <asp:LinkButton ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn btn-primary" OnClick="btnConfirm_Click" />
                     </div>
+
+                </asp:Panel>
+
+                <asp:Panel ID="pnlStatusUpdate" runat="server" Visible="false">
+
+                    <Rock:NotificationBox ID="nbStatusUpdate" runat="server" NotificationBoxType="Success"></Rock:NotificationBox>
 
                 </asp:Panel>
 

@@ -18,6 +18,7 @@
 using Humanizer;
 using Newtonsoft.Json;
 using Rock;
+using Rock.Attribute;
 using Rock.Data;
 using Rock.Model;
 using Rock.Transactions;
@@ -41,8 +42,28 @@ namespace RockWeb.Blocks.Connection
     [DisplayName( "Bulk Update Requests" )]
     [Category( "Connection" )]
     [Description( "Used for updating information about several Connection Requests at once. The QueryString must have both the EntitySetId as well as the ConnectionTypeId, and all the connection requests must be for the same opportunity." )]
+
+    #region Block Attributes
+
+    [LinkedPage(
+        "Previous Page",
+        Key = AttributeKeys.PreviousPage,
+        IsRequired = true,
+        Order = 1 )]
+
+    #endregion
+
     public partial class BulkUpdateRequests : RockBlock
     {
+        #region AttributeKeys
+
+        private static class AttributeKeys
+        {
+            public const string PreviousPage = "PreviousPage";
+        }
+
+        #endregion AttributeKeys
+
         #region PageParameterKeys
 
         /// <summary>
@@ -186,12 +207,13 @@ namespace RockWeb.Blocks.Connection
         {
             base.LoadViewState( savedState );
 
+            var rockContext = new RockContext();
             var entitySetId = PageParameter( PageParameterKey.EntitySetId ).AsInteger();
             string json = ViewState[ViewStateKeys.CONNECTION_CAMPUS_COUNT_KEY] as string;
 
             if ( string.IsNullOrWhiteSpace(json) )
             {
-                BindCampusSelector( entitySetId, new RockContext() );
+                BindCampusSelector( entitySetId, rockContext );
             }
             else
             {
@@ -202,7 +224,7 @@ namespace RockWeb.Blocks.Connection
             json = ViewState[ViewStateKeys.CONNECTION_REQUEST_IDS_KEY] as string;
             if ( string.IsNullOrWhiteSpace( json ) )
             {
-                RequestIdsState = GetConnectionRequestIds( entitySetId, new RockContext() );
+                RequestIdsState = GetConnectionRequestIds( entitySetId, rockContext );
             }
             else
             {
@@ -243,6 +265,11 @@ namespace RockWeb.Blocks.Connection
         }
 
         protected void btnBulkRequestUpdateCancel_Click( object sender, EventArgs e )
+        {
+            NavigateToLinkedPage( AttributeKeys.PreviousPage );
+        }
+
+        protected void btnBulkRequestUpdateSave_Click( object sender, EventArgs e )
         {
             if ( !Page.IsValid )
             {
@@ -400,12 +427,23 @@ namespace RockWeb.Blocks.Connection
                 RockQueue.TransactionQueue.Enqueue( launchWorkflowsTxn );
             }
 
+            ddlState.ClearSelection();
+            ddlStatus.ClearSelection();
+            wtpLaunchWorkflow.SetValue( 0 );
+            ddlActivityType.ClearSelection();
+            ddlActivityConnector.ClearSelection();
+            tbActivityNote.Text = string.Empty;
+
+            SelectedFields = new List<string>();
+            SetControlSelection();
+
             pnlEntry.Visible = true;
             pnlConfirm.Visible = false;
         }
 
         protected void cvSelection_ServerValidate( object source, ServerValidateEventArgs args )
         {
+            nbBulkUpdateNotification.Visible = false;
             args.IsValid = cbAddActivity.Checked && !string.IsNullOrWhiteSpace( ddlActivityType.SelectedValue );
         }
 
@@ -452,8 +490,6 @@ namespace RockWeb.Blocks.Connection
                     Count = cr.Count(),
                     OpportunityId = cr.FirstOrDefault().ConnectionOpportunityId,
                 } ).ToList();
-
-            ConnectionCampusCountViewModelsState.Add( new ConnectionCampusCountViewModel { Campus = "Main Campus", CampusId = 2, Count = 1, OpportunityId = 1 } );
 
             AddCampusSelectorControls( ConnectionCampusCountViewModelsState );
 
@@ -740,7 +776,7 @@ namespace RockWeb.Blocks.Connection
         #region Helper Class
 
         /// <summary>
-        /// 
+        /// View Model for the campus selectot filter
         /// </summary>
         private sealed class ConnectionCampusCountViewModel
         {
