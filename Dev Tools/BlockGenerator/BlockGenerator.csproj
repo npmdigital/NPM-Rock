@@ -84,6 +84,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Alert.xaml.cs">
+      <DependentUpon>Alert.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AlertType.cs" />
+    <Compile Include="ViewModels\AlertViewModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FileGenerators\Generator.cs" />
     <Compile Include="FileGenerators\TypeScriptViewModelGenerator.cs" />
@@ -103,6 +108,11 @@
     </Compile>
     <Compile Include="PropertyDeclaration.cs" />
     <Compile Include="TypeScriptImport.cs" />
+    <Compile Include="Utility.cs" />
+    <Page Include="Controls\Alert.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\NavigationFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

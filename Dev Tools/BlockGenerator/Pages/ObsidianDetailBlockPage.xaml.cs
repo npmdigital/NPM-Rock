@@ -51,6 +51,10 @@ namespace BlockGenerator.Pages
         public ObsidianDetailBlockPage()
         {
             InitializeComponent();
+
+            RockOutOfDateAlert.Visibility = Utility.IsSourceNewer( Path.Combine( "Rock", "bin", "Debug", "Rock.dll" ), "Rock" )
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         private void SetEntity( Type entityType )

@@ -21,6 +21,10 @@ namespace BlockGenerator.Pages
         {
             InitializeComponent();
 
+            RockViewModelsOutOfDateAlert.Visibility = Utility.IsSourceNewer( Path.Combine( "Rock.ViewModels", "bin", "Debug", "Rock.ViewModels.dll" ), "Rock.ViewModels" )
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+
             var types = GetViewModelTypes();
 
             var typeItems = types.Select( t => new TypeItem( t ) )

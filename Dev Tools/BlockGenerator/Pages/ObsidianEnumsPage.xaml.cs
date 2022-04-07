@@ -21,6 +21,10 @@ namespace BlockGenerator.Pages
         {
             InitializeComponent();
 
+            RockEnumsOutOfDateAlert.Visibility = Utility.IsSourceNewer( Path.Combine( "Rock.Enums", "bin", "Debug", "Rock.Enums.dll" ), "Rock.Enums" )
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+
             var types = GetEnumTypes();
 
             var typeItems = types.Select( t => new TypeItem( t ) )

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
       xmlns:local="clr-namespace:BlockGenerator"
+      xmlns:controls="clr-namespace:BlockGenerator.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Obsidian Detail Block">
@@ -133,6 +134,10 @@
                         <CheckBox Name="UseAttributeValuesCheckBox"
                                   IsChecked="True"
                                   Content="Use Attribute Values" />
+
+                        <controls:Alert x:Name="RockOutOfDateAlert"
+                                        Margin="0, 8, 0, 0"
+                                        Text="The Rock.dll is older than the source code files, you might need to recompile." />
                     </StackPanel>
                 </Border>
             </Grid>
