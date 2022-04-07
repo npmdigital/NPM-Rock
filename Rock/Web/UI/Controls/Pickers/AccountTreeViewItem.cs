@@ -66,10 +66,10 @@ namespace Rock.Web.UI.Controls
         public string GlCode { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is key word result.
+        /// Gets or sets the account hierarchy path.
         /// </summary>
-        /// <value><c>true</c> if this instance is key word result; otherwise, <c>false</c>.</value>
-        public bool IsKeyWordResult { get; set; }
+        /// <value>The account hierarchy path.</value>
+        public string Path { get; set; }
 
         /// <summary>
         /// Gets or sets the id.
@@ -134,7 +134,7 @@ namespace Rock.Web.UI.Controls
         /// The children.
         /// </value>
         public List<AccountTreeViewItem> Children { get; set; }
-
+                
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>

@@ -172,6 +172,7 @@ namespace Rock.Web.UI.Controls
 $@"Rock.controls.accountPicker.initialize({{ 
     controlId: '{this.ClientID}',
     restUrl: '{this.ResolveUrl( ItemRestUrl )}',
+    searchRestUrl:'{this.ResolveUrl( SearchRestUrl )}',
     allowMultiSelect: {this.AllowMultiSelect.ToString().ToLower()},
     allowCategorySelection: {this.UseCategorySelection.ToString().ToLower()},
     categoryPrefix: '{CategoryPrefix}',
@@ -182,8 +183,7 @@ $@"Rock.controls.accountPicker.initialize({{
     showSelectChildren: {this.ShowSelectChildren.ToString().ToLower()},
     enhanceForLongLists: {this.EnhanceForLongLists.ToString().ToLower()},
     displayChildItemCountLabel: {this.DisplayChildItemCountLabel.ToString().ToLower()},
-    customDataItems: {customDataItems},
-    isPostBack:{Page.IsPostBack.ToString().ToLower()}
+    customDataItems: {customDataItems}
 }});
 ";
             ScriptManager.RegisterStartupScript( this, this.GetType(), "item_picker-treeviewscript_" + this.ClientID, treeViewScript, true );
@@ -242,37 +242,6 @@ $@"Rock.controls.accountPicker.initialize({{
         /// <param name="writer">The writer.</param>
         public override void RenderCustomPickerActions( HtmlTextWriter writer )
         {
-            if ( EnhanceForLongLists )
-            {
-                // style tag
-                writer.RenderBeginTag( HtmlTextWriterTag.Style );
-
-                if ( EnhanceForLongLists )
-                {
-                    writer.Write( @"
-                    .input-group-addon-override {
-                             border-width: 1px 1px 1px 0px !important;
-                             background-color:transparent;
-                    }
-
-                    .form-control-override {
-                         border-width: 1px 0px 1px 1px !important;
-                    }
-
-                    .form-control-override:focus {
-                         border-color: #dfe0e1 !important;
-                         box-shadow: none !important;
-                    }
-
-                    .item-picker-search {
-                         padding-bottom:15px !important;
-                    }" );
-                }
-
-                writer.RenderEndTag();
-                // end style tag
-            }
-
             if ( _hfSearchValue != null )
             {
                 _hfSearchValue.RenderControl( writer );
@@ -321,8 +290,8 @@ $@"Rock.controls.accountPicker.initialize({{
             }
 
             base.IconCssClass = "fa fa-building-o";
-            base.PickerMenuCssClasses = "picker-menu-w500 dropdown-menu";
-            CustomDataItems = "[{\"itemKey\":\"glCode\",\"itemValueKey\":\"GlCode\"}]";
+            base.PickerMenuCssClasses = "picker-menu picker-menu-w500 dropdown-menu";
+            CustomDataItems = "[{\"itemKey\":\"glCode\",\"itemValueKey\":\"GlCode\"},{\"itemKey\":\"path\",\"itemValueKey\":\"Path\"}]";
 
             if ( DisplayActiveOnly )
             {
@@ -480,6 +449,15 @@ $@"Rock.controls.accountPicker.initialize({{
         public override string ItemRestUrl
         {
             get { return "~/api/financialaccounts/getchildren/"; }
+        }
+
+        /// <summary>
+        /// Gets the search rest URL.
+        /// </summary>
+        /// <value>The search rest URL.</value>
+        public string SearchRestUrl
+        {
+            get { return "~/api/financialaccounts/getchildrenbysearchterm/"; }
         }
 
         /// <summary>

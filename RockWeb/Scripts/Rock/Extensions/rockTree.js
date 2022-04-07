@@ -211,6 +211,7 @@
                 };
 
             if (this.options.restUrl) {
+
                 if ((this.options.expandedIds && typeof this.options.expandedIds.length === 'number') ||
                     (this.options.expandedCategoryIds && typeof this.options.expandedCategoryIds.length === 'number')) {
                     toExpandParentItems = this.options.expandedIds || [];
@@ -232,6 +233,7 @@
                             currentId = currentId.toString().replace(/(^')|('$)/g, '');
 
                             var currentNode = _findNodeById(currentId, self.nodes);
+                            
                             while (currentNode === null && toExpandParentItems.length > 0) {
                                 // if we can't find it, try the next one until we find one or run out of expanded ids
                                 currentId = toExpandParentItems.shift();
@@ -265,7 +267,7 @@
                             currentCategoryId = currentCategoryId.toString().replace(/(^')|('$)/g, '');
 
                             var currentCategoryNode = _findNodeById(currentCategoryId, self.nodes);
-                            while (currentCategoryNode == null && toExpandCategories.length > 0) {
+                            while (currentCategoryNode === null && toExpandCategories.length > 0) {
                                 // if we can't find it, try the next one until we find one or run out of expanded ids
                                 currentCategoryId = categoryPrefix + toExpandCategories.shift();
                                 currentCategoryNode = _findNodeById(currentCategoryId, self.nodes);

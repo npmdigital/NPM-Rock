@@ -14,6 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Rock.Model;
@@ -30,15 +31,28 @@ namespace Rock.Rest.Controllers
         /// <summary>
         /// Gets the children.
         /// </summary>
-        /// <param name="id">The identifier.</param>
         /// <param name="activeOnly">if set to <c>true</c> [active only].</param>
-        /// <param name="keyword">The keyword.</param>
-        /// <returns>IQueryable&lt;TreeViewItem&gt;.</returns>
+        /// <param name="displayPublicName">if set to <c>true</c> [display public name].</param>
+        /// <param name="searchTerm">The searchTerm.</param>
+        /// <returns>IQueryable&lt;AccountTreeViewItem&gt;.</returns>
         [Authenticate, Secured]
-        [System.Web.Http.Route( "api/FinancialAccounts/GetChildrenByKeyword/{id}/{activeOnly}/{keyword}" )]
-        public IQueryable<AccountTreeViewItem> GetChildren( int id, bool activeOnly, string keyword )
+        [System.Web.Http.Route( "api/FinancialAccounts/GetChildrenBySearchTerm/{activeOnly}/{displayPublicName}/{searchTerm}" )]
+        public IQueryable<AccountTreeViewItem> GetChildrenBySearchTerm( bool activeOnly, bool displayPublicName,string searchTerm )
         {
-            return GetChildrenData( id, activeOnly, true, keyword );
+            return GetSearchTermData(  activeOnly, displayPublicName, searchTerm );
+        }
+
+        /// <summary>
+        /// Gets the parent ids.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>IOrderedEnumerable&lt;System.Int32&gt;.</returns>
+        [Authenticate, Secured]
+        [System.Web.Http.Route( "api/FinancialAccounts/GetParentIds/{id}" )]
+        public IEnumerable<int> GetParentIds( int id )
+        {
+            var accountService = new FinancialAccountService( new Data.RockContext() );
+            return accountService.GetAllAncestorIds( id )?.Reverse();
         }
 
         /// <summary>
@@ -77,16 +91,15 @@ namespace Rock.Rest.Controllers
         [System.Web.Http.Route( "api/FinancialAccounts/GetInactive/{displayPublicName}" )]
         public IQueryable<AccountTreeViewItem> GetInactive( bool displayPublicName )
         {
-            IQueryable<FinancialAccount> qry;
+            var financialAccountService = new FinancialAccountService( new Data.RockContext() );
 
+            IQueryable<FinancialAccount> qry;
 
             qry = Get().Where( f =>
                 f.ParentAccountId.HasValue == false );
 
-
             qry = qry
                 .Where( f => f.IsActive == false );
-
 
             var accountList = qry
                 .OrderBy( f => f.Order )
@@ -98,7 +111,8 @@ namespace Rock.Rest.Controllers
                 Id = a.Id.ToString(),
                 Name = HttpUtility.HtmlEncode( displayPublicName ? a.PublicName : a.Name ),
                 GlCode = a.GlCode,
-                IsActive = a.IsActive
+                IsActive = a.IsActive,
+                Path = financialAccountService.GetDelimitedAccountHierarchy(a, FinancialAccountService.AccountHierarchyDirection.CurrentAccountToParent)
             } ).ToList();
 
             var resultIds = accountList.Select( f => f.Id ).ToList();
@@ -125,7 +139,6 @@ namespace Rock.Rest.Controllers
 
                 }
 
-
                 accountTreeViewItem.IconCssClass = "fa fa-file-o";
             }
 
@@ -133,20 +146,13 @@ namespace Rock.Rest.Controllers
         }
 
         #region Methods
-        private IQueryable<AccountTreeViewItem> GetChildrenData( int id, bool activeOnly, bool displayPublicName, string keyword = "" )
+        private IQueryable<AccountTreeViewItem> GetChildrenData( int id, bool activeOnly, bool displayPublicName )
         {
+            var financialAccountService = new FinancialAccountService( new Data.RockContext() );
+
             IQueryable<FinancialAccount> qry;
 
-            if ( keyword.IsNotNullOrWhiteSpace() )
-            {
-                var upperWord = keyword.ToUpper();
-                qry = Get().Where( f =>
-                    ( f.Name != null && f.Name.ToUpper().Contains( upperWord ) )
-                    || ( f.PublicName != null && f.PublicName.ToUpper().Contains( upperWord ) )
-                    || ( f.GlCode != null && f.GlCode.ToUpper().Contains( upperWord ) )
-                    );
-            }
-            else if ( id == 0 )
+            if ( id == 0 )
             {
                 qry = Get().Where( f =>
                     f.ParentAccountId.HasValue == false );
@@ -163,20 +169,21 @@ namespace Rock.Rest.Controllers
                 qry = qry
                     .Where( f => f.IsActive == activeOnly );
             }
-                       
+
             var accountList = qry
                 .OrderBy( f => f.Order )
                 .ThenBy( f => f.Name )
                 .ToList();
 
-            var accountTreeViewItems = accountList.Select( a => new AccountTreeViewItem
-            {
-                Id = a.Id.ToString(),
-                Name = HttpUtility.HtmlEncode( displayPublicName ? a.PublicName : a.Name ),
-                GlCode = a.GlCode,
-                IsActive = a.IsActive,
-                IsKeyWordResult = keyword.IsNotNullOrWhiteSpace()
-            } ).ToList();
+            var accountTreeViewItems = accountList
+                .Select( a => new AccountTreeViewItem
+                {
+                    Id = a.Id.ToString(),
+                    Name = HttpUtility.HtmlEncode( displayPublicName ? a.PublicName : a.Name ),
+                    GlCode = a.GlCode,
+                    IsActive = a.IsActive,
+                    Path = financialAccountService.GetDelimitedAccountHierarchy( a, FinancialAccountService.AccountHierarchyDirection.CurrentAccountToParent )
+                } ).ToList();
 
             var resultIds = accountList.Select( f => f.Id ).ToList();
 
@@ -198,15 +205,78 @@ namespace Rock.Rest.Controllers
                 if ( accountTreeViewItem.HasChildren )
                 {
                     accountTreeViewItem.CountInfo = childrenCount;
-                    accountTreeViewItem.ParentId = id.ToString();
 
-                    // If this was an incoming keyword search we need the children to display in the search UI
-                    if ( keyword.IsNotNullOrWhiteSpace() )
-                    {
-                        accountTreeViewItem.Children = this.GetChildrenData( accountId, activeOnly, displayPublicName ).ToList();
-                    }
+                    accountTreeViewItem.ParentId = id.ToString();
                 }
 
+                accountTreeViewItem.IconCssClass = "fa fa-file-o";
+            }
+
+            return accountTreeViewItems.AsQueryable();
+        }
+
+        /// <summary>
+        /// Gets the search term data.
+        /// </summary>
+        /// <param name="activeOnly">if set to <c>true</c> [active only].</param>
+        /// <param name="displayPublicName">if set to <c>true</c> [display public name].</param>
+        /// <param name="searchTerm">The search term.</param>
+        /// <returns>IQueryable&lt;AccountTreeViewItem&gt;.</returns>
+        private IQueryable<AccountTreeViewItem> GetSearchTermData( bool activeOnly, bool displayPublicName, string searchTerm )
+        {
+            IQueryable<FinancialAccount> qry;
+
+            if ( searchTerm.IsNullOrWhiteSpace() )
+            {
+                return null;
+            }
+
+            var financialAccountService = new FinancialAccountService( new Data.RockContext() );
+            qry = financialAccountService.GetAccountsBySearchTerm( searchTerm );
+
+            if ( activeOnly )
+            {
+                qry = qry
+                    .Where( f => f.IsActive == activeOnly );
+            }
+
+            var accountList = qry
+                .OrderBy( f => f.Order )
+                .ThenBy( f => f.Name )
+                .ToList();
+
+            var accountTreeViewItems = accountList
+                .Select( a => new AccountTreeViewItem
+                {
+                    Id = a.Id.ToString(),
+                    Name = HttpUtility.HtmlEncode( displayPublicName ? a.PublicName : a.Name ),
+                    GlCode = a.GlCode,
+                    IsActive = a.IsActive,
+                    ParentId = a.ParentAccountId.GetValueOrDefault( 0 ).ToString(),
+                    Path = financialAccountService.GetDelimitedAccountHierarchy(a, FinancialAccountService.AccountHierarchyDirection.CurrentAccountToParent)
+                } ).ToList();
+            
+            var resultIds = accountList.Select( f => f.Id ).ToList();
+
+            var childrenList = Get()
+                .Where( f =>
+                    f.ParentAccountId.HasValue &&
+                    resultIds.Contains( f.ParentAccountId.Value ) )
+                .Select( f => f.ParentAccountId.Value )
+                .ToList();
+
+            foreach ( var accountTreeViewItem in accountTreeViewItems )
+            {
+                int accountId = int.Parse( accountTreeViewItem.Id );
+                int childrenCount = ( childrenList?.Count( v => v == accountId ) ).GetValueOrDefault( 0 );
+
+                accountTreeViewItem.HasChildren = childrenCount > 0;
+                var lastChildId = ( childrenList?.LastOrDefault() ).GetValueOrDefault( 0 );
+
+                if ( accountTreeViewItem.HasChildren )
+                {
+                    accountTreeViewItem.CountInfo = childrenCount;
+                }
 
                 accountTreeViewItem.IconCssClass = "fa fa-file-o";
             }
