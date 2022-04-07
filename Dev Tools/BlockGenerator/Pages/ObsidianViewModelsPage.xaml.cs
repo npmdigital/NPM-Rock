@@ -13,11 +13,11 @@ using BlockGenerator.FileGenerators;
 namespace BlockGenerator.Pages
 {
     /// <summary>
-    /// Interaction logic for TypeScriptViewModelsPage.xaml
+    /// Interaction logic for ObsidianViewModelsPage.xaml
     /// </summary>
-    public partial class TypeScriptViewModelsPage : Page
+    public partial class ObsidianViewModelsPage : Page
     {
-        public TypeScriptViewModelsPage()
+        public ObsidianViewModelsPage()
         {
             InitializeComponent();
 
@@ -64,11 +64,19 @@ namespace BlockGenerator.Pages
                 return true;
             }
 
+            // If type is one of the types we will be generating then it is supported.
             if ( viewModelTypes.Contains( type ) )
             {
                 return true;
             }
 
+            // If type is in the Rock.Enums assembly, it's supported.
+            if ( type.IsEnum && type.Assembly == typeof( Rock.Enums.Reporting.FieldFilterSourceType ).Assembly )
+            {
+                return true;
+            }
+
+            // Check for some generic types that are supported.
             if ( type.IsGenericType )
             {
                 if ( type.GetGenericTypeDefinition() == typeof( Dictionary<,> ) )
@@ -82,6 +90,7 @@ namespace BlockGenerator.Pages
                 }
             }
 
+            // Named generic parameters are supported.
             if ( type.IsGenericParameter )
             {
                 return true;
@@ -92,17 +101,17 @@ namespace BlockGenerator.Pages
 
         private List<Type> GetViewModelTypes()
         {
-            return typeof( Rock.ViewModel.Utility.IViewModel ).Assembly
+            return typeof( Rock.ViewModels.Utility.IViewModel ).Assembly
                 .GetExportedTypes()
                 .Where( t => t.Name.Split( '`' )[0].EndsWith( "Bag" ) || t.Name.Split( '`' )[0].EndsWith( "Box" ) )
-                .Where( t => t.Namespace != "Rock.ViewModel.Entities" )
+                .Where( t => t.Namespace != "Rock.ViewModels.Entities" )
                 .Where( t => !t.IsAbstract && !t.IsInterface )
                 .ToList();
         }
 
         private string GetPathForType( Type type )
         {
-            var components = type.Namespace.Replace( "Rock.ViewModel", string.Empty ).Trim( '.' ).Split( '.' );
+            var components = type.Namespace.Replace( "Rock.ViewModels", string.Empty ).Trim( '.' ).Split( '.' );
 
             return Path.Combine( "Rock.JavaScript.Obsidian", "Framework", "ViewModels", string.Join( "\\", components ) );
         }
@@ -182,7 +191,7 @@ namespace BlockGenerator.Pages
                 Name = type.Name;
                 IsExporting = true;
 
-                if ( Name.StartsWith( "Rock.ViewModel." ) )
+                if ( Name.StartsWith( "Rock.ViewModels." ) )
                 {
                     Name = Name.Substring( 15 );
                 }

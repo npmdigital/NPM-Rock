@@ -1,4 +1,4 @@
-﻿// <copyright>
+// <copyright>
 // Copyright by the Spark Development Network
 //
 // Licensed under the Rock Community License (the "License");
@@ -15,27 +15,14 @@
 // </copyright>
 //
 
-namespace Rock.Model
-{
-    /// <summary>
-    /// The gender of a person
-    /// </summary>
-    [Enums.EnumDomain( "CRM" )]
-    public enum Gender
-    {
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        Unknown = 0,
+/** The gender of a person */
+export const enum Gender {
+    /** Unknown */
+    Unknown = 0,
 
-        /// <summary>
-        /// Male
-        /// </summary>
-        Male = 1,
+    /** Male */
+    Male = 1,
 
-        /// <summary>
-        /// Female
-        /// </summary>
-        Female = 2
-    }
+    /** Female */
+    Female = 2
 }

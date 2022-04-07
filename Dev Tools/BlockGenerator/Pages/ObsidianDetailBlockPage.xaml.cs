@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,9 +19,9 @@ using Rock;
 namespace BlockGenerator.Pages
 {
     /// <summary>
-    /// Interaction logic for DetailBlock.xaml
+    /// Interaction logic for ObsidianDetailBlock.xaml
     /// </summary>
-    public partial class DetailBlockPage : Page
+    public partial class ObsidianDetailBlockPage : Page
     {
         private Type _selectedEntityType;
 
@@ -49,7 +48,7 @@ namespace BlockGenerator.Pages
             "ModifiedDateTime"
         };
 
-        public DetailBlockPage()
+        public ObsidianDetailBlockPage()
         {
             InitializeComponent();
         }
@@ -108,10 +107,10 @@ namespace BlockGenerator.Pages
         {
             var files = new List<GeneratedFile>();
             var domain = parameters.EntityType.GetCustomAttribute<Rock.Data.RockDomainAttribute>()?.Name ?? "Unknown";
-            var bagPath = $"Rock.ViewModel\\Blocks\\{domain}\\{parameters.EntityType.Name}Detail";
+            var bagPath = $"Rock.ViewModels\\Blocks\\{domain}\\{parameters.EntityType.Name}Detail";
             var blockPath = $"Rock.Blocks\\{domain}";
             var typeScriptBlockPath = $"Rock.JavasScript.Obsidian\\Framework\\Blocks\\{domain}";
-            var bagNamespace = $"Rock.ViewModel.Blocks.{domain}.{parameters.EntityType.Name}Detail";
+            var bagNamespace = $"Rock.ViewModels.Blocks.{domain}.{parameters.EntityType.Name}Detail";
             var generator = new CSharpViewModelGenerator();
 
             var mergeFields = new Dictionary<string, object>

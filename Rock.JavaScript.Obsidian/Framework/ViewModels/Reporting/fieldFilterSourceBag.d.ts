@@ -15,6 +15,7 @@
 // </copyright>
 //
 
+import { FieldFilterSourceType } from "@Obsidian/Enums/Reporting/fieldFilterSourceType";
 import { Guid } from "@Obsidian/Types";
 import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
 
@@ -32,7 +33,7 @@ export type FieldFilterSourceBag = {
      * Gets or sets the type of this source item. This indicates which
      * other properties are valid for inspection.
      */
-    type: number;
+    type: FieldFilterSourceType;
 
     /** Gets or sets the attribute if the source type is Attribute. */
     attribute?: PublicAttributeBag | null;

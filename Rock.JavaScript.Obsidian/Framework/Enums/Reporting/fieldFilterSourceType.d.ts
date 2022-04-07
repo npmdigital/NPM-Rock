@@ -1,4 +1,5 @@
-﻿// Copyright by the Spark Development Network
+// <copyright>
+// Copyright by the Spark Development Network
 //
 // Licensed under the Rock Community License (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,9 +16,9 @@
 //
 
 /**
- * The sources of current value that can be used when building custom filtering
- * logic. This currently has only Attribute, but would later be expanded to
- * include other sources (such as properties).
+ * The sources of current value that can be used when building custom
+ * filtering logic.This currently has only Attribute, but would later be
+ * expanded to include other sources (such as properties).
  */
 export const enum FieldFilterSourceType {
     /** The value will be read from an entity attribute value. */

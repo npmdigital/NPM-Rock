@@ -13,14 +13,19 @@ namespace BlockGenerator.Pages
             InitializeComponent();
         }
 
-        private async void DetailBlock_Click( object sender, RoutedEventArgs e )
+        private async void ObsidianDetailBlock_Click( object sender, RoutedEventArgs e )
         {
-            await this.Navigation().PushPageAsync( new DetailBlockPage() );
+            await this.Navigation().PushPageAsync( new ObsidianDetailBlockPage() );
         }
 
-        private async void TypeScriptViewModelsButton_Click( object sender, RoutedEventArgs e )
+        private async void ObsidianViewModelsButton_Click( object sender, RoutedEventArgs e )
         {
-            await this.Navigation().PushPageAsync( new TypeScriptViewModelsPage() );
+            await this.Navigation().PushPageAsync( new ObsidianViewModelsPage() );
+        }
+
+        private async void ObsidianEnumsButton_Click( object sender, RoutedEventArgs e )
+        {
+            await this.Navigation().PushPageAsync( new ObsidianEnumsPage() );
         }
     }
 }

@@ -15,27 +15,26 @@
 // </copyright>
 //
 
-namespace Rock.Model
+namespace Rock.Enums
 {
     /// <summary>
-    /// The gender of a person
+    /// Special use attribute to help the code generation tool know what domain
+    /// the legacy enums from the Rock.Model namespace actually belong to.
     /// </summary>
-    [Enums.EnumDomain( "CRM" )]
-    public enum Gender
+    internal class EnumDomainAttribute : System.Attribute
     {
         /// <summary>
-        /// Unknown
+        /// Gets the domain the Enum type belongs to.
         /// </summary>
-        Unknown = 0,
+        public string Domain { get; }
 
         /// <summary>
-        /// Male
+        /// Initializes a new instance of the <see cref="EnumDomainAttribute"/> class.
         /// </summary>
-        Male = 1,
-
-        /// <summary>
-        /// Female
-        /// </summary>
-        Female = 2
+        /// <param name="domain">The domain.</param>
+        public EnumDomainAttribute( string domain )
+        {
+            Domain = domain;
+        }
     }
 }

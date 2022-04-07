@@ -9,38 +9,53 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Main Menu">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <StackPanel>
+        <Grid Margin="5">
+            <Grid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5" />
+                    <Setter Property="Padding" Value="10" />
+                </Style>
+                <Style TargetType="{x:Type fa:IconBlock}">
+                    <Setter Property="FontSize" Value="20" />
+                </Style>
+            </Grid.Resources>
 
-        <Button Name="DetailBlock"
-                Margin="8"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Name="ObsidianDetailBlock"
                 Grid.Row="0"
                 Grid.Column="0"
-                Click="DetailBlock_Click">
-            <StackPanel>
-                <Label FontSize="20" Content="{fa:Icon Th}" HorizontalContentAlignment="Center" />
-                <TextBlock Text="Detail Block" />
-            </StackPanel>
-        </Button>
+                Click="ObsidianDetailBlock_Click">
+                <StackPanel>
+                    <fa:IconBlock Icon="Th" />
+                    <TextBlock Text="Obsidian Detail Block" />
+                </StackPanel>
+            </Button>
 
-        <Button Name="TypeScriptViewModelsButton"
-                Margin="8"
+            <Button Name="ObsidianViewModelsButton"
                 Grid.Row="0"
                 Grid.Column="1"
-                Click="TypeScriptViewModelsButton_Click">
-            <StackPanel>
-                <Label FontSize="20" Content="{fa:Icon Js}" HorizontalContentAlignment="Center" />
-                <TextBlock Text="TypeScript View Models" />
-            </StackPanel>
-        </Button>
+                Click="ObsidianViewModelsButton_Click">
+                <StackPanel>
+                    <fa:IconBlock Icon="Js" />
+                    <TextBlock Text="Obsidian View Models" />
+                </StackPanel>
+            </Button>
 
-    </Grid>
+            <Button Name="ObsidianEnumsButton"
+                Grid.Row="0"
+                Grid.Column="2"
+                Click="ObsidianEnumsButton_Click">
+                <StackPanel>
+                    <fa:IconBlock Icon="ListOl" />
+                    <TextBlock Text="Obsidian Enums" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </StackPanel>
 </Page>

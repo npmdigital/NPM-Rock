@@ -69,6 +69,9 @@
     <Folder Include="Framework\Blocks\WorkFlow\FormBuilder\Shared\" />
     <Folder Include="Framework\Controls\" />
     <Folder Include="Framework\Elements\" />
+    <Folder Include="Framework\Enums\" />
+    <Folder Include="Framework\Enums\CRM\" />
+    <Folder Include="Framework\Enums\Reporting\" />
     <Folder Include="Framework\Fields\" />
     <Folder Include="Framework\Directives\" />
     <Folder Include="Framework\Types\" />
@@ -205,6 +208,7 @@
     <TypeScriptCompile Include="Framework\Elements\switch.ts" />
     <TypeScriptCompile Include="Framework\Elements\treeList.ts" />
     <TypeScriptCompile Include="Framework\Elements\urlLinkBox.ts" />
+    <TypeScriptCompile Include="Framework\Enums\**\*.d.ts" />
     <TypeScriptCompile Include="Framework\Fields\fileField.ts" />
     <TypeScriptCompile Include="Framework\Fields\fileFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\imageField.ts" />
@@ -617,7 +621,6 @@
     <TypeScriptCompile Include="Framework\Reporting\filterExpressionType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Utility\publicComparisonValueBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Utility\publicEditableAttributeBag.d.ts" />
-    <TypeScriptCompile Include="Framework\Reporting\fieldFilterSourceType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterGroupBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Reporting\fieldFilterRuleBag.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Utility\treeItemBag.d.ts" />

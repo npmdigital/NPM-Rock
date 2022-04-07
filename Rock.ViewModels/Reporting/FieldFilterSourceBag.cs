@@ -17,6 +17,7 @@
 
 using System;
 
+using Rock.Enums.Reporting;
 using Rock.ViewModels.Utility;
 
 namespace Rock.ViewModels.Reporting
@@ -40,7 +41,7 @@ namespace Rock.ViewModels.Reporting
         /// other properties are valid for inspection.
         /// </summary>
         /// <value>The type of this source item.</value>
-        public int Type { get; set; }
+        public FieldFilterSourceType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the attribute if the source type is Attribute.

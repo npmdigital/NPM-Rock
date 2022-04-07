@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
-using LoxSmoke.DocXml;
 
 using Rock;
 
@@ -13,30 +10,16 @@ namespace BlockGenerator.FileGenerators
 {
     public class TypeScriptViewModelGenerator : Generator
     {
-        private readonly DocXmlReader _viewModelXmlDoc;
-
-        public TypeScriptViewModelGenerator()
-        {
-            var assemblyFileName = new FileInfo( new Uri( typeof( Rock.ViewModel.Utility.IViewModel ).Assembly.CodeBase ).LocalPath ).FullName;
-
-            try
-            {
-                _viewModelXmlDoc = new DocXmlReader( assemblyFileName.Substring( 0, assemblyFileName.Length - 4 ) + ".xml" );
-            }
-            catch
-            {
-                _viewModelXmlDoc = null;
-            }
-        }
+        private readonly MultiDocReader _xmlDoc = new MultiDocReader();
 
         public string GenerateViewModelForType( Type type )
         {
-            var typeComment = _viewModelXmlDoc?.GetTypeComments( type )?.Summary?.StripHtml();
+            var typeComment = _xmlDoc.GetTypeComments( type )?.Summary?.StripHtml();
 
-            return GenerateViewModel( GetClassNameForType( type ), typeComment, type.GetProperties().ToList() );
+            return GenerateTypeViewModel( GetClassNameForType( type ), typeComment, type.GetProperties().ToList() );
         }
 
-        public string GenerateViewModel( string typeName, string typeComment, IList<PropertyInfo> properties )
+        public string GenerateTypeViewModel( string typeName, string typeComment, IList<PropertyInfo> properties )
         {
             var imports = new List<TypeScriptImport>();
 
@@ -80,9 +63,58 @@ namespace BlockGenerator.FileGenerators
             return GenerateTypeScriptFile( imports, sb.ToString() );
         }
 
+        public string GenerateViewModelForEnum( Type type )
+        {
+            var typeComment = _xmlDoc.GetTypeComments( type )?.Summary?.StripHtml();
+
+            return GenerateEnumViewModel( GetClassNameForType( type ), typeComment, type.GetFields( BindingFlags.Static | BindingFlags.Public ).ToList() );
+        }
+
+        public string GenerateEnumViewModel( string typeName, string typeComment, IList<FieldInfo> fields )
+        {
+            var imports = new List<TypeScriptImport>();
+
+            var sb = new StringBuilder();
+
+            AppendCommentBlock( sb, typeComment, 0 );
+            sb.AppendLine( $"export const enum {typeName} {{" );
+
+            var sortedFields = fields.OrderBy( f => f.GetRawConstantValue() ).ToList();
+
+            for ( int i = 0; i < sortedFields.Count; i++ )
+            {
+                var field = fields[i];
+
+                if ( i > 0 )
+                {
+                    sb.AppendLine();
+                }
+
+                AppendCommentBlock( sb, field, 4 );
+
+                sb.Append( $"    {field.Name} = {field.GetRawConstantValue()}" );
+
+                if ( i + 1 < sortedFields.Count )
+                {
+                    sb.AppendLine( "," );
+                }
+                else
+                {
+                    sb.AppendLine();
+                }
+            }
+
+            sb.AppendLine( "}" );
+
+            // Remove recursive references to self.
+            imports = imports.Where( i => i.DefaultImport != typeName && i.NamedImport != typeName ).ToList();
+
+            return GenerateTypeScriptFile( imports, sb.ToString() );
+        }
+
         private void AppendCommentBlock( StringBuilder sb, MemberInfo memberInfo, int indentationSize )
         {
-            var xdoc = _viewModelXmlDoc?.GetMemberComment( memberInfo )?.StripHtml();
+            var xdoc = _xmlDoc.GetMemberComment( memberInfo )?.StripHtml();
 
             AppendCommentBlock( sb, xdoc, indentationSize );
         }
@@ -110,7 +142,7 @@ namespace BlockGenerator.FileGenerators
 
         private static bool IsNonNullType( Type type )
         {
-            return type.IsPrimitive;
+            return type.IsPrimitive || type.IsEnum;
         }
 
         /// <summary>
@@ -208,9 +240,9 @@ namespace BlockGenerator.FileGenerators
                     isNullable = isNullable || !isRequired;
                 }
             }
-            else if ( type.Namespace.StartsWith( "Rock.ViewModel" ) && ( type.Name.EndsWith( "Bag" ) || type.Name.EndsWith( "Box" ) ) )
+            else if ( type.Namespace.StartsWith( "Rock.ViewModels" ) && ( type.Name.EndsWith( "Bag" ) || type.Name.EndsWith( "Box" ) ) )
             {
-                var path = $"{type.Namespace.Substring( 14 ).Trim( '.' ).Replace( '.', '/' )}/{type.Name.CamelCase()}";
+                var path = $"{type.Namespace.Substring( 15 ).Trim( '.' ).Replace( '.', '/' )}/{type.Name.CamelCase()}";
                 tsType = type.Name;
                 imports.Add( new TypeScriptImport
                 {
@@ -219,9 +251,19 @@ namespace BlockGenerator.FileGenerators
                 } );
                 isNullable = isNullable || !isRequired;
             }
-
-            if ( tsType == "unknown" )
+            else if ( type.IsEnum && type.Namespace.StartsWith( "Rock.Enums" ) )
             {
+                var path = $"{type.Namespace.Substring( 10 ).Trim( '.' ).Replace( '.', '/' )}/{type.Name.CamelCase()}";
+                tsType = type.Name;
+                imports.Add( new TypeScriptImport
+                {
+                    SourcePath = $"@Obsidian/Enums/{path}",
+                    NamedImport = type.Name
+                } );
+            }
+            else if ( type.IsEnum )
+            {
+                tsType = "number";
             }
 
             if ( isNullable )

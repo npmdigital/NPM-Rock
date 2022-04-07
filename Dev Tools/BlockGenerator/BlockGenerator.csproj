@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Rock.Common\bin\Debug\Rock.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Rock.Enums">
+      <HintPath>..\..\Rock.Enums\bin\Debug\Rock.Enums.dll</HintPath>
+    </Reference>
     <Reference Include="Rock.Lava, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Rock\bin\Debug\Rock.Lava.dll</HintPath>
@@ -88,11 +91,15 @@
     <Compile Include="Lava\CustomLavaFilters.cs" />
     <Compile Include="Lava\LavaDynamic.cs" />
     <Compile Include="Lava\LavaHelper.cs" />
+    <Compile Include="MultiDocReader.cs" />
     <Compile Include="Pages\GeneratedFilePreviewPage.xaml.cs">
       <DependentUpon>GeneratedFilePreviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TypeScriptViewModelsPage.xaml.cs">
-      <DependentUpon>TypeScriptViewModelsPage.xaml</DependentUpon>
+    <Compile Include="Pages\ObsidianEnumsPage.xaml.cs">
+      <DependentUpon>ObsidianEnumsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ObsidianViewModelsPage.xaml.cs">
+      <DependentUpon>ObsidianViewModelsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PropertyDeclaration.cs" />
     <Compile Include="TypeScriptImport.cs" />
@@ -104,7 +111,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\DetailBlockPage.xaml">
+    <Page Include="Pages\ObsidianDetailBlockPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,8 +134,8 @@
     <Compile Include="FileGenerators\CSharpViewModelGenerator.cs" />
     <Compile Include="GeneratedFile.cs" />
     <Compile Include="INavigation.cs" />
-    <Compile Include="Pages\DetailBlockPage.xaml.cs">
-      <DependentUpon>DetailBlockPage.xaml</DependentUpon>
+    <Compile Include="Pages\ObsidianDetailBlockPage.xaml.cs">
+      <DependentUpon>ObsidianDetailBlockPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -143,7 +150,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\TypeScriptViewModelsPage.xaml">
+    <Page Include="Pages\ObsidianEnumsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ObsidianViewModelsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

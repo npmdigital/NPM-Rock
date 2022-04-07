@@ -21,7 +21,7 @@ namespace BlockGenerator.FileGenerators
         {
             var usings = new List<string>
             {
-                "Rock.ViewModel.NonEntities"
+                "Rock.ViewModels.NonEntities"
             };
 
             var sb = new StringBuilder();
@@ -61,13 +61,13 @@ namespace BlockGenerator.FileGenerators
 
                 if ( collectionType.IsAssignableFrom( type ) )
                 {
-                    return new PropertyDeclaration( $"List<ListItemBag>", new[] { "System.Collections.Generic", "Rock.ViewModel.NonEntities" } );
+                    return new PropertyDeclaration( $"List<ListItemBag>", new[] { "System.Collections.Generic", "Rock.ViewModels.Utility" } );
                 }
             }
 
             if ( entityType.IsAssignableFrom( type ) )
             {
-                return new PropertyDeclaration( $"ListItemBag", new[] { "Rock.ViewModel.NonEntities" } );
+                return new PropertyDeclaration( $"ListItemBag", new[] { "Rock.ViewModels.Utility" } );
             }
 
             return type.GetCSharpPropertyDeclaration();
