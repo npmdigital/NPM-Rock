@@ -1012,7 +1012,6 @@
     <Compile Include="Model\CRM\PersonViewed\PersonViewed.Logic.cs" />
     <Compile Include="Model\CRM\Person\AgeClassification.cs" />
     <Compile Include="Model\CRM\Person\EmailPreference.cs" />
-    <Compile Include="Model\CRM\Person\Gender.cs" />
     <Compile Include="Model\CRM\Person\GetPersonPhotoImageTagArgs.cs" />
     <Compile Include="Model\CRM\Person\Person.cs" />
     <Compile Include="Model\CRM\Person\Person.Logic.cs" />
@@ -3956,6 +3955,10 @@
     <ProjectReference Include="..\Rock.DownhillCss\Rock.DownhillCss.csproj">
       <Project>{cadd9206-2c6b-42e4-b20b-2dfc3eb4d6d4}</Project>
       <Name>Rock.DownhillCss</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rock.Enums\Rock.Enums.csproj">
+      <Project>{61dece2b-0434-435e-8d65-49a4fdf98365}</Project>
+      <Name>Rock.Enums</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rock.Lava.DotLiquid\Rock.Lava.DotLiquid.csproj">
       <Project>{79aa470a-dc63-4cb4-b0b6-77285f60c69b}</Project>
