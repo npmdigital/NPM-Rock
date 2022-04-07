@@ -16,7 +16,7 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 /**
  * A slimmed down version of an attribute that includes enough detail to

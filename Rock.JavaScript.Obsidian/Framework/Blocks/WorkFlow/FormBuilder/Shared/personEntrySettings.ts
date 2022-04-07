@@ -21,7 +21,7 @@ import CheckBox from "../../../../Elements/checkBox";
 import DropDownList from "../../../../Elements/dropDownList";
 import TextBox from "../../../../Elements/textBox";
 import RockForm from "../../../../Controls/rockForm";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { toNumberOrNull } from "../../../../Services/number";
 import { FormPersonEntry } from "./types";
 import { FormFieldVisibility } from "./types";

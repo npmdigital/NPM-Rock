@@ -17,7 +17,7 @@
 
 import { FieldFilterSourceType } from "@Obsidian/Enums/Reporting/fieldFilterSourceType";
 import { Guid } from "@Obsidian/Types";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 
 /**
  * Describes a single source item an individual can pick from when building

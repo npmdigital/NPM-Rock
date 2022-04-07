@@ -23,7 +23,7 @@ import TextBox from "../Elements/textBox";
 import { asBoolean, asBooleanOrNull, asTrueFalseOrNull } from "../Services/boolean";
 import { toNumberOrNull } from "../Services/number";
 import { updateRefValue } from "../Util/util";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { ConfigurationValueKey } from "./multiSelectField";
 import { getFieldConfigurationProps, getFieldEditorProps } from "./utils";
 

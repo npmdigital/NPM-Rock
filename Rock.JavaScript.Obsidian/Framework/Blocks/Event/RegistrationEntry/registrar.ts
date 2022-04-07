@@ -26,8 +26,8 @@ import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } f
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 import { useStore } from "../../../Store/index";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 const store = useStore();
 

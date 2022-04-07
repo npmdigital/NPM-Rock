@@ -20,7 +20,7 @@ import DropDownList from "../Elements/dropDownList";
 import RockLabel from "../Elements/rockLabel";
 import TextBox from "../Elements/textBox";
 import { newGuid } from "../Util/guid";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 export type AddressControlValue = {
     street1?: string;

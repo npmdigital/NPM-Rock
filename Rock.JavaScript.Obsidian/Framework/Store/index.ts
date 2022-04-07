@@ -18,9 +18,9 @@ import { State } from "./state";
 import { shallowReadonly, reactive } from "vue";
 import { PageConfig } from "../Util/page";
 import { RockDateTime } from "../Util/rockDateTime";
-import { IEntity } from "@Obsidian/ViewModel/entity";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
-import { Group } from "@Obsidian/ViewModel/Entities/group";
+import { IEntity } from "@Obsidian/ViewModels/entity";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
+import { Group } from "@Obsidian/ViewModels/Entities/group";
 
 // This needs to move elsewhere probably.
 export type PageDebugTiming = {

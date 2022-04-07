@@ -17,7 +17,7 @@
 
 import { defineComponent, PropType } from "vue";
 import { useVModelPassthrough } from "../../../../Util/component";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 export default defineComponent({
     name: "SegmentedPicker",

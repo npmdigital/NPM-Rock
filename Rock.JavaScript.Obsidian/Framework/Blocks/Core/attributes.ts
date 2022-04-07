@@ -30,9 +30,9 @@ import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { alert, confirmDelete } from "../../Util/dialogs";
 import { normalize as normalizeGuid } from "../../Util/guid";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
-import { PublicEditableAttributeBag } from "@Obsidian/ViewModel/Utility/publicEditableAttributeBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
+import { PublicEditableAttributeBag } from "@Obsidian/ViewModels/Utility/publicEditableAttributeBag";
 
 type BlockConfiguration = {
     attributeEntityTypeId: number;

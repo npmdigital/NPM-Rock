@@ -17,7 +17,7 @@
 import { getFieldType } from "../Fields/index";
 import { computed, defineComponent, PropType, provide } from "vue";
 import { TextFieldType } from "../Fields/textField";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 
 const textField = new TextFieldType();
 

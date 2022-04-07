@@ -22,7 +22,7 @@ import DropDownList from "../Elements/dropDownList";
 import Toggle from "../Elements/toggle";
 import CheckBox from "../Elements/checkBox";
 import TextBox from "../Elements/textBox";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { toNumberOrNull } from "../Services/number";
 
 enum BooleanControlType {

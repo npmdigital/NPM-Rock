@@ -40,7 +40,7 @@ import SessionRenewal from "./RegistrationEntry/sessionRenewal";
 import RegistrationEntrySuccess from "./RegistrationEntry/success";
 import RegistrationEntryPayment from "./RegistrationEntry/payment";
 import RegistrationEntrySummary from "./RegistrationEntry/summary";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
 
 const store = useStore();
 

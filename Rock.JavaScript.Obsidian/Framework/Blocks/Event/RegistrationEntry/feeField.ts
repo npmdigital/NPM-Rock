@@ -24,7 +24,7 @@ import NumberUpDown from "../../../Elements/numberUpDown";
 import NumberUpDownGroup, { NumberUpDownGroupOption } from "../../../Elements/numberUpDownGroup";
 import Number from "../../../Services/number";
 import GuidHelper from "../../../Util/guid";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from "./registrationEntryBlockViewModel";
 
 export default defineComponent({

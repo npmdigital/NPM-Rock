@@ -24,7 +24,7 @@ import { areEqual } from "../../../Util/guid";
 import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 import { useStore } from "../../../Store/index";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
 
 const store = useStore();
 

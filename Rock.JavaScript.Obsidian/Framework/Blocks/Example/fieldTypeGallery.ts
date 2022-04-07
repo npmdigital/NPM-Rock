@@ -24,8 +24,8 @@ import { FieldType as FieldTypeGuids } from "../../SystemGuids";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { useVModelPassthrough } from "../../Util/component";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 
 /**
  * Convert a simpler set of parameters into PublicAttribute

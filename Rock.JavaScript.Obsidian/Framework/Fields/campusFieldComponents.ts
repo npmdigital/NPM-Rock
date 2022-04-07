@@ -22,7 +22,7 @@ import CheckBox from "../Elements/checkBox";
 import CheckBoxList from "../Elements/checkBoxList";
 import DropDownList from "../Elements/dropDownList";
 import { ConfigurationPropertyKey, ConfigurationValueKey } from "./campusField";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { asBoolean, asTrueFalseOrNull } from "../Services/boolean";
 import { areEqual } from "../Util/guid";
 

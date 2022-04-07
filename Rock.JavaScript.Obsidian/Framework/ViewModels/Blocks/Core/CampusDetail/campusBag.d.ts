@@ -16,9 +16,9 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { CampusScheduleBag } from "@Obsidian/ViewModel/Blocks/Core/CampusDetail/campusScheduleBag";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { CampusScheduleBag } from "@Obsidian/ViewModels/Blocks/Core/CampusDetail/campusScheduleBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 
 export type CampusBag = {
     name?: string | null;

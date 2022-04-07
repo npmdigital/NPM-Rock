@@ -18,7 +18,7 @@
 import { computed, defineComponent, PropType, ref } from "vue";
 import PaneledBlockTemplate from "./paneledBlockTemplate";
 import { useVModelPassthrough } from "../Util/component";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import RockForm from "../Controls/rockForm";
 import RockButton from "../Elements/rockButton";
 import { isPromise } from "../Util/util";

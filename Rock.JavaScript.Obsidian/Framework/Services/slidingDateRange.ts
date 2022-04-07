@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { toNumber, toNumberOrNull } from "./number";
 
 // This file contains helper functions and tooling required to work with sliding

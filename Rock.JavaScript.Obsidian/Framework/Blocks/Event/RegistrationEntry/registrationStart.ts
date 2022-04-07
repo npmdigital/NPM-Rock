@@ -19,7 +19,7 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
 import RockForm from "../../../Controls/rockForm";
 import RockButton from "../../../Elements/rockButton";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent({

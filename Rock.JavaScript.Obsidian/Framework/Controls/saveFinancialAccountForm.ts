@@ -24,7 +24,7 @@ import TextBox from "../Elements/textBox";
 import { BlockHttp } from "../Util/block";
 import RockForm from "./rockForm";
 import { useStore } from "../Store/index";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
 
 const store = useStore();
 

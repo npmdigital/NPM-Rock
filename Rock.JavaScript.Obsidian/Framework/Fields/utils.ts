@@ -26,7 +26,7 @@ import { IFieldType } from "./fieldType";
 import DropDownList from "../Elements/dropDownList";
 import FieldFilterContainer from "../Elements/fieldFilterContainer";
 import { toNumberOrNull } from "../Services/number";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 const fieldTypeTable: Record<Guid, IFieldType> = {};
 

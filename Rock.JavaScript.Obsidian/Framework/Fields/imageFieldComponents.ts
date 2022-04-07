@@ -20,7 +20,7 @@ import CheckBox from "../Elements/checkBox";
 import DropDownList from "../Elements/dropDownList";
 import ImageUploader from "../Elements/imageUploader";
 import { ConfigurationValueKey, ConfigurationPropertyKey } from "./imageField";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { updateRefValue } from "../Util/util";
 import { asBooleanOrNull, asTrueFalseOrNull } from "../Services/boolean";
 

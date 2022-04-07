@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from "vue";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import RockFormField from "./rockFormField";
 
 type OptionGroup = {

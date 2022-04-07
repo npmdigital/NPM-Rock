@@ -32,7 +32,7 @@ import DatePicker from "../../Elements/datePicker";
 import AddressControl, { getDefaultAddressControlModel } from "../../Controls/addressControl";
 import { toNumber } from "../../Services/number";
 import { DateTimeFormat, RockDateTime } from "../../Util/rockDateTime";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
 
 const store = useStore();
 

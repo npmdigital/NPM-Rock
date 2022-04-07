@@ -20,7 +20,7 @@ import DropDownList from "../../../../Elements/dropDownList";
 import TextBox from "../../../../Elements/textBox";
 import { toNumberOrNull } from "../../../../Services/number";
 import { useVModelPassthrough } from "../../../../Util/component";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import SegmentedPicker from "./segmentedPicker";
 import SectionContainer from "../../../../Controls/sectionContainer";
 import { FormCompletionActionType, FormCompletionAction } from "./types";

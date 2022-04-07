@@ -31,8 +31,8 @@ import RockForm from "../../../Controls/rockForm";
 import FeeField from "./feeField";
 import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from "../../../Elements/itemsWithPreAndPostHtml";
 import { useStore } from "../../../Store/index";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 const store = useStore();
 

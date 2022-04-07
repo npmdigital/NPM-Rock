@@ -16,7 +16,7 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { FieldFilterRuleBag } from "@Obsidian/ViewModel/Reporting/fieldFilterRuleBag";
+import { FieldFilterRuleBag } from "@Obsidian/ViewModels/Reporting/fieldFilterRuleBag";
 
 /** A group of filter rules/expressions that make up a logical comparison group. */
 export type FieldFilterGroupBag = {

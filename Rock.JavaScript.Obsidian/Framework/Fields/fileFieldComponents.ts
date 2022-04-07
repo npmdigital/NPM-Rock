@@ -19,7 +19,7 @@ import { getFieldConfigurationProps, getFieldEditorProps } from "./utils";
 import DropDownList from "../Elements/dropDownList";
 import FileUploader from "../Elements/fileUploader";
 import { ConfigurationValueKey, ConfigurationPropertyKey } from "./fileField";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { updateRefValue } from "../Util/util";
 
 export const EditComponent = defineComponent({

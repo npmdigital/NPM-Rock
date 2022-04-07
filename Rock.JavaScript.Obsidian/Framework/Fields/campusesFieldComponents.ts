@@ -23,7 +23,7 @@ import CheckBoxList from "../Elements/checkBoxList";
 import NumberBox from "../Elements/numberBox";
 import { toNumberOrNull } from "../Services/number";
 import { ConfigurationPropertyKey, ConfigurationValueKey } from "./campusesField";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { areEqual } from "../Util/guid";
 import { asBoolean, asTrueFalseOrNull } from "../Services/boolean";
 import { updateRefValue } from "../Util/util";

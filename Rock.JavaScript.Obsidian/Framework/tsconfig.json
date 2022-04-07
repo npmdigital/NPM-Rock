@@ -22,7 +22,7 @@
     ],
     "paths": {
       "@Obsidian/Enums/*": [ "./Enums/*" ],
-      "@Obsidian/ViewModel/*": [ "./ViewModels/*" ],
+      "@Obsidian/ViewModels/*": [ "./ViewModels/*" ],
       "@Obsidian/Types": [ "./Types" ],
       "@Obsidian/Types/*": [ "./Types/*" ]
     }

@@ -20,7 +20,7 @@ import Alert from "../../Elements/alert";
 import PaneledDetailBlockTemplate from "../../Templates/paneledDetailBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { emptyGuid } from "../../Util/guid";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import EditPanel from "./CampusDetail/editPanel";
 import { CampusDetailOptionsBag, CampusBag, DetailBlockBox, NavigationUrlKey } from "./CampusDetail/types";
 import ViewPanel from "./CampusDetail/viewPanel";

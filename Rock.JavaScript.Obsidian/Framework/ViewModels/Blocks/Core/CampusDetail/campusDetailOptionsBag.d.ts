@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 export type CampusDetailOptionsBag = {
     isMultiTimeZoneSupported: boolean;

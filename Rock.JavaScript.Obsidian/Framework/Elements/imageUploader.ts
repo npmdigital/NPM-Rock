@@ -20,7 +20,7 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import Alert from "../Elements/alert";
 import { BinaryFiletype } from "../SystemGuids";
 import { uploadBinaryFile } from "../Util/http";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import RockFormField from "./rockFormField";
 
 export default defineComponent({

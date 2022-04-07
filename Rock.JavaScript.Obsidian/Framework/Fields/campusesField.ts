@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { Component, defineAsyncComponent } from "vue";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { FieldTypeBase } from "./fieldType";
 
 export const enum ConfigurationValueKey {

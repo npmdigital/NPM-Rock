@@ -18,7 +18,7 @@ import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockFormField from "../Elements/rockFormField";
 import DropDownList from "../Elements/dropDownList";
 import DatePickerBase from "../Elements/datePicker";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { toNumber, toNumberOrNull } from "../Services/number";
 import { get } from "../Util/http";
 import { SlidingDateRange, rangeTypeOptions, timeUnitOptions } from "../Services/slidingDateRange";

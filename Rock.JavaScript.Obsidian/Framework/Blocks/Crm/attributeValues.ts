@@ -26,7 +26,7 @@ import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import RockForm from "../../Controls/rockForm";
 import TextBox from "../../Elements/textBox";
 import RockButton from "../../Elements/rockButton";
-import { PublicAttributeBag } from "@Obsidian/ViewModel/Utility/publicAttributeBag";
+import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttributeBag";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
 import { List } from "../../Util/linq";
 

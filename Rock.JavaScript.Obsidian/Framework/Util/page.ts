@@ -16,8 +16,8 @@
 //
 
 import { Guid } from "@Obsidian/Types";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
-import { IEntity } from "@Obsidian/ViewModel/entity";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
+import { IEntity } from "@Obsidian/ViewModels/entity";
 
 export type PageConfig = {
     executionStartTime: number;

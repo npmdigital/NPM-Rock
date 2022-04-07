@@ -32,9 +32,9 @@ import TextBox from "../../Elements/textBox";
 import { asCommaAnd } from "../../Services/string";
 import GatewayControl, { GatewayControlModel, prepareSubmitPayment } from "../../Controls/gatewayControl";
 import RockValidation from "../../Controls/rockValidation";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
-import { Person } from "@Obsidian/ViewModel/Entities/person";
-import { FinancialAccount } from "@Obsidian/ViewModel/Entities/financialAccount";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
+import { Person } from "@Obsidian/ViewModels/Entities/person";
+import { FinancialAccount } from "@Obsidian/ViewModels/Entities/financialAccount";
 
 const store = useStore();
 

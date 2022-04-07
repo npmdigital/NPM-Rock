@@ -23,7 +23,7 @@ import Alert from "../../../Elements/alert";
 import RockButton from "../../../Elements/rockButton";
 import { useInvokeBlockAction } from "../../../Util/block";
 import { newGuid, toGuidOrNull } from "../../../Util/guid";
-import { SavedFinancialAccountListItemBag } from "@Obsidian/ViewModel/Finance/savedFinancialAccountListItemBag";
+import { SavedFinancialAccountListItemBag } from "@Obsidian/ViewModels/Finance/savedFinancialAccountListItemBag";
 import { RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 import { RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";

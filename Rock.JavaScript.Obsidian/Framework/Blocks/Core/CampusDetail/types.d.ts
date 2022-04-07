@@ -15,8 +15,8 @@
 // </copyright>
 //
 
-import { IEntity } from "@Obsidian/ViewModel/entity";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { IEntity } from "@Obsidian/ViewModels/entity";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 export const enum NavigationUrlKey {
     ParentPage = "ParentPage"

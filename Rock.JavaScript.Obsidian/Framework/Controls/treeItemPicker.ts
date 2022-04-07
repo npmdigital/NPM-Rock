@@ -18,9 +18,9 @@
 import { computed, defineComponent, PropType, ref, watch } from "vue";
 import RockButton from "../Elements/rockButton";
 import RockFormField from "../Elements/rockFormField";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { ITreeItemProvider } from "../Util/treeItemProviders";
-import { TreeItemBag } from "@Obsidian/ViewModel/Utility/treeItemBag";
+import { TreeItemBag } from "@Obsidian/ViewModels/Utility/treeItemBag";
 import TreeList from "../Elements/treeList";
 
 /**

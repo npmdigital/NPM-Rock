@@ -20,7 +20,7 @@ import DropDownList from "../../../../Elements/dropDownList";
 import InlineCheckbox from "../../../../Elements/inlineCheckBox";
 import TextBox from "../../../../Elements/textBox";
 import { toNumberOrNull } from "../../../../Services/number";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import SegmentedPicker from "./segmentedPicker";
 import { FormEmailSource, FormEmailSourceType } from "./types";
 

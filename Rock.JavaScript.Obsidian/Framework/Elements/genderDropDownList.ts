@@ -16,7 +16,7 @@
 //
 import { computed, defineComponent } from "vue";
 import { normalizeRules, rulesPropType } from "../Rules/index";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import DropDownList from "./dropDownList";
 
 export const enum Gender {

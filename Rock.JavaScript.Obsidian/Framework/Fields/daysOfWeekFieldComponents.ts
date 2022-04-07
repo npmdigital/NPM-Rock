@@ -19,7 +19,7 @@ import { getFieldEditorProps } from "./utils";
 import { DayOfWeek } from "./dayOfWeekField";
 import CheckBoxList from "../Elements/checkBoxList";
 import { toNumber } from "../Services/number";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 
 export const EditComponent = defineComponent({
     name: "DaysOfWeekField.Edit",

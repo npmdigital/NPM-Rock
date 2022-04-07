@@ -24,7 +24,7 @@ import { FieldType } from "../../../SystemGuids";
 import { useConfigurationValues, useInvokeBlockAction } from "../../../Util/block";
 import { FormError } from "../../../Util/form";
 import { areEqual } from "../../../Util/guid";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import CommunicationsTab from "./FormBuilderDetail/communicationsTab";
 import FormBuilderTab from "./FormBuilderDetail/formBuilderTab";
 import SettingsTab from "./FormBuilderDetail/settingsTab";

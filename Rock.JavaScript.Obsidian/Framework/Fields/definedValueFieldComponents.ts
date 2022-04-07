@@ -22,7 +22,7 @@ import NumberBox from "../Elements/numberBox";
 import { asBoolean, asTrueFalseOrNull } from "../Services/boolean";
 import { toNumber, toNumberOrNull } from "../Services/number";
 import { useVModelPassthrough } from "../Util/component";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import { ClientValue, ConfigurationPropertyKey, ConfigurationValueKey, ValueItem } from "./definedValueField";
 import { getFieldEditorProps } from "./utils";
 

@@ -21,7 +21,7 @@ import DropDownList from "../../../../Elements/dropDownList";
 import EmailBox from "../../../../Elements/emailBox";
 import TextBox from "../../../../Elements/textBox";
 import { toNumberOrNull } from "../../../../Services/number";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import EmailSource from "../Shared/emailSource";
 import SegmentedPicker from "../Shared/segmentedPicker";
 import SectionContainer from "../../../../Controls/sectionContainer";

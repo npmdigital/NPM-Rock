@@ -23,7 +23,7 @@ import CheckBox from "../../../../Elements/checkBox";
 import RockButton from "../../../../Elements/rockButton";
 import TextBox from "../../../../Elements/textBox";
 import { updateRefValue } from "../../../../Util/util";
-import { ListItemBag } from "@Obsidian/ViewModel/Utility/listItemBag";
+import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
 import CompletionSettings from "../Shared/completionSettings";
 import ConfirmationEmail from "../Shared/confirmationEmail";
 import PersonEntrySettings from "../Shared/personEntrySettings";
