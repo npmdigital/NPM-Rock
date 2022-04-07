@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 using Rock;
 
@@ -16,9 +17,17 @@ namespace BlockGenerator.Pages
     {
         private readonly List<ExportFile> _exportFiles;
 
+        private int _selectedDiffIndex = 0;
+        private readonly Brush _unselectedButtonBackground = new SolidColorBrush( Color.FromRgb( 0xdd, 0xdd, 0xdd ) );
+        private readonly Brush _unselectedButtonForeground = new SolidColorBrush( Color.FromRgb( 0, 0, 0 ) );
+        private readonly Brush _selectedButtonBackground = new SolidColorBrush( Color.FromRgb( 0xee, 0x77, 0x25 ) );
+        private readonly Brush _selectedButtonForeground = new SolidColorBrush( Color.FromRgb( 0xf0, 0xf0, 0xf0 ) );
+
         public GeneratedFilePreviewPage( IList<GeneratedFile> files )
         {
             InitializeComponent();
+
+            SyncDiffButtonState();
 
             _exportFiles = files.Select( f => new ExportFile( f ) ).ToList();
 
@@ -44,6 +53,7 @@ namespace BlockGenerator.Pages
                 {
                     var fileContents = File.ReadAllText( filePath );
 
+                    file.OldContent = fileContents;
                     file.IsWriteNeeded = fileContents != file.File.Content;
                 }
                 else
@@ -96,6 +106,22 @@ namespace BlockGenerator.Pages
             }
         }
 
+        private void SyncDiffButtonState()
+        {
+            ContentButton.Background = _selectedDiffIndex == 0 ? _selectedButtonBackground : _unselectedButtonBackground;
+            ContentButton.Foreground = _selectedDiffIndex == 0 ? _selectedButtonForeground : _unselectedButtonForeground;
+
+            UnifiedDiffButton.Background = _selectedDiffIndex == 1 ? _selectedButtonBackground : _unselectedButtonBackground;
+            UnifiedDiffButton.Foreground = _selectedDiffIndex == 1 ? _selectedButtonForeground : _unselectedButtonForeground;
+
+            SideBySideDiffButton.Background = _selectedDiffIndex == 2 ? _selectedButtonBackground : _unselectedButtonBackground;
+            SideBySideDiffButton.Foreground = _selectedDiffIndex == 2 ? _selectedButtonForeground : _unselectedButtonForeground;
+
+            FilePreviewContent.Visibility = _selectedDiffIndex == 0 ? Visibility.Visible : Visibility.Hidden;
+            FilePreviewDiffView.Visibility = _selectedDiffIndex != 0 ? Visibility.Visible : Visibility.Hidden;
+            FilePreviewDiffView.IsSideBySide = _selectedDiffIndex == 2;
+        }
+
         private void Save_Click( object sender, RoutedEventArgs e )
         {
             var solutionPath = GetSolutionPath();
@@ -141,16 +167,38 @@ namespace BlockGenerator.Pages
             }
         }
 
+        private void ContentButton_Click( object sender, RoutedEventArgs e )
+        {
+            _selectedDiffIndex = 0;
+            SyncDiffButtonState();
+        }
+
+        private void UnifiedDiffButton_Click( object sender, RoutedEventArgs e )
+        {
+            _selectedDiffIndex = 1;
+            SyncDiffButtonState();
+        }
+
+        private void SideBySideDiffButton_Click( object sender, RoutedEventArgs e )
+        {
+            _selectedDiffIndex = 2;
+            SyncDiffButtonState();
+        }
+
         private void FileListBox_SelectionChanged( object sender, SelectionChangedEventArgs e )
         {
             if ( FileListBox.SelectedItem is ExportFile exportFile )
             {
+                FilePreviewDiffView.OldText = exportFile.OldContent;
+                FilePreviewDiffView.NewText = exportFile.File.Content;
                 FilePreviewContent.Text = exportFile.File.Content;
                 FilePreviewContent.ScrollToHome();
                 FilePreviewPath.Text = $"Path: {exportFile.File.SolutionRelativePath}";
             }
             else
             {
+                FilePreviewDiffView.OldText = string.Empty;
+                FilePreviewDiffView.NewText = string.Empty;
                 FilePreviewContent.Text = string.Empty;
                 FilePreviewPath.Text = string.Empty;
             }
@@ -165,6 +213,8 @@ namespace BlockGenerator.Pages
             public bool IsUpToDate { get; set; }
 
             public GeneratedFile File { get; set; }
+
+            public string OldContent { get; set; } = string.Empty;
 
             public ExportFile( GeneratedFile file )
             {

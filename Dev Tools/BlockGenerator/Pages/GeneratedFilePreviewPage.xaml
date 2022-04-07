@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+      xmlns:dp="clr-namespace:DiffPlex.Wpf.Controls;assembly=DiffPlex.Wpf"
       xmlns:local="clr-namespace:BlockGenerator.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -84,6 +85,13 @@
                      FontFamily="Courier New"
                      HorizontalScrollBarVisibility="Auto"
                      VerticalScrollBarVisibility="Visible" />
+
+            <dp:DiffViewer Name="FilePreviewDiffView"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Visibility="Hidden"
+                           OldTextHeader="Old Contnet"
+                           NewTextHeader="New Content" />
         </Grid>
 
         <Border Grid.Row="1"
@@ -91,10 +99,48 @@
                 Grid.ColumnSpan="2"
                 Padding="8"
                 Background="#eee">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Save"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="0"
+                            Grid.Column="0">
+                    <Button Content="Save"
                         Click="Save_Click"/>
-            </StackPanel>
+                </StackPanel>
+
+                <Border Grid.Row="0"
+                        Grid.Column="1"
+                        BorderThickness="1"
+                        BorderBrush="#707070">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="ContentButton"
+                                Content="Content"
+                                BorderThickness="0"
+                                Padding="4,0"
+                                Click="ContentButton_Click"/>
+
+                        <Rectangle Width="1" Fill="#707070" />
+
+                        <Button Name="UnifiedDiffButton"
+                                Content="Unified Diff"
+                                BorderThickness="0"
+                                Padding="4,0"
+                                Click="UnifiedDiffButton_Click"/>
+
+                        <Rectangle Width="1" Fill="#707070" />
+
+                        <Button Name="SideBySideDiffButton"
+                                Content="Side by Side Diff"
+                                BorderThickness="0"
+                                Padding="4,0"
+                                Click="SideBySideDiffButton_Click"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
     </Grid>
 </Page>
