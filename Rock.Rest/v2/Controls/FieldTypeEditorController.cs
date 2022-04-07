@@ -22,8 +22,8 @@ using System.Web.Http;
 
 using Rock.Data;
 using Rock.Rest.Filters;
-using Rock.ViewModel.Controls;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Controls;
+using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Rest.v2.Controls

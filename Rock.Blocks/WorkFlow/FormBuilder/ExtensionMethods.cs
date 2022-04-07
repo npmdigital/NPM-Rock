@@ -22,9 +22,9 @@ using System.Linq;
 
 using Rock.Data;
 using Rock.Model;
-using Rock.ViewModel.Blocks.WorkFlow.FormBuilder;
-using Rock.ViewModel.Reporting;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Blocks.WorkFlow.FormBuilder;
+using Rock.ViewModels.Reporting;
+using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Blocks.WorkFlow.FormBuilder

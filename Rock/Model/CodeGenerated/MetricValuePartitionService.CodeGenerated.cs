@@ -25,7 +25,8 @@ using System.Linq;
 
 using Rock.Attribute;
 using Rock.Data;
-using Rock.ViewModel;
+using Rock.ViewModels;
+using Rock.ViewModels.Entities;
 using Rock.Web.Cache;
 
 namespace Rock.Model
@@ -62,7 +63,7 @@ namespace Rock.Model
     /// MetricValuePartition View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( MetricValuePartition ) )]
-    public partial class MetricValuePartitionViewModelHelper : ViewModelHelper<MetricValuePartition, Rock.ViewModel.Entities.MetricValuePartitionBag>
+    public partial class MetricValuePartitionViewModelHelper : ViewModelHelper<MetricValuePartition, MetricValuePartitionBag>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,14 +72,14 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.Entities.MetricValuePartitionBag CreateViewModel( MetricValuePartition model, Person currentPerson = null, bool loadAttributes = true )
+        public override MetricValuePartitionBag CreateViewModel( MetricValuePartition model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.Entities.MetricValuePartitionBag
+            var viewModel = new MetricValuePartitionBag
             {
                 Id = model.Id,
                 Guid = model.Guid,
@@ -174,7 +175,7 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.Entities.MetricValuePartitionBag ToViewModel( this MetricValuePartition model, Person currentPerson = null, bool loadAttributes = false )
+        public static MetricValuePartitionBag ToViewModel( this MetricValuePartition model, Person currentPerson = null, bool loadAttributes = false )
         {
             var helper = new MetricValuePartitionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );

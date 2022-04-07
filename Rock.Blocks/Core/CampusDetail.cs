@@ -25,9 +25,9 @@ using Rock.Attribute;
 using Rock.Constants;
 using Rock.Data;
 using Rock.Model;
-using Rock.ViewModel.Blocks;
-using Rock.ViewModel.Blocks.Core.CampusDetail;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Blocks;
+using Rock.ViewModels.Blocks.Core.CampusDetail;
+using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 
 /*

@@ -22,7 +22,7 @@ using System.Web.UI;
 
 using Rock.Attribute;
 using Rock.Data;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 using Rock.Web.UI.Controls;
 

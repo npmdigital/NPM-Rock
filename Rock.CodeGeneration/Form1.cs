@@ -21,7 +21,7 @@ using LoxSmoke.DocXml;
 using Rock;
 using Rock.Utility;
 using Rock.Data;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Utility;
 
 namespace Rock.CodeGeneration
 {
@@ -80,7 +80,7 @@ namespace Rock.CodeGeneration
             var projectName = Path.GetFileNameWithoutExtension( lblAssemblyPath.Text );
 
             tbServiceFolder.Text = Path.Combine( RootFolder().FullName, projectName );
-            tbViewModelFolder.Text = Path.Combine( RootFolder().FullName, projectName + ".ViewModel" );
+            tbViewModelFolder.Text = Path.Combine( RootFolder().FullName, projectName + ".ViewModels" );
             tbViewModelTsFolder.Text = Path.Combine( RootFolder().FullName, "Rock.JavaScript.Obsidian", "Framework", "ViewModels" );
             tbRestFolder.Text = Path.Combine( RootFolder().FullName, projectName + ".Rest" );
             tbClientFolder.Text = Path.Combine( RootFolder().FullName, projectName + ".Client" );
@@ -777,8 +777,8 @@ GO
             sb.AppendLine( "" );
             sb.AppendLine( @"using Rock.Attribute;
 using Rock.Data;
-using Rock.ViewModel;
-using Rock.ViewModel.Entities;
+using Rock.ViewModels;
+using Rock.ViewModels.Entities;
 using Rock.Web.Cache;
 " );
 
@@ -811,7 +811,7 @@ using Rock.Web.Cache;
     /// {type.Name} View Model Helper
     /// </summary>
     [DefaultViewModelHelper( typeof( {type.Name} ) )]
-    public partial class {type.Name}ViewModelHelper : ViewModelHelper<{type.Name}, Rock.ViewModel.Entities.{type.Name}Bag>
+    public partial class {type.Name}ViewModelHelper : ViewModelHelper<{type.Name}, {type.Name}Bag>
     {{
         /// <summary>
         /// Converts the model to a view model.
@@ -820,14 +820,14 @@ using Rock.Web.Cache;
         /// <param name=""currentPerson"">The current person.</param>
         /// <param name=""loadAttributes"">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.Entities.{type.Name}Bag CreateViewModel( {type.Name} model, Person currentPerson = null, bool loadAttributes = true )
+        public override {type.Name}Bag CreateViewModel( {type.Name} model, Person currentPerson = null, bool loadAttributes = true )
         {{
             if ( model == null )
             {{
                 return default;
             }}
 
-            var viewModel = new Rock.ViewModel.Entities.{type.Name}Bag
+            var viewModel = new {type.Name}Bag
             {{
                 Id = model.Id,
                 Guid = model.Guid," );
@@ -949,7 +949,7 @@ using Rock.Web.Cache;
         /// <param name=""model"">The entity.</param>
         /// <param name=""currentPerson"" >The currentPerson.</param>
         /// <param name=""loadAttributes"" >Load attributes?</param>
-        public static Rock.ViewModel.Entities.{type.Name}Bag ToViewModel( this {type.Name} model, Person currentPerson = null, bool loadAttributes = false )
+        public static {type.Name}Bag ToViewModel( this {type.Name} model, Person currentPerson = null, bool loadAttributes = false )
         {{
             var helper = new {type.Name}ViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );
@@ -988,9 +988,9 @@ using Rock.Web.Cache;
 using System;
 using System.Linq;
 
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Utility;
 
-namespace Rock.ViewModel.Entities
+namespace Rock.ViewModels.Entities
 {{
     /// <summary>
     /// {type.Name} View Model
@@ -1169,7 +1169,7 @@ namespace Rock.ViewModel.Entities
                 return;
             }
 
-            var viewModelType = viewModelTypes.FirstOrDefault( vmt => vmt.FullName == $"Rock.ViewModel.Entities.{type.Name}Bag" );
+            var viewModelType = viewModelTypes.FirstOrDefault( vmt => vmt.FullName == $"Rock.ViewModels.Entities.{type.Name}Bag" );
 
             if ( viewModelType == null )
             {

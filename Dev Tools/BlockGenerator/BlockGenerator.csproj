@@ -53,9 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Rock\bin\Debug\Rock.Lava.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="Rock.ViewModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Rock.ViewModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Rock.ViewModel\bin\Debug\Rock.ViewModel.dll</HintPath>
+      <HintPath>..\..\Rock.ViewModels\bin\Debug\Rock.ViewModels.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

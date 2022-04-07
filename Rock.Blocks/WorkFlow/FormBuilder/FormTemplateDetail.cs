@@ -26,8 +26,8 @@ using Rock.ClientService.Core.DefinedValue;
 using Rock.Data;
 using Rock.Model;
 using Rock.Security;
-using Rock.ViewModel.Blocks.WorkFlow.FormBuilder.FormTemplateDetail;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Blocks.WorkFlow.FormBuilder.FormTemplateDetail;
+using Rock.ViewModels.Utility;
 
 namespace Rock.Blocks.Workflow.FormBuilder
 {

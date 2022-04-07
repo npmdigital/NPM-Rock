@@ -27,9 +27,9 @@ using Rock.Data;
 using Rock.Model;
 using Rock.Security;
 using Rock.SystemKey;
-using Rock.ViewModel.Blocks.WorkFlow.FormBuilder;
-using Rock.ViewModel.Reporting;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Blocks.WorkFlow.FormBuilder;
+using Rock.ViewModels.Reporting;
+using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 using Rock.Workflow.FormBuilder;
 

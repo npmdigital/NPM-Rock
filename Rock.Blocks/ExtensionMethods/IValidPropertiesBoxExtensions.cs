@@ -18,7 +18,7 @@
 using System;
 using System.Linq;
 
-using Rock.ViewModel.Blocks;
+using Rock.ViewModels.Blocks;
 
 namespace Rock.Blocks
 {

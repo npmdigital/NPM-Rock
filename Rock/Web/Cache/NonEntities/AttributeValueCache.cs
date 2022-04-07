@@ -21,8 +21,8 @@ using System.Runtime.Serialization;
 using Rock.Data;
 using Rock.Lava;
 using Rock.Model;
-using Rock.ViewModel;
-using Rock.ViewModel.Entities;
+using Rock.ViewModels;
+using Rock.ViewModels.Entities;
 
 namespace Rock.Web.Cache
 {

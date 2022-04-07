@@ -22,7 +22,7 @@ using System.Linq;
 using Rock.Attribute;
 using Rock.Data;
 using Rock.Model;
-using Rock.ViewModel.Connection;
+using Rock.ViewModels.Connection;
 
 namespace Rock.ClientService.Connection.ConnectionOpportunity
 {

@@ -30,8 +30,8 @@ using Rock.Field;
 using Rock.Model;
 using Rock.Lava;
 using Rock.Security;
-using Rock.ViewModel;
-using Rock.ViewModel.Entities;
+using Rock.ViewModels;
+using Rock.ViewModels.Entities;
 using Rock.Web.UI.Controls;
 
 namespace Rock.Web.Cache

@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-using Rock.ViewModel.Entities;
+using Rock.ViewModels.Entities;
 
 namespace Rock.Model
 {

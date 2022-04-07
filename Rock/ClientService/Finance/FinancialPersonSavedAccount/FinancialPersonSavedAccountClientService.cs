@@ -21,7 +21,7 @@ using System.Linq;
 using Rock.ClientService.Finance.FinancialPersonSavedAccount.Options;
 using Rock.Data;
 using Rock.Model;
-using Rock.ViewModel.Finance;
+using Rock.ViewModels.Finance;
 using Rock.Web.Cache;
 
 namespace Rock.ClientService.Finance.FinancialPersonSavedAccount

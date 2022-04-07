@@ -25,7 +25,7 @@ using Rock.ClientService.Core.Campus;
 using Rock.Data;
 using Rock.Model;
 using Rock.Security;
-using Rock.ViewModel.Utility;
+using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 
 namespace Rock.Blocks.Types.Mobile.Connection
