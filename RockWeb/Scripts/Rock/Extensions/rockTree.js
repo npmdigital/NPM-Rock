@@ -427,7 +427,6 @@
 
             var self = this,
                 $ul = $('<ul/>'),
-                renderedNodes = [],
                 renderNode = function ($list, node, parentId) {
                     var hasChildren = false;
                                         
@@ -536,7 +535,6 @@
                     }
 
                     $('#node-item-' + node.id).attr('node-open', node.isOpen);
-                    renderedNodes.push(node);
                 };
 
             // Clear tree and prepare to re-render
@@ -548,7 +546,7 @@
                 renderNode($ul, node);
             });
                         
-            this.$el.trigger('rockTree:rendered', [{ $ul, nodes: renderedNodes }]);
+            this.$el.trigger('rockTree:rendered');
         },
 
         // clear the error message

@@ -17,6 +17,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using Rock.Model;
 using Rock.Rest.Filters;
 using Rock.Web.UI.Controls;
@@ -53,6 +54,33 @@ namespace Rock.Rest.Controllers
         {
             var accountService = new FinancialAccountService( new Data.RockContext() );
             return accountService.GetAllAncestorIds( id )?.Reverse();
+        }
+
+        /// <summary>
+        /// Gets the parent ids.
+        /// </summary>
+        /// <param name="ids">The ids.</param>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
+        [Authenticate, Secured]
+        [System.Web.Http.Route( "api/FinancialAccounts/GetParentIdsCollection" )]
+        public Dictionary<string,List<string>> GetParentIds( [FromUri] IEnumerable<string> ids )
+        {
+            var accountService = new FinancialAccountService( new Data.RockContext() );
+            var retVal = new Dictionary<string, List<string>>();
+
+            foreach(var id in ids)
+            {
+                var idString = id.ToString();
+                var ancestors = accountService.GetAllAncestorIds( id.AsInteger() )?
+                    .Reverse()?
+                    .Select( v => v.ToString() );
+
+                if ( !retVal.ContainsKey( idString )){
+                    retVal.Add( idString, new List<string>( ancestors ) );
+                }
+            }
+
+            return retVal;
         }
 
         /// <summary>

@@ -33,6 +33,7 @@ namespace Rock.Web.UI.Controls
         #region Controls
 
         private HiddenFieldWithClass _hfSearchValue;
+        private HiddenFieldWithClass _hfPickerShowActive;
 
         /// <summary>
         /// The Select All button
@@ -139,14 +140,6 @@ namespace Rock.Web.UI.Controls
         public bool DisplayChildItemCountLabel { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="ItemPicker"/> should display the Show Inactive checkbox.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [display show inactive items]; otherwise, <c>false</c>.
-        /// </value>
-        public bool DisplayShowInactiveItems { get; set; }
-
-        /// <summary>
         /// Gets or sets the custom data items that will be serialized as a json object that is used to add custom properties to the itemPicker.js node object.
         /// This value should be specified as a json array (i.e. "[{\"itemKey\":\"jsClientPropName\",\"itemValueKey\":\"ServerPropName\"}]").
         /// The json properties "itemKey" and "itemValueKey" must be in camel-case.
@@ -173,6 +166,7 @@ $@"Rock.controls.accountPicker.initialize({{
     controlId: '{this.ClientID}',
     restUrl: '{this.ResolveUrl( ItemRestUrl )}',
     searchRestUrl:'{this.ResolveUrl( SearchRestUrl )}',
+    getParentIdsUrl:'{this.ResolveUrl( GetParentIdsCollectionUrl )}',
     allowMultiSelect: {this.AllowMultiSelect.ToString().ToLower()},
     allowCategorySelection: {this.UseCategorySelection.ToString().ToLower()},
     categoryPrefix: '{CategoryPrefix}',
@@ -185,7 +179,12 @@ $@"Rock.controls.accountPicker.initialize({{
     displayChildItemCountLabel: {this.DisplayChildItemCountLabel.ToString().ToLower()},
     customDataItems: {customDataItems}
 }});
+
+function doPostBack() {{
+    {Page.ClientScript.GetPostBackEventReference( this, string.Empty )}
+}}
 ";
+
             ScriptManager.RegisterStartupScript( this, this.GetType(), "item_picker-treeviewscript_" + this.ClientID, treeViewScript, true );
         }
         /// <summary>
@@ -228,6 +227,14 @@ $@"Rock.controls.accountPicker.initialize({{
 
                 this.Controls.Add( _hfSearchValue );
             }
+
+            _hfPickerShowActive = new HiddenFieldWithClass
+            {
+                ID = this.ID + "_hfPickerShowActive",
+                CssClass = "js-picker-showactive-value"
+            };
+
+            this.Controls.Add( _hfPickerShowActive );
         }
 
         private void _cbShowInactiveAccounts_CheckedChanged( object sender, EventArgs e )
@@ -247,6 +254,11 @@ $@"Rock.controls.accountPicker.initialize({{
                 _hfSearchValue.RenderControl( writer );
             }
 
+            if ( _hfPickerShowActive != null )
+            {
+                _hfPickerShowActive.RenderControl( writer );
+            }
+
             base.RenderCustomPickerActions( writer );
 
             if ( this.AllowMultiSelect )
@@ -256,7 +268,7 @@ $@"Rock.controls.accountPicker.initialize({{
                 _btnSelectAll.RenderControl( writer );
             }
 
-            if ( DisplayShowInactiveItems && _cbShowInactiveAccounts != null )
+            if ( !DisplayActiveOnly && _cbShowInactiveAccounts != null )
             {
                 _cbShowInactiveAccounts.RenderControl( writer );
             }
@@ -292,11 +304,6 @@ $@"Rock.controls.accountPicker.initialize({{
             base.IconCssClass = "fa fa-building-o";
             base.PickerMenuCssClasses = "picker-menu picker-menu-w500 dropdown-menu";
             CustomDataItems = "[{\"itemKey\":\"glCode\",\"itemValueKey\":\"GlCode\"},{\"itemKey\":\"path\",\"itemValueKey\":\"Path\"}]";
-
-            if ( DisplayActiveOnly )
-            {
-                DisplayShowInactiveItems = false;
-            }
 
             // NOTE: The base ItemPicker.RenderBaseControl will do additional CSS class additions.
             base.RenderBaseControl( writer );
@@ -458,6 +465,15 @@ $@"Rock.controls.accountPicker.initialize({{
         public string SearchRestUrl
         {
             get { return "~/api/financialaccounts/getchildrenbysearchterm/"; }
+        }
+
+        /// <summary>
+        /// Gets the get parent ids URL.
+        /// </summary>
+        /// <value>The get parent ids URL.</value>
+        public string GetParentIdsCollectionUrl
+        {
+            get { return "~/api/financialaccounts/getparentidscollection/"; }
         }
 
         /// <summary>
