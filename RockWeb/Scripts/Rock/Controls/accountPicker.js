@@ -373,19 +373,23 @@
                     var $searchControl =
                         $('<div class="rocktree-drawer form-group js-group-search" style="display: none;">' +
                             '	<span class="control-label d-none">Search</span>' +
-                            '	<div id="pnlSearch_' + controlId + '" class= "input-group" > ' +
+                            '	<div id="pnlSearch_' + controlId + '" class="input-group" > ' +
                             '		<input id="tbSearch_' + controlId + '" type="text" placeholder="Quick Find" class="form-control input-sm" />' +
                             '		<span class="input-group-btn">' +
                             '			<a id="btnSearch_' + controlId + '" class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>' +
                             '		</span>' +
                             '	</div>' +
-                            '</div>');
+                            '</div><div class="mb-5"></div>');
 
                     // Get all of the rendered items
-                    var itemsHtml = $('#' + controlId + ' .treeview-items').html();
-                    console.debug($('#treeviewItems_' + controlId).html());
+                    var treeView = $control.find('.treeview').html();
+
+                    var $treeView = $control.find('.treeview');
+                    var $overview = $control.find('.overview');
+                    var $viewport = $control.find('.viewport');
+
                     // Add the search control after rendering
-                    $('#treeview-view-port_' + controlId).prepend($searchControl.html());
+                    $overview.prepend($searchControl.html());
 
                     var $searchInputControl = $('#tbSearch_' + controlId);
 
@@ -393,7 +397,6 @@
 
                         var searchKeyword = $searchInputControl.val();
                         if (searchKeyword && searchKeyword.length > 0) {
-                            console.debug(searchKeyword);
                             var searchRestUrl = self.options.searchRestUrl;
                             var restUrlParams = self.options.restParams + '/' + searchKeyword;
 
@@ -401,14 +404,11 @@
 
                             $.getJSON(searchRestUrl, function (data, status) {
 
-                                console.debug(data);
-
                                 if (data && status === 'success') {
-                                    $('#<%=pnlTreeviewContent.ClientID%>').html('');
+                                    $treeView.html('');
                                 }
                                 else {
-                                    $('#<%=divSearchResults.ClientID%>').hide();
-                                    $('#<%=divTreeView.ClientID%>').show();
+                                    $overview.html(treeView);
                                     return;
                                 }
 
@@ -430,27 +430,56 @@
                                 }
 
                                 if (nodes) {
+
                                     var listHtml = '';
                                     nodes.forEach(function (v, idx) {
+
+                                        var inputHtml = '<input type="radio" data-id="' + v.nodeId + '" class="checkbox js-opt-search">';
+                                        if (self.options.allowMultiSelect) {
+                                            inputHtml = '<input type="checkbox" data-id="' + v.nodeId + '" class="checkbox js-chk-search">';
+                                        }
+
                                         listHtml +=
                                             '<div id="divSearchItem" class="container-fluid">' +
                                             '      <div class="row">' +
-                                            '        <div class="col-xs-12 p-0">' +
-                                            '             <li class="rocktree-item rocktree-folder rocktree-search-result-item">' +
-                                            '         <a class="search-result-link" data-id="' + v.nodeId + '" href="javascript:void(0);">' +
-                                            '            <span class="rocktree-name">' +
-                                            '              <h5><span class="rocktree-node-name-text text-color">' + v.title + '</span><br/>' +
+                                            '        <div class="col-xs-1 pr-0 pt-2">' +
+                                            inputHtml +
+                                            '        </div>' +
+                                            '        <div class="col-xs-11 pl-0">' +
+                                            '              <h5><span class="rocktree-node-name-text text-color">' + v.title + '</span></br>' +
                                             '              <span class="text-muted"><small>' + v.path.replaceAll('^', '<i class="fa fa-chevron-right pl-1 pr-1" aria-hidden="true"></i>') + '</small></span></h5>' +
-                                            '            </span></a>' +
-                                            '         </li>' +
-                                            '       </div>' +
-                                            ' </div>' +
+                                            '        </div>' +
+                                            '     </div>' +
                                             '</div>';
                                     });
 
-                                    $('#<%=divSearchResults.ClientID%>').html('<ul class="list-unstyled">' +
-                                        listHtml +
-                                        '</ul>');
+                                    $treeView.html(listHtml);
+
+                                    // Handle item check selection
+                                    $control.find('.js-chk-search').off('change').on('change', function () {
+                                        var $allChecked = $control.find('.js-chk-search:checked');
+                                        var checkedVals = $allChecked.map(function () {
+                                            return $(this).attr('data-id');
+                                        }).get();
+
+                                        console.debug(checkedVals);
+
+                                    });
+                                    // Handle item radio selection
+                                    $control.find('.js-opt-search').off('change').on('change', function () {
+                                        var thisNodeId = $(this).attr('data-id');
+
+                                        //prevent multi select
+                                        $control.find('.js-opt-search:not([data-id=' + thisNodeId + '])').prop('checked', false);
+
+                                        var $allChecked = $control.find('.js-opt-search:checked');
+                                        var checkedVals = $allChecked.map(function () {
+                                            return $(this).attr('data-id');
+                                        }).get();
+
+                                        console.debug(checkedVals);
+                                    }); 
+
                                 }
                             });
                         }
@@ -458,8 +487,19 @@
                     });
 
                     // Handle the input searching
-                    $(searchInputControl).keyup(function (keyEvent) {
+                    $searchInputControl.keyup(function (keyEvent) {
+                        keyEvent.preventDefault();
 
+                        var searchKeyword = $searchInputControl.val();
+                        if (!searchKeyword || searchKeyword.length === 0) {
+                            $treeView.html(treeView);
+                        }
+
+                    }).keydown(function (keyEvent) {
+                        if (keyEvent.which === 13) {
+                            keyEvent.preventDefault();
+                            $('#btnSearch_' + controlId).click();
+                        }
                     });
                 }
             }
@@ -477,7 +517,7 @@
                 id: 0,
                 controlId: null,
                 restUrl: null,
-                searchRestUrl:null,
+                searchRestUrl: null,
                 restParams: null,
                 allowCategorySelection: false,
                 categoryPrefix: '',
