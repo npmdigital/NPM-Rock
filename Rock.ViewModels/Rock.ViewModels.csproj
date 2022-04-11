@@ -54,6 +54,7 @@
     <Compile Include="Blocks\Event\RegistrationEntry\RegistrationEntryBlockViewModel.cs" />
     <Compile Include="Blocks\IValidPropertiesBox.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\CampusSetFrom.cs" />
+    <Compile Include="Controls\ElectronicSignatureValueViewModel.cs" />
     <Compile Include="Reporting\FieldFilterGroupBag.cs" />
     <Compile Include="Reporting\FieldFilterRuleBag.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\FormBuilderDetailViewModel.cs" />

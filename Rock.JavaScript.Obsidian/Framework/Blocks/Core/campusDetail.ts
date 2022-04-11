@@ -16,7 +16,7 @@
 //
 
 import { computed, defineComponent, ref } from "vue";
-import Alert from "../../Elements/alert";
+import Alert from "../../Elements/alert.vue";
 import PaneledDetailBlockTemplate from "../../Templates/paneledDetailBlockTemplate";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { emptyGuid } from "../../Util/guid";

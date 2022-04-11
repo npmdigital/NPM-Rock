@@ -18,7 +18,7 @@
 import { Guid } from "@Obsidian/Types";
 import { defineComponent, inject } from "vue";
 import SaveFinancialAccountForm from "../../../Controls/saveFinancialAccountForm";
-import { RegistrationEntryState } from "../registrationEntry";
+import { RegistrationEntryState } from "./types";
 
 export default defineComponent({
     name: "Event.RegistrationEntry.Success",

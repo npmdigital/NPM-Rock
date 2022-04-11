@@ -19,7 +19,7 @@ import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, ref } from "vue";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import Loading from "../../Controls/loading";
-import Alert from "../../Elements/alert";
+import Alert from "../../Elements/alert.vue";
 import { useStore } from "../../Store/index";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import JavaScriptAnchor from "../../Elements/javaScriptAnchor";

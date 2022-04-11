@@ -22,7 +22,6 @@ import { PublicAttributeBag } from "@Obsidian/ViewModels/Utility/publicAttribute
 import { SavedFinancialAccountListItemBag } from "@Obsidian/ViewModels/Finance/savedFinancialAccountListItemBag";
 import { ComparisonType } from "../../../Reporting/comparisonType";
 import { FilterExpressionType } from "../../../Reporting/filterExpressionType";
-import { RegistrationEntryBlockSession } from "./registrationEntryBlockArgs";
 
 export const enum RegistrationPersonFieldType {
     FirstName = 0,
@@ -110,6 +109,11 @@ export type RegistrationEntryBlockViewModel = {
     enableSaveAccount: boolean;
     savedAccounts: SavedFinancialAccountListItemBag[] | null;
     registrationInstanceNotFoundMessage: string | null;
+
+    isInlineSignatureRequired: boolean;
+    isSignatureDrawn: boolean;
+    signatureDocumentTerm?: string | null;
+    signatureDocumentTemplateName?: string | null;
 };
 
 export type RegistrationEntryBlockFamilyMemberViewModel = {
@@ -167,8 +171,10 @@ export type RegistrantInfo = {
 
     /** If the person were an existing person, this is his/her guid */
     personGuid: Guid | null;
+
     fieldValues: Record<Guid, unknown>;
     feeItemQuantities: Record<Guid, number>;
+    signatureData?: string | null;
 
     guid: Guid;
 };
@@ -186,4 +192,61 @@ export type RegistrationEntryBlockSuccessViewModel = {
     messageHtml: string;
     transactionCode: string;
     gatewayPersonIdentifier: string;
+};
+
+export type RegistrationEntryBlockArgs = {
+    registrationGuid: Guid | null;
+    registrationSessionGuid: Guid | null;
+    registrants: RegistrantInfo[];
+    fieldValues: Record<Guid, unknown>;
+    registrar: RegistrarInfo;
+    savedAccountGuid: Guid | null;
+    gatewayToken: string;
+    discountCode: string;
+    amountToPayNow: number;
+};
+
+export type RegistrationEntryBlockSession = RegistrationEntryBlockArgs & {
+    discountAmount: number;
+    discountPercentage: number;
+    previouslyPaid: number;
+};
+
+export const enum Step {
+    Intro = "intro",
+    RegistrationStartForm = "registrationStartForm",
+    PerRegistrantForms = "perRegistrantForms",
+    RegistrationEndForm = "registrationEndForm",
+    Review = "review",
+    Payment = "payment",
+    Success = "success"
+}
+
+export type RegistrantBasicInfo = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    guid: Guid;
+};
+
+export type RegistrationEntryState = {
+    steps: Record<Step, Step>;
+    viewModel: RegistrationEntryBlockViewModel;
+    currentStep: string;
+    firstStep: string;
+    currentRegistrantIndex: number;
+    currentRegistrantFormIndex: number;
+    registrants: RegistrantInfo[];
+    registrationFieldValues: Record<Guid, unknown>;
+    registrar: RegistrarInfo;
+    gatewayToken: string;
+    savedAccountGuid: Guid | null;
+    discountCode: string;
+    discountAmount: number;
+    discountPercentage: number;
+    successViewModel: RegistrationEntryBlockSuccessViewModel | null;
+    amountToPayToday: number;
+    sessionExpirationDateMs: number | null;
+    registrationSessionGuid: Guid;
+    ownFamilyGuid: Guid;
 };

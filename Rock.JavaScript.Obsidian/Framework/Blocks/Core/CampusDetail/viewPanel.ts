@@ -17,7 +17,7 @@
 
 import { computed, defineComponent, PropType, ref } from "vue";
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
-import Alert from "../../../Elements/alert";
+import Alert from "../../../Elements/alert.vue";
 import { escapeHtml } from "../../../Services/string";
 import { List } from "../../../Util/linq";
 import { CampusDetailOptionsBag, CampusBag } from "./types";

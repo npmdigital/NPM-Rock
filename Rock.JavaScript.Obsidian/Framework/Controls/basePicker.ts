@@ -16,7 +16,7 @@
 //
 
 import { computed, defineComponent, PropType, ref, watch } from "vue";
-import Alert from "../Elements/alert";
+import Alert from "../Elements/alert.vue";
 import LoadingIndicator from "../Elements/loadingIndicator";
 import { useVModelPassthrough } from "../Util/component";
 import { isPromise } from "../Util/util";

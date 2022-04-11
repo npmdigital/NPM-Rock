@@ -489,6 +489,7 @@ export default defineComponent({
         const closeAside = (): void => {
             editField.value = null;
             activeZone.value = "";
+            sectionAsideSettings.value = null;
             emit("validationChanged", []);
         };
 

@@ -17,7 +17,7 @@
 
 import { Guid } from "@Obsidian/Types";
 import { computed, defineComponent, PropType, ref, watch } from "vue";
-import Alert from "../Elements/alert";
+import Alert from "../Elements/alert.vue";
 import { BinaryFiletype } from "../SystemGuids";
 import { uploadBinaryFile } from "../Util/http";
 import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";

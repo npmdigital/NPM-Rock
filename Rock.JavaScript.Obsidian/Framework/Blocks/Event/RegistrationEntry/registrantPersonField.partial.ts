@@ -25,10 +25,9 @@ import GenderDropDownList from "../../../Elements/genderDropDownList";
 import BirthdayPicker from "../../../Elements/birthdayPicker";
 import PhoneNumberBox from "../../../Elements/phoneNumberBox";
 import ComponentFromUrl from "../../../Controls/componentFromUrl";
-import Alert from "../../../Elements/alert";
+import Alert from "../../../Elements/alert.vue";
 import { getDefaultDatePartsPickerModel } from "../../../Elements/datePartsPicker";
-import { RegistrationEntryBlockFormFieldViewModel, RegistrationPersonFieldType } from "./registrationEntryBlockViewModel";
-import { RegistrationEntryState } from "../registrationEntry";
+import { RegistrationEntryBlockFormFieldViewModel, RegistrationPersonFieldType, RegistrationEntryState } from "./types";
 
 export default defineComponent({
     name: "Event.RegistrationEntry.RegistrantPersonField",

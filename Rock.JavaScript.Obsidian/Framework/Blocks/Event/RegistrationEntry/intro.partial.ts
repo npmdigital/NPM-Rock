@@ -16,13 +16,13 @@
 //
 
 import { defineComponent, inject } from "vue";
-import Alert from "../../../Elements/alert";
+import Alert from "../../../Elements/alert.vue";
 import NumberUpDown from "../../../Elements/numberUpDown";
 import RockButton from "../../../Elements/rockButton";
 import { toTitleCase, pluralConditional } from "../../../Services/string";
 import { areEqual } from "../../../Util/guid";
-import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from "../registrationEntry";
-import { RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
+import { getDefaultRegistrantInfo, getForcedFamilyGuid } from "./utils.partial";
+import { RegistrationEntryBlockViewModel, RegistrationEntryState } from "./types";
 import { useStore } from "../../../Store/index";
 import { Person } from "@Obsidian/ViewModels/Entities/person";
 
