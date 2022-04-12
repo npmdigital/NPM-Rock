@@ -113,6 +113,10 @@
     <Compile Include="Migrations\202204072027407_Rollup_20220407.Designer.cs">
       <DependentUpon>202204072027407_Rollup_20220407.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204121628357_AddHighlightColorAndAlternateImageBinaryFileIdToAchievementType.cs" />
+    <Compile Include="Migrations\202204121628357_AddHighlightColorAndAlternateImageBinaryFileIdToAchievementType.Designer.cs">
+      <DependentUpon>202204121628357_AddHighlightColorAndAlternateImageBinaryFileIdToAchievementType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Version 13.0\Version 1.13.2\202203041901063_PersonEntrySection.cs" />
     <Compile Include="Migrations\Version 13.0\Version 1.13.2\202203041901063_PersonEntrySection.Designer.cs">
       <DependentUpon>202203041901063_PersonEntrySection.cs</DependentUpon>
@@ -1090,6 +1094,9 @@
     <EmbeddedResource Include="Migrations\202204072027407_Rollup_20220407.resx">
       <DependentUpon>202204072027407_Rollup_20220407.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204121628357_AddHighlightColorAndAlternateImageBinaryFileIdToAchievementType.resx">
+      <DependentUpon>202204121628357_AddHighlightColorAndAlternateImageBinaryFileIdToAchievementType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Version 13.0\Version 1.13.2\202203041901063_PersonEntrySection.resx">
       <DependentUpon>202203041901063_PersonEntrySection.cs</DependentUpon>
     </EmbeddedResource>
@@ -1782,7 +1789,7 @@
       <DependentUpon>201707311527250_AddMetaData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\RockMigrationSQL.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>RockMigrationSQL.Designer.cs</LastGenOutput>
     </EmbeddedResource>
